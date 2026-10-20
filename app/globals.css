@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Diamond Dental Group design tokens, taken from the live site's stylesheet
+   (Tailwind v3 + shadcn theme): near-black text, gold accent hsl(45 78% 55%),
+   white page. The live site loads no web fonts: body text is the system UI
+   font, headings ask for Montserrat and fall back to the system sans-serif.
+   The same font stacks are used here, so it renders the same on every device
+   and no font files slow the first paint.
+   ========================================================================== */
+
+@theme {
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(0 0% 5%);
+  --color-primary: hsl(0 0% 5%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-secondary: hsl(45 78% 55%);
+  --color-secondary-foreground: hsl(0 0% 5%);
+  --color-muted: hsl(0 0% 96%);
+  --color-muted-foreground: hsl(0 0% 40%);
+  --color-accent: hsl(45 78% 55%);
+  --color-accent-foreground: hsl(0 0% 5%);
+  --color-border: hsl(0 0% 90%);
+  --color-ring: hsl(45 78% 55%);
+  --color-gold-hover: #c99e22;
+
+  /* Tailwind v3 font-sans (the live wrapper uses it), then Montserrat for headings. */
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-heading: Montserrat, sans-serif;
+
+  /* Full menu from this width; below it the phone menu (measured so the menu never wraps). */
+  --breakpoint-nav: 82rem;
+
+  /* Tailwind v3 values the live site was built with (v4 renamed or changed these). */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --drop-shadow-md: 0 4px 3px rgb(0 0 0 / 0.07), 0 2px 2px rgb(0 0 0 / 0.06);
+  --drop-shadow-lg: 0 10px 8px rgb(0 0 0 / 0.04), 0 4px 3px rgb(0 0 0 / 0.1);
+  --blur-sm: 4px;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-lg: 0.5rem;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* The live site's container: full width with 2rem side padding, capped at 1400px only from 1400px up. */
+@utility container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 2rem;
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Slowly drifting gold mesh behind light sections (live: bg-animated-mesh). */
+@utility bg-animated-mesh {
+  background-image:
+    radial-gradient(at 40% 20%, hsla(45, 78%, 55%, 0.15) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(0, 0%, 5%, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsla(45, 78%, 55%, 0.08) 0px, transparent 50%);
+  background-size: 200% 200%;
+  animation: mesh-drift 20s ease-in-out infinite alternate;
+}
+
+@utility bg-gradient-drift {
+  background-size: 200% 200%;
+  animation: drift 15s ease infinite;
+}
+
+@keyframes drift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  to {
+    background-position: 0% 0%;
+  }
+}
+@keyframes mesh-drift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0% 100%;
+  }
+}
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--accordion-height, auto);
+  }
+}
+@keyframes accordion-up {
+  from {
+    height: var(--accordion-height, auto);
+  }
+  to {
+    height: 0;
+  }
+}
+@keyframes ring-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 8rem;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: Inter, sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/*
+ * Scroll reveal (live: fade up with a short blur as sections enter the
+ * screen). Content is only hidden once the inline script has set
+ * html[data-reveal-ready], so it is always visible without JavaScript.
+ */
+html[data-reveal-ready] [data-reveal]:not([data-in]) {
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(24px);
+}
+html[data-reveal-ready] [data-reveal="left"]:not([data-in]) {
+  transform: translateX(24px);
+}
+html[data-reveal-ready] [data-reveal] {
+  transition:
+    opacity 0.6s ease-out,
+    filter 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+/* Decorative loops run only while on screen ([data-playing], set by the reveal script). */
+[data-anim]:not([data-playing]) .bg-animated-mesh,
+[data-anim]:not([data-playing]).bg-animated-mesh,
+[data-anim]:not([data-playing]) .bg-gradient-drift,
+[data-anim]:not([data-playing]) .animate-pulse,
+[data-anim]:not([data-playing]) .ring-pulse {
+  animation-play-state: paused;
+}
+.ring-pulse {
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+/* FAQ accordion (native <details>, animated like the live Radix accordion). */
+details.faq > summary {
+  list-style: none;
+}
+details.faq > summary::-webkit-details-marker {
+  display: none;
+}
+details.faq[open] > summary svg {
+  transform: rotate(180deg);
+}
+
+/* Google Maps iframe in the band above the footer. */
+.map-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}

@@ -1,0 +1,82 @@
+# Builds the static site and uploads it to SiteGround over FTPS.
+# Runs on every push, when Sanity publishes (webhook -> repository_dispatch),
+# and from Actions > "Deploy to SiteGround" > Run workflow.
+#
+# Repository secrets (Settings > Secrets and variables > Actions > Secrets):
+#   SG_FTP_SERVER    FTP host from SiteGround Site Tools > Site > FTP Accounts
+#   SG_FTP_USERNAME  FTP account whose folder is the site's public_html
+#   SG_FTP_PASSWORD
+#   GHL_WEBHOOK_URL  the contact form's GoHighLevel inbound webhook
+# Repository variables (Settings > Secrets and variables > Actions > Variables):
+#   SANITY_PROJECT_ID  (until it is also set as the default in sanity/env.ts)
+#   GHL_CHAT_WIDGET_ID, GA_ID, GTM_ID (GTM defaults to the live site's container)
+name: Deploy to SiteGround
+
+on:
+  push:
+    branches: [claude/diamond-dental-nextjs-rebuild-xl7o7b, main]
+  repository_dispatch:
+    types: [sanity-publish]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-siteground
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # At job level so the steps' `if:` checks can see them.
+    env:
+      SG_FTP_SERVER: ${{ secrets.SG_FTP_SERVER }}
+      # The contact form's GoHighLevel webhook. It is written only into
+      # api/lead-config.php on SiteGround (never served, see .htaccess), not into
+      # public/, because hosts without PHP (e.g. Vercel previews) serve .php as text.
+      GHL_WEBHOOK_URL: ${{ secrets.GHL_WEBHOOK_URL }}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_GHL_CHAT_WIDGET_ID: ${{ vars.GHL_CHAT_WIDGET_ID }}
+      NEXT_PUBLIC_GA_ID: ${{ vars.GA_ID }}
+      # The live site's Google Tag Manager container (it also fires the Google Ads tag).
+      NEXT_PUBLIC_GTM_ID: ${{ vars.GTM_ID || 'GTM-M664LDQG' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      # Download from the run page for a manual upload (no form settings inside).
+      - name: Keep a copy of the site
+        uses: actions/upload-artifact@v4
+        with:
+          name: diamond-dental-group-site
+          path: out/
+          include-hidden-files: true
+          retention-days: 14
+
+      - name: Write form settings
+        if: env.GHL_WEBHOOK_URL != ''
+        run: |
+          php -r 'file_put_contents("out/api/lead-config.php", "<?php\nreturn " . var_export(["webhook_url" => getenv("GHL_WEBHOOK_URL")], true) . ";\n");'
+
+      - name: Upload to SiteGround
+        # Skipped (build check only) until the FTP secrets are added.
+        if: env.SG_FTP_SERVER != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.SG_FTP_SERVER }}
+          username: ${{ secrets.SG_FTP_USERNAME }}
+          password: ${{ secrets.SG_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: ./
