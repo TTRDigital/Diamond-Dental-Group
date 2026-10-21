@@ -40,7 +40,7 @@ jobs:
       - name: Load content
         env:
           SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID || 'stnpzvwa' }}
           MODE: ${{ inputs.mode }}
           ONLY: ${{ inputs.only }}
         run: |

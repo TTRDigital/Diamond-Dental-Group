@@ -32,7 +32,7 @@ jobs:
     # At job level so the steps' `if:` checks can see them.
     env:
       SG_FTP_SERVER: ${{ secrets.SG_FTP_SERVER }}
-      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID || 'stnpzvwa' }}
       NEXT_PUBLIC_GHL_CHAT_WIDGET_ID: ${{ vars.GHL_CHAT_WIDGET_ID }}
       NEXT_PUBLIC_GA_ID: ${{ vars.GA_ID }}
       # The live site's Google Tag Manager container (it also fires the Google Ads tag).
