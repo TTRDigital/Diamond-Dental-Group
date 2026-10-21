@@ -56,8 +56,8 @@ ErrorDocument 404 /404.html
   RewriteRule ^cms/. /cms/index.html [L]
 </IfModule>
 
-# The form's settings file and the upload tool's file list are never served.
-<FilesMatch "^(lead-config\.php|\.ftp-deploy-sync-state\.json)$">
+# The upload tool's file list is never served.
+<FilesMatch "^\.ftp-deploy-sync-state\.json$">
   Require all denied
 </FilesMatch>
 

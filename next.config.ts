@@ -6,7 +6,7 @@ import type { NextConfig } from "next";
  *
  * What a static host has no Node server for lives elsewhere:
  * - redirects, security headers (CSP) and caching: public/.htaccess
- * - the contact form: public/api/lead.php (PHP, forwards to GoHighLevel)
+ * - appointments: the Jarvis Analytics online scheduler on /contact/ (iframe)
  * - images: WebP copies made before the build by scripts/optimize-images.mjs,
  *   picked by lib/image-loader.ts
  * - CMS updates: rebuild and upload (.github/workflows/deploy-siteground.yml),

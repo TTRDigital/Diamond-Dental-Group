@@ -293,7 +293,6 @@ export type ContactContent = {
   directHeading: string;
   callLabel: string;
   hoursHeading: string;
-  form: { heading: string; text: string; button: string };
   seo: Seo;
 };
 
@@ -306,8 +305,6 @@ export const fallbackContact: ContactContent = {
   directHeading: "Direct Contact",
   callLabel: "Call us directly",
   hoursHeading: "Office Hours",
-  // New: the live page had only the online scheduler. Same fields as before (name, email, phone, message) plus consent.
-  form: { heading: "Send Us a Message", text: "Prefer we reach out? Leave your details and our team will get back to you.", button: "Send Message" },
   seo: {
     title: "Contact Us | Book an Appointment | Diamond Dental Group Roseville, CA",
     description:

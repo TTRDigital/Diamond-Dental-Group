@@ -3,7 +3,6 @@ import { Clock, MapPin, Phone } from "lucide-react";
 import { getContact, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { LeadForm } from "@/components/forms/LeadForm";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContact();
@@ -84,13 +83,6 @@ export default async function ContactPage() {
                   </ul>
                 </div>
               </div>
-            </div>
-
-            {/* New on this page: a message form for visitors who prefer a call back. */}
-            <div id="message" className="mt-8 bg-white p-8 md:p-12 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] scroll-mt-40" data-reveal>
-              <h2 className="text-3xl font-extrabold text-black mb-3 tracking-tight">{c.form.heading}</h2>
-              <p className="text-lg text-gray-600 mb-8">{c.form.text}</p>
-              <LeadForm buttonLabel={c.form.button} businessName={s.name} phone={s.phone} phoneHref={s.phoneHref} />
             </div>
           </div>
         </section>

@@ -8,7 +8,6 @@ import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/layout/ChatWidget";
 import { Analytics } from "@/components/layout/Analytics";
 import { HydrationSignal } from "@/components/layout/HydrationSignal";
-import { AttributionCapture } from "@/components/forms/AttributionCapture";
 
 /** Header, footer and site-wide behaviors. Used by the site layout and the 404 page. */
 export async function SiteShell({ children }: { children: ReactNode }) {
@@ -36,7 +35,6 @@ export async function SiteShell({ children }: { children: ReactNode }) {
         <Footer settings={s} />
       </div>
       <ChatWidget />
-      <AttributionCapture />
       <HydrationSignal />
       <Analytics />
       <script dangerouslySetInnerHTML={{ __html: revealScript }} />

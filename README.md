@@ -4,7 +4,7 @@ Next.js 16 (App Router, static export) + Sanity Studio embedded at `/cms`, Tailw
 
 - **Design:** the live site's look, page by page. Sizes, spacing and colors were measured from the live pages at 1440px and 390px; every section's height matches the live page. Like the live site, no web fonts are loaded (system UI text, Montserrat-or-system headings).
 - **Content:** the live site's text, word for word, with the same page titles and meta descriptions (checked by a word-level diff of every page). Everything is editable in `/cms`. Until Sanity has content (or a field is left empty), the site shows the built-in copy from `lib/data`, so it never breaks.
-- **Form:** the contact form posts to `/api/lead.php` (PHP on SiteGround), which forwards to a GoHighLevel inbound webhook once one is configured.
+- **Appointments:** `/contact/` embeds the practice's Jarvis Analytics online scheduler, as on the live site. The site has no form of its own.
 
 ## Pages (trailing slash)
 
@@ -32,7 +32,6 @@ All dynamic routes use `generateStaticParams` with `dynamicParams = false`. Unkn
 - Canonical tags on every page; one `Dentist` schema site-wide (address, phone, hours from the site); `BreadcrumbList` on inner pages; `FAQPage` (word for word) on service pages; `Article` on posts (as the live site had).
 - Reviews section, the "5.0" rating and the "Hundreds of 5-Star Reviews" badge are **hidden** until real reviews are added (Reviews in /cms, switch "Real review, OK to publish" on). The three live testimonials are kept in /cms marked `[PLACEHOLDER]`.
 - Dead links removed: "Terms & Conditions" and "Accessibility Statement" (pointed to `/`), the Facebook/Instagram icons (pointed to `#`; they come back once real links are added in Site settings > Social links). "View All Services" and the "Services" breadcrumb now open the new `/services/` page.
-- `/contact/` keeps the Jarvis Analytics online scheduler and adds a message form (name, email, phone, message + consent).
 - The privacy policy's "Last updated" date was the visitor's current date; it is now fixed (10/20/2026, the day it was copied) and editable.
 - Photos are served from this site (WebP, resized) instead of `vibe.filesafe.space`, with metadata removed (the treatment-room photo carried GPS coordinates) and descriptive alt text.
 - The menu never wraps: the full menu shows from 1312px, below that the phone menu; a size check also switches to the phone menu if a visitor's system font is wider.
@@ -56,7 +55,7 @@ Document IDs: `siteSettings`, `homePage`, `aboutPage`, `patientCarePage`, `conta
 
 ## Hosting on SiteGround
 
-`npm run build` writes the whole site to `out/`: HTML pages, `_next/` scripts, `_img/` WebP photos, `api/lead.php` (the form) and `.htaccess` (canonical host, redirects, trailing slashes, security headers + CSP, caching, gzip incl. `text/javascript`, 404 page, /cms deep links). Upload the **contents** of `out/` into the site's `public_html`.
+`npm run build` writes the whole site to `out/`: HTML pages, `_next/` scripts, `_img/` WebP photos and `.htaccess` (canonical host, redirects, trailing slashes, security headers + CSP, caching, gzip incl. `text/javascript`, 404 page, /cms deep links). Upload the **contents** of `out/` into the site's `public_html`.
 
 Automatic deploys (`.github/workflows/deploy-siteground.yml`) build and upload over FTPS on every push to this branch or `main`, when Sanity publishes, and from Actions > "Deploy to SiteGround" > Run workflow. Until the FTP secrets exist the workflow only builds (the site is kept as a run artifact for 14 days).
 
@@ -64,17 +63,12 @@ Automatic deploys (`.github/workflows/deploy-siteground.yml`) build and upload o
 |---|---|
 | `SG_FTP_SERVER` | FTP host (Site Tools > Site > FTP Accounts > Manage > FTP credentials) |
 | `SG_FTP_USERNAME` / `SG_FTP_PASSWORD` | an FTP account whose folder is the site's `public_html` |
-| `GHL_WEBHOOK_URL` | the contact form's GoHighLevel inbound webhook. The workflow writes it to `api/lead-config.php` on SiteGround only (never served, see `.htaccess`) |
 
 Repository **variables** (not secrets): `SANITY_PROJECT_ID`, `GHL_CHAT_WIDGET_ID` (shows the GoHighLevel chat, loaded after the first interaction or 4 s), `GA_ID`, `GTM_ID` (defaults to the live site's container `GTM-M664LDQG`, which also fires the Google Ads tag).
 
 **Publish → live:** sanity.io/manage > API > Webhooks: URL `https://api.github.com/repos/TTRDigital/Diamond-Dental-Group/dispatches`, method POST, triggers create/update/delete, projection `{"event_type": "sanity-publish"}`, headers `Authorization: Bearer <GitHub fine-grained token with Contents: read and write on this repo>` and `Accept: application/vnd.github+json`.
 
 **Go-live:** the live domain is currently served by the Vibe app through Cloudflare. Point the FTP account at the SiteGround site, check it on the temporary address first (note: `.htaccess` sends every other host to the main domain, so check before or right after the DNS switch), then point the domain at SiteGround. Turn on Site Tools > Security > SSL Manager (Let's Encrypt) and HTTPS Enforce.
-
-## The contact form
-
-Fields: Full Name, Email Address, Phone Number, Message + a consent checkbox (phone, text and email). Client and server validation, a hidden honeypot field plus a timing check (dropped only when both say spam; one signal alone is delivered with a `suspected-spam` tag), a per-IP rate limit, UTM/gclid attribution, then a redirect to `/thank-you/`. Payload: flat JSON with `name`, `first_name`, `last_name`, `email`, `phone` (E.164), `phone_raw`, `message`, `consent`, `tags`, `spam_check`, `page_url`, `landing_page`, `referrer` and the UTM fields. **Without a webhook configured the form accepts requests but does not forward them** (the PHP error log says so).
 
 ## Editing in /cms
 

@@ -168,7 +168,6 @@ export const contactPage = defineType({
     str("directHeading", "Direct contact heading"),
     str("callLabel", "Line under the phone number"),
     str("hoursHeading", "Hours heading"),
-    group("form", "Message form", [str("heading"), txt("text"), str("button")]),
     seoField,
   ],
   preview: { prepare: () => ({ title: "Contact" }) },
