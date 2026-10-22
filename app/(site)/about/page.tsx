@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { CircleCheck } from "lucide-react";
 import { getAbout, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { bgSrc } from "@/lib/img";
 import { images } from "@/lib/data/images";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Icon } from "@/components/ui/Icon";
@@ -105,7 +104,7 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        <CtaBand heading={a.cta.heading} button={a.cta.button} phone={s.phone} phoneHref={s.phoneHref} bgImage={bgSrc(images.treatmentRoom.src)} />
+        <CtaBand heading={a.cta.heading} button={a.cta.button} phone={s.phone} phoneHref={s.phoneHref} bgImage={images.treatmentRoom.src} />
       </div>
     </>
   );

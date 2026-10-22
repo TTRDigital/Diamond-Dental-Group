@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { ArrowRight, CircleCheck, Phone, ShieldCheck, Star } from "lucide-react";
 import { getHome, getSiteSettings, getTestimonials } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { bgSrc } from "@/lib/img";
 import { isPlaceholder } from "@/lib/placeholders";
 import { Icon, Stars } from "@/components/ui/Icon";
 import { CtaBand, SectionHeading, btnBase, btnGold } from "@/components/ui/Buttons";
@@ -340,8 +339,8 @@ export default async function HomePage() {
         button={h.cta.button}
         phone={s.phone}
         phoneHref={s.phoneHref}
-        bgImage={bgSrc(h.hero.image.src)}
-        bgClass="bg-cover bg-center opacity-30"
+        bgImage={h.hero.image.src}
+        bgClass="opacity-30"
       />
     </div>
   );

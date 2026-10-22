@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { getServices, getServicesHub, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { bgSrc } from "@/lib/img";
 import { images } from "@/lib/data/images";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { DarkHero } from "@/components/sections/DarkHero";
@@ -70,7 +69,7 @@ export default async function ServicesPage() {
           button={hub.template.ctaButton}
           phone={s.phone}
           phoneHref={s.phoneHref}
-          bgImage={bgSrc(images.treatmentRoom.src)}
+          bgImage={images.treatmentRoom.src}
         />
       </div>
     </>

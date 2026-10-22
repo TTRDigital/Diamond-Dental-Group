@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -21,20 +22,26 @@ export function A({ href, className, children, track }: { href: string; classNam
   );
 }
 
-/** Dark band with a faded photo behind it and the gold Book button + phone (bottom of most pages). */
-export function CtaBand({ heading, text, button, phone, phoneHref, bgImage, bgClass = "bg-cover bg-center opacity-20", headingClass = "mb-8" }: {
+/**
+ * Dark band with a faded photo behind it and the gold Book button + phone (bottom of most pages).
+ * The photo is decorative and loads only when the band comes near the screen, at the screen's width.
+ */
+export function CtaBand({ heading, text, button, phone, phoneHref, bgImage, bgClass = "opacity-20", headingClass = "mb-8" }: {
   heading: string;
   text?: string;
   button: string;
   phone: string;
   phoneHref: string;
+  /** The photo's own address (/images/... or a Sanity image); it is resized here. */
   bgImage: string;
   bgClass?: string;
   headingClass?: string;
 }) {
   return (
     <section className="bg-black py-20 text-center px-4 relative overflow-hidden">
-      <div className={`absolute inset-0 bg-no-repeat mix-blend-luminosity ${bgClass}`} style={{ backgroundImage: `url(${bgImage})` }} />
+      <div className={`absolute inset-0 mix-blend-luminosity ${bgClass}`}>
+        <Image src={bgImage} alt="" fill loading="lazy" sizes="100vw" className="object-cover object-center" />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
       <div className="relative z-10 container mx-auto" data-reveal>
         <h2 className={`text-3xl md:text-4xl font-extrabold text-white ${text ? "mb-4" : headingClass}`}>{heading}</h2>

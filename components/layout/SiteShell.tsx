@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { preconnect } from "react-dom";
 import { getSiteSettings } from "@/lib/content";
+import { projectId } from "@/sanity/env";
 import { businessSchema } from "@/lib/schema";
 import { revealScript } from "@/lib/reveal-script";
 import { JsonLd } from "@/components/ui/JsonLd";
@@ -12,6 +14,8 @@ import { HydrationSignal } from "@/components/layout/HydrationSignal";
 /** Header, footer and site-wide behaviors. Used by the site layout and the 404 page. */
 export async function SiteShell({ children }: { children: ReactNode }) {
   const s = await getSiteSettings();
+  // Photos come from Sanity's image CDN: open the connection while the HTML is still parsing (the hero photo arrives sooner).
+  if (projectId) preconnect("https://cdn.sanity.io");
   return (
     <>
       <JsonLd data={businessSchema(s)} />

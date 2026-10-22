@@ -116,8 +116,8 @@ export function Header({
       <header className={`w-full transition-all duration-300 ${scrolled ? "bg-white shadow-md py-2" : "bg-white/95 backdrop-blur-sm py-4"}`}>
         <div ref={rowRef} className="container mx-auto px-4 flex items-center justify-between">
           <Link href="/" data-row-logo className="flex items-center gap-2 shrink-0">
-            {/* Small logo: a plain img (no preload) so it never competes with the hero image. */}
-            <Image src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} unoptimized className="h-10 md:h-12 w-auto object-contain" />
+            {/* Small logo, served at its displayed size (no preload, so it never competes with the hero image). */}
+            <Image src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} sizes="(min-width: 768px) 65px, 54px" className="h-10 md:h-12 w-auto object-contain" />
             <span className="text-black font-bold text-lg md:text-xl tracking-wide hidden sm:block whitespace-nowrap">{siteName}</span>
           </Link>
 

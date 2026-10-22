@@ -33,7 +33,7 @@ export function Footer({ settings: s }: { settings: SiteSettings }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             <div>
               <Link href="/" className="flex items-center gap-2 mb-6">
-                <Image src={s.logo.src} alt={s.logo.alt} width={s.logo.width} height={s.logo.height} unoptimized loading="lazy" className="h-10 w-auto object-contain" />
+                <Image src={s.logo.src} alt={s.logo.alt} width={s.logo.width} height={s.logo.height} sizes="54px" loading="lazy" className="h-10 w-auto object-contain" />
                 <span className="font-bold text-xl tracking-wide">{s.name}</span>
               </Link>
               <p className="text-white/70 text-sm leading-relaxed mb-6">{s.tagline}</p>
