@@ -60,6 +60,18 @@ jobs:
           include-hidden-files: true
           retention-days: 14
 
+      # Prints the FTP account's folders, so the upload folder (SG_FTP_DIR) can be checked from the run log.
+      - name: Show SiteGround folders
+        if: env.SG_FTP_SERVER != ''
+        env:
+          FTP_USER: ${{ secrets.SG_FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.SG_FTP_PASSWORD }}
+        run: |
+          for d in "" "public_html/" "www/" "www/diamonddentalgroups.com/" "www/diamonddentalgroups.com/public_html/"; do
+            echo "== /$d"
+            curl -s --ssl-reqd --max-time 30 --user "$FTP_USER:$FTP_PASS" "ftp://$SG_FTP_SERVER/$d" | head -40 || true
+          done
+
       - name: Upload to SiteGround
         # Skipped (build check only) until the FTP secrets are added.
         if: env.SG_FTP_SERVER != ''
