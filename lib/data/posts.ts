@@ -1,9 +1,325 @@
 /* Generated from the live site (diamonddentalgroups.com) by the rebuild: articles are word for word.
+ * The two posts dated October 23, 2026 are Dr. Nikpour's drafts for Kia's and the client's approval (TTR, Oct 22, 2026).
  * In paragraphs, **double asterisks** make bold text and [words](/page/) make a link. */
 import type { Post } from "@/lib/types";
 import { images } from "./images.ts";
 
 export const fallbackPosts: Post[] = [
+  {
+    slug: "dental-implant-or-bridge-which-is-better",
+    title: "Dental Implant or Bridge: Which Is Better for One Missing Tooth?",
+    date: "2026-10-23",
+    dateLabel: "October 23, 2026",
+    author: "Dr. Akram Nikpour",
+    category: "Implants & Restorative",
+    service: "/services/dental-implants/",
+    excerpt: "Implant or bridge for one missing tooth? Dr. Nikpour in Roseville compares how long each lasts, what each does to your other teeth and bone, and how to choose.",
+    image: images.treatmentRoom,
+    body: [
+      {
+        style: "p",
+        text: "For most healthy adults missing one tooth with sound teeth on either side, a dental implant is the better long-term choice. It stands on its own, helps keep the jawbone in place, and can last for decades. A bridge is the better fit when the neighboring teeth already need crowns, when surgery is off the table, or when the gap needs closing in weeks rather than months.",
+      },
+      {
+        style: "p",
+        text: "I have this conversation with Roseville patients almost every week, and the honest answer depends on your mouth, not on which option sounds more modern. Here is how I compare [dental implants](/services/dental-implants/) and [dental bridges](/services/dental-bridges/) with my patients.",
+      },
+      {
+        style: "h2",
+        text: "What is the difference between an implant and a bridge?",
+      },
+      {
+        style: "p",
+        text: "An implant replaces the root as well as the tooth. A small titanium post is placed in the jawbone where the root used to be, the bone grows onto it over a few months, and a crown is fixed on top. The teeth on either side are not touched.",
+      },
+      {
+        style: "p",
+        text: "A traditional bridge replaces only the part of the tooth you can see. The two teeth next to the gap are reshaped and fitted with crowns, a false tooth is joined between them, and the three pieces are cemented in place as one unit. Those two neighbors then carry the chewing load for the missing tooth.",
+      },
+      {
+        style: "p",
+        text: "Two lighter designs exist: the cantilever bridge, anchored on one neighbor only, and the Maryland bridge, which bonds thin wings behind the neighbors instead of crowning them. Both spare the neighbors some drilling, but neither is as strong, so they suit front teeth better than molars.",
+      },
+      {
+        style: "h2",
+        text: "Which lasts longer, an implant or a bridge?",
+      },
+      {
+        style: "p",
+        text: "Implants, as a rule. Reviews of patients followed for 10 years find that more than 9 in 10 implants are still in place, and a well cared for implant can serve for life. The crown on top may need replacing at some point, but the post underneath usually stays.",
+      },
+      {
+        style: "p",
+        text: "A bridge lasts about 5 to 15 years on average. What ends a bridge is rarely the false tooth. It is usually decay under one of the anchor crowns, or an anchor tooth cracking under the extra load, and when one anchor fails the whole bridge comes off.",
+      },
+      {
+        style: "h2",
+        text: "What does each option do to the teeth next to the gap?",
+      },
+      {
+        style: "p",
+        text: "This is the question I would weigh most if I were the patient. A bridge needs the two neighbors reshaped, which means removing healthy enamel that does not grow back. If those teeth are already crowned or heavily filled, you lose nothing. If they are healthy and untouched, you are committing two good teeth to a lifetime of crowns to fix one gap.",
+      },
+      {
+        style: "p",
+        text: "An implant leaves the neighbors alone, and when they are perfect, that alone tips most of my patients toward an implant.",
+      },
+      {
+        style: "h2",
+        text: "What happens to the jawbone?",
+      },
+      {
+        style: "p",
+        text: "Bone needs a job to stay put. When a tooth and its root are gone, the bone that held it slowly shrinks, because nothing presses on it when you chew. A bridge sits above the gum and does not change that, so over the years the gum under the false tooth can sink and a dark gap or a visible edge can appear.",
+      },
+      {
+        style: "p",
+        text: "An implant puts a root back in the bone and gives it something to hold onto, so the bone around it is better preserved. If a tooth has been missing for years and the bone has already shrunk, a graft may be needed before an implant can go in, which adds healing time. We check this with a 3D scan before recommending anything.",
+      },
+      {
+        style: "h2",
+        text: "How long does each one take?",
+      },
+      {
+        style: "p",
+        text: "A bridge is the faster route: usually two visits a couple of weeks apart, with a temporary bridge in between. An implant takes months, because the bone has to grow onto the post before a crown can be loaded on it. A simple case is often three to six months, longer if a tooth must come out or a graft is needed first. Our [implant timeline guide](/blog/how-long-does-dental-implant-process-take/) walks through every stage. Those months do not mean a hole in your smile: for a visible tooth there is almost always a temporary while the implant heals.",
+      },
+      {
+        style: "h2",
+        text: "Who should not get an implant?",
+      },
+      {
+        style: "p",
+        text: "An implant is minor surgery, so your general health matters more than your age. Healing is slower in people who use tobacco and in people whose diabetes is not well controlled, and gum disease needs to be under control before an implant goes in. Teenagers whose jaws are still growing wait. None of these is an automatic no, but each is a reason we might suggest a bridge for now, or treat something first and place the implant later.",
+      },
+      {
+        style: "h2",
+        text: "When is a bridge the better choice?",
+      },
+      {
+        style: "p",
+        text: "In more cases than you might expect to hear from an implant practice. A bridge makes good sense when:",
+      },
+      {
+        style: "ul",
+        items: [
+          "The teeth on both sides already have large fillings or crowns, so there is no healthy enamel to give up.",
+          "Surgery is not advisable for you, or you would rather avoid it.",
+          "You need the gap closed quickly, for a wedding, a new job or your own peace of mind.",
+          "Your bone would need a lot of grafting and you do not want the extra steps.",
+        ],
+      },
+      {
+        style: "p",
+        text: "We do not push one answer. We show you both, with the trade-offs, and you decide.",
+      },
+      {
+        style: "h2",
+        text: "What about cost and insurance?",
+      },
+      {
+        style: "p",
+        text: "A bridge usually costs less up front and is more often covered by dental plans, while an implant is a bigger initial outlay that plans cover less often. Over 20 years that can change if a bridge has to be replaced. Your own plan is the deciding factor, so bring your card and we will check your benefits first.",
+      },
+      {
+        style: "h2",
+        text: "What if I am missing more than one tooth?",
+      },
+      {
+        style: "p",
+        text: "The same thinking applies, with more options: a longer bridge anchored on natural teeth, a bridge carried on two implants, or, when most of an arch is gone, a full set of fixed teeth on a few implants. Our [All-on-X and All-on-4](/services/all-on-x/) page explains the full-arch route. If the failing tooth is still in your mouth, we plan the [extraction](/services/extractions/) with the replacement in mind, since in some cases the implant can be placed in the same visit, depending on the bone.",
+      },
+      {
+        style: "h2",
+        text: "Frequently asked questions",
+      },
+      {
+        style: "p",
+        text: "**Can I get an implant years after losing a tooth?** Usually, yes. The main question is how much bone is left. A 3D scan shows us, and a graft can rebuild what has shrunk, at the cost of extra healing time.",
+      },
+      {
+        style: "p",
+        text: "**Can a bridge be replaced with an implant later?** Often, yes. When an old bridge fails, many patients switch to an implant for the missing tooth and new crowns on the anchor teeth. Whether that works depends on the bone under the old bridge.",
+      },
+      {
+        style: "p",
+        text: "**Does getting an implant hurt more than getting a bridge?** Both are done fully numb. An implant involves a surgical site, so expect a few days of soreness and some swelling, usually managed with normal pain relievers; our guide to [what is normal after implant surgery](/blog/dental-implant-pain-what-is-normal/) goes day by day. A bridge usually means a day or two of tenderness.",
+      },
+      {
+        style: "p",
+        text: "**Will anyone be able to tell?** A well made implant crown or bridge is matched to your other teeth in shade and shape. Over the years a bridge is more likely to show a line at the gum as the bone underneath changes.",
+      },
+      {
+        style: "p",
+        text: "**Is one option better for a front tooth?** Front teeth are all about the gum line, so the implant's habit of preserving bone is a plus there, though your bone and gum thickness decide what is possible. For a single front tooth, a Maryland bridge is sometimes a reasonable, less invasive choice.",
+      },
+    ],
+    cta: {
+      heading: "Ready to talk it through?",
+      text: "If you are missing a tooth in Roseville, Rocklin, Citrus Heights or anywhere around Sacramento, come in and let us look. At Diamond Dental Group I examine the gap, take a 3D scan, and show you how an implant and a bridge would each work in your mouth, with the trade-offs in plain words. [Book a consultation or call (916) 755-4769](/contact/) and we will find a time that works for you.",
+      buttonLabel: "Book a Consultation",
+      buttonHref: "/contact/",
+    },
+    disclaimer: "This article is general education and not personal dental advice. Only an in-person exam can determine the right option for you.",
+    seo: {
+      title: "Dental Implant or Bridge? A Roseville Dentist Explains",
+      description: "Implant or bridge for one missing tooth? Dr. Nikpour in Roseville compares how long each lasts, what each does to your other teeth and bone, and how to choose.",
+    },
+  },
+  {
+    slug: "does-a-root-canal-hurt",
+    title: "Does a Root Canal Hurt? What It Really Feels Like, Before, During and After",
+    date: "2026-10-23",
+    dateLabel: "October 23, 2026",
+    author: "Dr. Akram Nikpour",
+    category: "General & Preventive",
+    service: "/services/root-canal/",
+    excerpt: "A modern root canal is done fully numb and ends the toothache it is blamed for. Dr. Nikpour in Roseville explains what it feels like and what is normal after.",
+    image: images.storefront,
+    body: [
+      {
+        style: "p",
+        text: "A modern root canal should not hurt. The tooth and the area around it are fully numbed, so what you feel during the visit is pressure and vibration, not pain, and most patients compare it to having a filling. The pain people associate with root canals is the toothache that comes before treatment, and the treatment is what makes it stop.",
+      },
+      {
+        style: "p",
+        text: "In 17 years of practice, the most common thing I hear at the end of [root canal treatment](/services/root-canal/) is some version of \"that was it?\" Here is what the visit actually feels like, start to finish, and what is normal afterward.",
+      },
+      {
+        style: "h2",
+        text: "Why do root canals have such a scary reputation?",
+      },
+      {
+        style: "p",
+        text: "Two reasons. First, the toothache: by the time someone needs a root canal, the nerve inside the tooth is inflamed or infected, and that pain can be severe. People remember the agony and attach it to the treatment that ended it. Second, old stories. Anesthetics and techniques were less effective a generation ago. The American Association of Endodontists now describes modern root canal treatment as designed to eliminate pain, not cause it.",
+      },
+      {
+        style: "h2",
+        text: "What does the procedure actually feel like?",
+      },
+      {
+        style: "p",
+        text: "Numbing. You get a local anesthetic, the same kind used for a filling. There is a small pinch, then the tooth, the gum and part of your lip or cheek go numb. We test the tooth before starting, and if you feel anything, we add more. You are never expected to tough it out.",
+      },
+      {
+        style: "p",
+        text: "Isolation. A small rubber sheet called a dental dam goes around the tooth to keep it clean and dry. It feels odd rather than painful, and it keeps water from running down your throat.",
+      },
+      {
+        style: "p",
+        text: "Cleaning and shaping. A small opening is made in the top of the tooth, and the inflamed or infected pulp is removed from the canals inside the root with fine instruments. You will feel pressure and some vibration. If the tooth was abscessed, relief often starts here, as the infected tissue causing the pressure comes out.",
+      },
+      {
+        style: "p",
+        text: "Filling and sealing. The clean canals are filled with a rubber-like material called gutta-percha, and the opening is closed with a filling. The whole visit usually takes about an hour to an hour and a half, and some teeth, especially molars with several canals or a heavy infection, need a second visit.",
+      },
+      {
+        style: "h2",
+        text: "What if my tooth is hard to numb?",
+      },
+      {
+        style: "p",
+        text: "This is the part most articles leave out. A very inflamed tooth, especially a lower molar, can be harder to numb than a healthy one, because inflammation makes the nerve more sensitive to everything, including anesthetic. Dentists know this and plan for it. We may give the anesthetic more time to work, use a different anesthetic, or add a second injection right beside the tooth. If numbing has ever failed to take for you, tell us when you book and we will plan for extra from the start.",
+      },
+      {
+        style: "h2",
+        text: "How much does it hurt afterward?",
+      },
+      {
+        style: "p",
+        text: "Expect the tooth to be tender for a few days, especially when you bite on it. The tissue around the root was inflamed before treatment and needs time to settle. Most people manage with over-the-counter pain relievers such as ibuprofen or acetaminophen, and in most cases the soreness eases within three to five days. It is a dull, bruised sort of ache, not the throbbing toothache you came in with. Until the permanent crown or filling is in place, chew on the other side, because the tooth is more fragile than it feels.",
+      },
+      {
+        style: "h2",
+        text: "When is pain after a root canal not normal?",
+      },
+      {
+        style: "p",
+        text: "Call us if the pain is severe, if it is getting worse instead of better after the first few days, if there is visible swelling in the gum or face, or if the temporary filling comes out. They do not necessarily mean the treatment failed, but they need a look. Mild sensitivity that lingers for a week or two is common and settles on its own.",
+      },
+      {
+        style: "h2",
+        text: "How do I know if I need a root canal?",
+      },
+      {
+        style: "p",
+        text: "Your dentist confirms it with an exam and an X-ray, but these are the signs that point toward it:",
+      },
+      {
+        style: "ul",
+        items: [
+          "A toothache that lingers after hot or cold for more than a few seconds, or that wakes you at night.",
+          "Sharp pain when you bite down.",
+          "A swollen or tender gum, or a small pimple-like bump near the tooth.",
+          "A tooth that has turned gray or dark after an injury.",
+          "Deep decay, a crack, or a tooth that has had several fillings over the years.",
+        ],
+      },
+      {
+        style: "p",
+        text: "If a tooth has been sensitive for a while, our guide to [sensitive teeth](/blog/why-are-my-teeth-sensitive-to-hot-and-cold/) explains what else it could be.",
+      },
+      {
+        style: "h2",
+        text: "Would it be easier to just pull the tooth?",
+      },
+      {
+        style: "p",
+        text: "Removing a tooth sounds simpler, and sometimes it is the right call, for example when a tooth is cracked below the gum or too broken to rebuild. But pulling a tooth that could be saved trades one procedure for two or three, because the gap then needs an implant or a bridge, or the neighbors drift and your bite changes. Whenever a tooth can be saved, saving it is the preferred option, and a treated tooth with a good restoration can last a lifetime. We will tell you plainly which group your tooth is in. Our [tooth extractions](/services/extractions/) page covers what happens when removal is the better path.",
+      },
+      {
+        style: "h2",
+        text: "Can antibiotics fix it instead?",
+      },
+      {
+        style: "p",
+        text: "No. Antibiotics have a place when an infection is spreading and you have a fever or feel unwell, but they cannot clean out the dead tissue inside the tooth, so the pain comes back once the course ends. The American Dental Association's guideline recommends against antibiotics for most toothaches and recommends treating the tooth itself, with over-the-counter pain relief in the meantime.",
+      },
+      {
+        style: "h2",
+        text: "Will I need a crown afterward?",
+      },
+      {
+        style: "p",
+        text: "Usually, for back teeth. A tooth that needs a root canal has typically already lost a lot of structure to decay or old fillings, and molars take the full force of chewing, so a [porcelain crown](/services/porcelain-crowns/) protects it from cracking. Front teeth with little damage can sometimes be finished with a filling alone. We will tell you which your tooth needs before we start, so there are no surprises.",
+      },
+      {
+        style: "h2",
+        text: "Frequently asked questions",
+      },
+      {
+        style: "p",
+        text: "**Can I drive myself home after a root canal?** Yes. A root canal is done with local anesthetic, which does not affect your ability to drive. If we arrange something extra to help you relax, we will tell you in advance whether you need a ride.",
+      },
+      {
+        style: "p",
+        text: "**How long does a root canal take?** About 60 to 90 minutes for most teeth. Molars with several canals, or a tooth with a heavy infection, may need a second visit.",
+      },
+      {
+        style: "p",
+        text: "**Can I eat after a root canal?** Wait until the numbness wears off so you do not bite your cheek or tongue, then eat soft foods on the other side. Avoid chewing hard things on the treated tooth until the permanent crown or filling is in.",
+      },
+      {
+        style: "p",
+        text: "**Is a root canal safe? I read it can make you sick.** That idea comes from research from the early 1900s that has since been discredited. The American Association of Endodontists states there is no credible scientific evidence that root canal treatment causes cancer, heart disease or other illness, and that an untreated infected tooth is the greater health risk.",
+      },
+      {
+        style: "p",
+        text: "**How long does a root canal tooth last?** With a proper crown or filling and normal brushing and flossing, most treated teeth last for many years and often for life. The tooth can still get a cavity, so it needs the same care as the others.",
+      },
+    ],
+    cta: {
+      heading: "Have a toothache that will not quit?",
+      text: "An infected tooth does not fix itself, and early treatment is simpler and more comfortable than waiting. At Diamond Dental Group in Roseville, we see patients in pain as soon as we can during office hours, and I will tell you plainly whether a root canal is the right fix and what it will feel like. [Call (916) 755-4769 or book online](/contact/). If nerves are part of what keeps you away, our guide for [nervous patients](/blog/nervous-about-going-to-the-dentist/) is a good place to start.",
+      buttonLabel: "Book a Consultation",
+      buttonHref: "/contact/",
+    },
+    disclaimer: "This article is general education and not personal dental advice. Only an in-person exam can tell you whether a root canal is right for your tooth.",
+    seo: {
+      title: "Does a Root Canal Hurt? A Roseville Dentist Explains",
+      description: "A modern root canal is done fully numb and ends the toothache it is blamed for. Dr. Nikpour in Roseville explains what it feels like and what is normal after.",
+    },
+  },
   {
     slug: "nervous-about-going-to-the-dentist",
     title: "Nervous About Going to the Dentist? What Actually Helps",

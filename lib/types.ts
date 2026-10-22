@@ -95,6 +95,12 @@ export type Post = {
   title: string;
   date: string;
   dateLabel: string;
+  /** Who wrote it, as shown in the byline. Empty means the practice's dentist, Dr. Akram Nikpour (lib/author.ts). */
+  author?: string;
+  /** Topic shown next to the date, e.g. "Implants & Restorative". */
+  category?: string;
+  /** Path of the page the post supports, e.g. /services/dental-implants/ (shown as the Related box). */
+  service?: string;
   excerpt: string;
   image: Img;
   body: RichBlock[];

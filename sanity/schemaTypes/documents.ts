@@ -257,6 +257,12 @@ export const post = defineType({
     defineField({ ...slugField, options: { source: "title" } }),
     defineField({ name: "date", type: "date", validation: (r) => r.required() }),
     str("dateLabel", "Date as shown", "e.g. August 20, 2026"),
+    defineField({
+      ...str("author", "Author", "Shown as the byline. The practice's dentist (the About page) also gets her DDS, photo, About link and a short bio there."),
+      initialValue: "Dr. Akram Nikpour",
+    }),
+    defineField({ name: "category", title: "Category", type: "string", description: "Shown next to the date.", options: { list: ["Cosmetic", "Implants & Restorative", "General & Preventive"] } }),
+    str("service", "Supported page", "The page this post supports, e.g. /services/dental-implants/. Shown as the Related box under the post."),
     txt("excerpt", "Card text"),
     img("image", "Photo"),
     list("body", "Article", "richBlock"),
