@@ -8,7 +8,7 @@
 #   SG_FTP_PASSWORD
 # Repository variables (Settings > Secrets and variables > Actions > Variables):
 #   SANITY_PROJECT_ID  (optional; defaults to stnpzvwa)
-#   SG_FTP_DIR         (optional; folder the site goes into, default ./public_html/)
+#   SG_FTP_DIR         (optional; folder the site goes into, default ./diamonddentalgroups.com/public_html/)
 #   GHL_CHAT_WIDGET_ID, GA_ID, GTM_ID (GTM defaults to the live site's container)
 name: Deploy to SiteGround
 
@@ -67,7 +67,7 @@ jobs:
           FTP_USER: ${{ secrets.SG_FTP_USERNAME }}
           FTP_PASS: ${{ secrets.SG_FTP_PASSWORD }}
         run: |
-          for d in "" "public_html/" "www/" "www/diamonddentalgroups.com/" "www/diamonddentalgroups.com/public_html/"; do
+          for d in "" "diamonddentalgroups.com/" "diamonddentalgroups.com/public_html/"; do
             echo "== /$d"
             curl -s --ssl-reqd --max-time 30 --user "$FTP_USER:$FTP_PASS" "ftp://$SG_FTP_SERVER/$d" | head -40 || true
           done
@@ -82,5 +82,6 @@ jobs:
           password: ${{ secrets.SG_FTP_PASSWORD }}
           protocol: ftps
           local-dir: ./out/
-          # The FTP account's home is the site folder (Home Path "/" in Site Tools), so files go into public_html.
-          server-dir: ${{ vars.SG_FTP_DIR || './public_html/' }}
+          # The FTP account opens one level above the site (it lists diamonddentalgroups.com/),
+          # so the site's document root is diamonddentalgroups.com/public_html.
+          server-dir: ${{ vars.SG_FTP_DIR || './diamonddentalgroups.com/public_html/' }}
