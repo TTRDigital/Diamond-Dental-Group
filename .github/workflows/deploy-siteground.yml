@@ -7,7 +7,8 @@
 #   SG_FTP_USERNAME  FTP account whose folder is the site's public_html
 #   SG_FTP_PASSWORD
 # Repository variables (Settings > Secrets and variables > Actions > Variables):
-#   SANITY_PROJECT_ID  (until it is also set as the default in sanity/env.ts)
+#   SANITY_PROJECT_ID  (optional; defaults to stnpzvwa)
+#   SG_FTP_DIR         (optional; folder the site goes into, default ./public_html/)
 #   GHL_CHAT_WIDGET_ID, GA_ID, GTM_ID (GTM defaults to the live site's container)
 name: Deploy to SiteGround
 
@@ -69,4 +70,5 @@ jobs:
           password: ${{ secrets.SG_FTP_PASSWORD }}
           protocol: ftps
           local-dir: ./out/
-          server-dir: ./
+          # The FTP account's home is the site folder (Home Path "/" in Site Tools), so files go into public_html.
+          server-dir: ${{ vars.SG_FTP_DIR || './public_html/' }}
