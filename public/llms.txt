@@ -1,0 +1,36 @@
+# Diamond Dental Group
+
+> Implant and cosmetic dentistry in Roseville, California. One practice for implants, All-on-X, veneers, Invisalign, crowns, dentures and family dentistry, at 1950 Douglas Blvd B-1, Roseville, CA. Phone +1-916-755-4769.
+
+## Main pages
+- [Home](https://diamonddentalgroups.com/)
+- [About](https://diamonddentalgroups.com/about/)
+- [Services](https://diamonddentalgroups.com/services/)
+- [Patient care](https://diamonddentalgroups.com/patient-care/)
+- [Contact and appointments](https://diamonddentalgroups.com/contact/)
+
+## Services
+- [Dental implants](https://diamonddentalgroups.com/services/dental-implants/)
+- [All-on-X](https://diamonddentalgroups.com/services/all-on-x/)
+- [Implant dentures](https://diamonddentalgroups.com/services/implant-dentures/)
+- [Porcelain veneers](https://diamonddentalgroups.com/services/porcelain-veneers/)
+- [Teeth whitening](https://diamonddentalgroups.com/services/teeth-whitening/)
+- [Invisalign](https://diamonddentalgroups.com/services/invisalign/)
+- [Porcelain crowns](https://diamonddentalgroups.com/services/porcelain-crowns/)
+- [Dental bridges](https://diamonddentalgroups.com/services/dental-bridges/)
+- [Dentures](https://diamonddentalgroups.com/services/dentures/)
+- [Inlays and onlays](https://diamonddentalgroups.com/services/inlays-onlays/)
+- [Root canal](https://diamonddentalgroups.com/services/root-canal/)
+- [Extractions](https://diamonddentalgroups.com/services/extractions/)
+- [Fillings](https://diamonddentalgroups.com/services/fillings/)
+- [Cleanings](https://diamonddentalgroups.com/services/cleanings/)
+- [Deep cleaning](https://diamonddentalgroups.com/services/deep-cleaning/)
+- [Sealants](https://diamonddentalgroups.com/services/sealants/)
+- [Fluoride](https://diamonddentalgroups.com/services/fluoride/)
+- [Mouthguards](https://diamonddentalgroups.com/services/mouthguards/)
+
+## Blog
+- [Blog](https://diamonddentalgroups.com/blog/)
+
+## Sitemap
+- https://diamonddentalgroups.com/sitemap.xml
