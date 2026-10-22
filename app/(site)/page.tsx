@@ -32,7 +32,7 @@ export default async function HomePage() {
             priority
             fetchPriority="high"
             sizes="100vw"
-            className="w-full h-full object-cover md:object-contain object-center opacity-90"
+            className="w-full h-full object-cover object-center opacity-90"
           />
           <div className="absolute inset-0 bg-black/30" />
         </div>
@@ -341,7 +341,7 @@ export default async function HomePage() {
         phone={s.phone}
         phoneHref={s.phoneHref}
         bgImage={bgSrc(h.hero.image.src)}
-        bgClass="bg-cover md:bg-contain bg-center opacity-30"
+        bgClass="bg-cover bg-center opacity-30"
       />
     </div>
   );
