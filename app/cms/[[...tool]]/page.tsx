@@ -4,7 +4,7 @@ import { projectId } from "../../../sanity/env";
 
 export const dynamic = "force-static";
 
-// Static export: one page at /cms/. Inner studio URLs are sent to it by public/.htaccess.
+// Static export: one page at /cms/. Inner studio URLs are sent to it by public/.htaccess; on Vercel they render on demand.
 export function generateStaticParams() {
   return [{ tool: [] }];
 }

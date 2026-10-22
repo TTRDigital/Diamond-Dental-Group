@@ -12,8 +12,15 @@ import type { NextConfig } from "next";
  * - CMS updates: rebuild and upload (.github/workflows/deploy-siteground.yml),
  *   started by a push, a Sanity webhook or the "Run workflow" button
  */
+/*
+ * Vercel (VERCEL is set during Vercel builds) serves the live site since Oct 22, 2026 and runs it as a normal Next.js
+ * app, so the Studio's inner addresses (/cms/structure/...) render on demand instead of needing an .htaccess rewrite.
+ * Redirects, security headers and caching for Vercel are in vercel.json. The static export stays for SiteGround.
+ */
+const onVercel = !!process.env.VERCEL;
+
 const nextConfig: NextConfig = {
-  output: "export",
+  output: onVercel ? undefined : "export",
   // /about-us/ -> about-us/index.html, which Apache serves as is
   // (the live URLs had no slash; .htaccess sends /about to /about/).
   trailingSlash: true,

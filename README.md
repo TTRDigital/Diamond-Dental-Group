@@ -1,6 +1,6 @@
 # Diamond Dental Group website
 
-Next.js 16 (App Router, static export) + Sanity Studio embedded at `/cms`, Tailwind CSS v4, hosted on **SiteGround** as plain files. Rebuild of https://diamonddentalgroups.com (a client-rendered GoHighLevel "Vibe" React app) by TTR Digital, on the same architecture as Beverly-Hills-Top-Dentist.
+Next.js 16 (App Router) + Sanity Studio embedded at `/cms`, Tailwind CSS v4, served by **Vercel** (a static export for SiteGround is kept as the fallback). Rebuild of https://diamonddentalgroups.com (a client-rendered GoHighLevel "Vibe" React app) by TTR Digital, on the same architecture as Beverly-Hills-Top-Dentist.
 
 - **Design:** the live site's look, page by page. Sizes, spacing and colors were measured from the live pages at 1440px and 390px; every section's height matches the live page. Like the live site, no web fonts are loaded (system UI text, Montserrat-or-system headings).
 - **Content:** the live site's text, word for word, with the same page titles and meta descriptions (checked by a word-level diff of every page). Everything is editable in `/cms`. Until Sanity has content (or a field is left empty), the site shows the built-in copy from `lib/data`, so it never breaks.
@@ -19,7 +19,7 @@ Next.js 16 (App Router, static export) + Sanity Studio embedded at `/cms`, Tailw
 
 All dynamic routes use `generateStaticParams` with `dynamicParams = false`. Unknown URLs get the 404 page **with a 404 status** (the live site answered 200).
 
-### Old URLs (`public/.htaccess`)
+### Old URLs (`public/.htaccess` on SiteGround, `vercel.json` on Vercel)
 
 - The live URLs had no trailing slash (`/about`, `/services/invisalign`): each one answers **301** to the same page with a slash.
 - One host: `www.`, the SiteGround temporary address and any other host pointed at the account go to `https://diamonddentalgroups.com` (301, path kept); http goes to https.
@@ -53,7 +53,11 @@ All dynamic routes use `generateStaticParams` with `dynamicParams = false`. Unkn
 
 Document IDs: `siteSettings`, `homePage`, `aboutPage`, `patientCarePage`, `contactPage`, `blogPage`, `servicesPage`, `privacyPage`, `thankYouPage`, `service-<slug>`, `post-<slug>`, `testimonial-<n>`.
 
-## Hosting on SiteGround
+## Hosting on Vercel (the live site since Oct 22, 2026)
+
+The Vercel project `diamond-dental-group` builds this branch and serves the live domain (`www` redirects to it). On Vercel the site runs as a normal Next.js app (`next.config.ts` turns the static export off when `VERCEL` is set), so the Studio's inner addresses (`/cms/structure/...`) work without `.htaccess`. Vercel does not read `.htaccess`: the old-address redirects, the security headers with the content security policy (not on `/cms`) and a day of caching for photos are in `vercel.json`. Sanity does not rebuild Vercel by itself: add a Vercel Deploy Hook (Project > Settings > Git > Deploy Hooks) as a second URL on the Sanity webhook, otherwise a publish only reaches the site at the next push.
+
+## Hosting on SiteGround (kept as the fallback)
 
 `npm run build` writes the whole site to `out/`: HTML pages, `_next/` scripts, `_img/` WebP photos and `.htaccess` (canonical host, redirects, trailing slashes, security headers + CSP, caching, gzip incl. `text/javascript`, 404 page, /cms deep links). Upload the **contents** of `out/` into the site's `public_html`.
 
