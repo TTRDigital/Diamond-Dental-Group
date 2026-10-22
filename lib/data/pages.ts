@@ -3,8 +3,10 @@ import { images } from "./images.ts";
 
 /*
  * Page copy, word for word from the live site. Titles and meta descriptions
- * are the live ones; where a live page had none (privacy, thank-you,
- * services) the new one is built from that page's own text. Editable in /cms.
+ * started as the live ones; where a live page had none (privacy, thank-you,
+ * services) one was built from that page's own text. On Oct 22, 2026 (Kia's
+ * yes) titles were cut to 50 to 60 characters and descriptions to 120 to 160.
+ * Editable in /cms; a filled CMS field wins over these.
  */
 
 import type { iconNames } from "../../sanity/icons.ts";
@@ -130,9 +132,9 @@ export const fallbackHome: HomeContent = {
   reviews: { heading: "What Roseville Patients Are Saying", rating: "[PLACEHOLDER: Google rating] 5.0" },
   cta: { heading: "Ready for a Healthier, Brighter Smile?", text: "Same-week appointments available. New patients welcome.", button: "Book My Appointment" },
   seo: {
-    title: "Dentist in Roseville, CA | Diamond Dental Group — Implant & Cosmetic Dentistry",
+    title: "Dentist in Roseville, CA | Diamond Dental Group",
     description:
-      "Roseville's trusted dentist for implants, cosmetic dentistry & family care. $49 new patient special, all PPO insurance accepted, same-week appointments. Call (916) 755-4769.",
+      "Implant, cosmetic and family dentist in Roseville, CA. $49 new patient special, all PPO insurance accepted, same-week appointments. Call (916) 755-4769.",
   },
 };
 
@@ -183,7 +185,7 @@ export const fallbackAbout: AboutContent = {
   },
   cta: { heading: "Come Experience the Diamond Dental Difference", button: "Book My Appointment" },
   seo: {
-    title: "About Us | Dr. Akram Nikpour, DDS | Diamond Dental Group Roseville",
+    title: "About Dr. Akram Nikpour, DDS | Diamond Dental Group",
     description:
       "Meet Dr. Akram Nikpour and the Diamond Dental Group team. Implant, cosmetic & family dentistry in Roseville, CA, with 17 years of advanced clinical experience.",
   },
@@ -278,7 +280,7 @@ export const fallbackPatientCare: PatientCareContent = {
   },
   cta: { heading: "Ready to Get Started?", button: "Book My Appointment" },
   seo: {
-    title: "New Patients, Insurance & Membership Plan | Diamond Dental Group Roseville",
+    title: "New Patients, Insurance & Membership | Diamond Dental Group",
     description:
       "$49 new patient special, all PPO insurance accepted, and an in-house membership plan from $399/year. Affordable dental care in Roseville, CA.",
   },
@@ -306,7 +308,7 @@ export const fallbackContact: ContactContent = {
   callLabel: "Call us directly",
   hoursHeading: "Office Hours",
   seo: {
-    title: "Contact Us | Book an Appointment | Diamond Dental Group Roseville, CA",
+    title: "Contact & Book an Appointment | Diamond Dental Group",
     description:
       "Book your appointment at Diamond Dental Group. 1950 Douglas Blvd B-1, Roseville, CA 95661, (916) 755-4769. Same-week appointments, new patients welcome.",
   },
@@ -412,7 +414,7 @@ export const fallbackPrivacy: PrivacyContent = {
   ],
   contactIntro: "If you have questions or comments about this notice, you may contact us at:",
   seo: {
-    title: "Privacy Policy | Diamond Dental Group Roseville",
+    title: "Privacy Policy | Diamond Dental Group in Roseville, CA",
     description: "How Diamond Dental Group in Roseville, CA collects, uses and protects your information when you visit our website or use our services.",
   },
 };

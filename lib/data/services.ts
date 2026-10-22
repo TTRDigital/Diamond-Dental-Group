@@ -1,5 +1,6 @@
 /* Generated from the live site (diamonddentalgroups.com) by the rebuild: text is word for word.
- * Meta descriptions are new (the live service pages had none): each is the page's own intro sentence. Edit in /cms. */
+ * Meta descriptions are new (the live service pages had none): each started as the page's own intro sentence. On Oct 22, 2026 (Kia's yes)
+ * titles were cut to 50 to 60 characters and short descriptions rewritten to 120 to 160. Edit in /cms (a filled CMS field wins). */
 import type { Service } from "@/lib/types";
 import { images } from "./images.ts";
 
@@ -94,7 +95,7 @@ export const fallbackServices: Service[] = [
     ],
     offer: { amount: "$300 OFF", title: "Teeth Whitening" },
     seo: {
-      title: "Professional Teeth Whitening in Roseville, CA | Diamond Dental Group",
+      title: "Teeth Whitening in Roseville, CA | Diamond Dental Group",
       description: "Professional-strength whitening that's dramatically brighter than store kits — safely and comfortably. Diamond Dental Group, Roseville, CA.",
     },
   },
@@ -236,7 +237,7 @@ export const fallbackServices: Service[] = [
     ],
     offer: { amount: "$500 OFF", title: "Dental Implants" },
     seo: {
-      title: "All-on-X & All-on-4 Full Arch Implants in Roseville, CA | Diamond Dental Group",
+      title: "All-on-X Implants in Roseville, CA | Diamond Dental Group",
       description: "Replace a full arch of missing or failing teeth with a fixed, natural-looking new smile. Diamond Dental Group, Roseville, CA.",
     },
   },
@@ -274,8 +275,8 @@ export const fallbackServices: Service[] = [
       },
     ],
     seo: {
-      title: "Porcelain Dental Crowns in Roseville, CA | Diamond Dental Group",
-      description: "Strong, natural-looking crowns that restore damaged teeth beautifully. Diamond Dental Group, Roseville, CA.",
+      title: "Porcelain Crowns in Roseville, CA | Diamond Dental Group",
+      description: "Porcelain dental crowns in Roseville, CA. Custom crowns shaded to match your teeth, for cracked, broken or worn teeth, in two visits at Diamond Dental Group.",
     },
   },
   {
@@ -324,8 +325,8 @@ export const fallbackServices: Service[] = [
       },
     ],
     seo: {
-      title: "Implant-Supported Dentures in Roseville, CA | Diamond Dental Group",
-      description: "Dentures that snap securely onto implants — no slipping, no adhesives, no worry. Diamond Dental Group, Roseville, CA.",
+      title: "Implant Dentures in Roseville, CA | Diamond Dental Group",
+      description: "Implant-supported dentures in Roseville, CA. Dentures that snap onto dental implants, with removable snap-on and fixed options, at Diamond Dental Group.",
     },
   },
   {
@@ -366,7 +367,7 @@ export const fallbackServices: Service[] = [
     ],
     seo: {
       title: "Dental Bridges in Roseville, CA | Diamond Dental Group",
-      description: "Close the gap — a fixed, natural-looking bridge to replace missing teeth. Diamond Dental Group, Roseville, CA.",
+      description: "Dental bridges in Roseville, CA. A fixed replacement tooth anchored to the teeth or implants on either side of the gap, custom shaded at Diamond Dental Group.",
     },
   },
   {
@@ -410,7 +411,7 @@ export const fallbackServices: Service[] = [
     ],
     seo: {
       title: "Custom Dentures in Roseville, CA | Diamond Dental Group",
-      description: "Comfortable, natural-looking full and partial dentures — made to fit you. Diamond Dental Group, Roseville, CA.",
+      description: "Custom full and partial dentures in Roseville, CA. Diamond Dental Group fits dentures to your mouth and face, with implant-secured options available.",
     },
   },
   {
@@ -453,7 +454,7 @@ export const fallbackServices: Service[] = [
       },
     ],
     seo: {
-      title: "Dental Inlays & Onlays in Roseville, CA | Diamond Dental Group",
+      title: "Inlays & Onlays in Roseville, CA | Diamond Dental Group",
       description: "Stronger than a filling, more conservative than a crown — the perfect middle ground. Diamond Dental Group, Roseville, CA.",
     },
   },
@@ -501,7 +502,7 @@ export const fallbackServices: Service[] = [
     ],
     seo: {
       title: "Root Canal Treatment in Roseville, CA | Diamond Dental Group",
-      description: "Gentle, modern root canals that stop the pain and save your natural tooth. Diamond Dental Group, Roseville, CA.",
+      description: "Root canal treatment in Roseville, CA. Diamond Dental Group removes the infected tissue, seals the tooth and usually restores it with a crown, with numbing.",
     },
   },
   {
@@ -585,8 +586,8 @@ export const fallbackServices: Service[] = [
       },
     ],
     seo: {
-      title: "Tooth-Colored Dental Fillings in Roseville, CA | Diamond Dental Group",
-      description: "Natural, tooth-colored fillings that stop decay and blend right in. Diamond Dental Group, Roseville, CA.",
+      title: "Dental Fillings in Roseville, CA | Diamond Dental Group",
+      description: "Tooth-colored dental fillings in Roseville, CA. Diamond Dental Group uses composite resin matched to your tooth shade and can replace old silver fillings.",
     },
   },
   {
@@ -629,8 +630,8 @@ export const fallbackServices: Service[] = [
       },
     ],
     seo: {
-      title: "Dental Cleanings & Checkups in Roseville, CA | Diamond Dental Group",
-      description: "Professional cleanings that keep your smile healthy, bright, and problem-free. Diamond Dental Group, Roseville, CA.",
+      title: "Dental Cleanings in Roseville, CA | Diamond Dental Group",
+      description: "Dental cleanings and checkups in Roseville, CA. Diamond Dental Group removes plaque and tartar, polishes your teeth and checks for early decay.",
     },
   },
   {
@@ -668,7 +669,7 @@ export const fallbackServices: Service[] = [
     ],
     seo: {
       title: "Dental Sealants in Roseville, CA | Diamond Dental Group",
-      description: "A fast, painless shield against cavities — great for kids and adults alike. Diamond Dental Group, Roseville, CA.",
+      description: "Dental sealants in Roseville, CA. A thin protective coating painted onto the grooves of back teeth, for children and adults, at Diamond Dental Group.",
     },
   },
   {
@@ -705,7 +706,7 @@ export const fallbackServices: Service[] = [
           "Every smile is unique. We'll give you a clear, complete cost breakdown at your consultation — with insurance and financing options explained. Included twice a year in our membership plan!",
       },
     ],
-    seo: { title: "Fluoride Treatments in Roseville, CA | Diamond Dental Group", description: "Strengthen your enamel and stop cavities before they start. Diamond Dental Group, Roseville, CA." },
+    seo: { title: "Fluoride Treatments in Roseville, CA | Diamond Dental Group", description: "Professional fluoride treatments in Roseville, CA. A varnish or gel applied in minutes after your cleaning, for children and adults, at Diamond Dental Group." },
   },
   {
     slug: "deep-cleaning",
@@ -747,8 +748,8 @@ export const fallbackServices: Service[] = [
       },
     ],
     seo: {
-      title: "Deep Cleaning for Gum Disease in Roseville, CA | Diamond Dental Group",
-      description: "Stop gum disease in its tracks and protect the foundation of your smile. Diamond Dental Group, Roseville, CA.",
+      title: "Deep Cleaning in Roseville, CA | Diamond Dental Group",
+      description: "Deep cleaning for gum disease in Roseville, CA. Scaling and root planing below the gumline, with numbing, usually over two visits at Diamond Dental Group.",
     },
   },
   {
@@ -794,7 +795,7 @@ export const fallbackServices: Service[] = [
       },
     ],
     seo: {
-      title: "Custom Mouthguards & Nightguards in Roseville, CA | Diamond Dental Group",
+      title: "Custom Mouthguards in Roseville, CA | Diamond Dental Group",
       description: "Custom-fit protection for sports, grinding, and clenching — far better than store-bought. Diamond Dental Group, Roseville, CA.",
     },
   },

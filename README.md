@@ -3,7 +3,7 @@
 Next.js 16 (App Router) + Sanity Studio embedded at `/cms`, Tailwind CSS v4, served by **Vercel** (a static export for SiteGround is kept as the fallback). Rebuild of https://diamonddentalgroups.com (a client-rendered GoHighLevel "Vibe" React app) by TTR Digital, on the same architecture as Beverly-Hills-Top-Dentist.
 
 - **Design:** the live site's look, page by page. Sizes, spacing and colors were measured from the live pages at 1440px and 390px; every section's height matches the live page. Like the live site, no web fonts are loaded (system UI text, Montserrat-or-system headings).
-- **Content:** the live site's text, word for word, with the same page titles and meta descriptions (checked by a word-level diff of every page). Everything is editable in `/cms`. Until Sanity has content (or a field is left empty), the site shows the built-in copy from `lib/data`, so it never breaks.
+- **Content:** the live site's text, word for word, with the same page titles and meta descriptions (checked by a word-level diff of every page). Oct 22, 2026 (Kia's yes): page titles were cut to 50 to 60 characters and descriptions to 120 to 160; Sanity holds its own copy of every page's SEO fields (seeded Oct 22), so the live site shows the new ones only once those fields are updated in `/cms` or the seed is re-run in overwrite mode. Everything is editable in `/cms`. Until Sanity has content (or a field is left empty), the site shows the built-in copy from `lib/data`, so it never breaks.
 - **Appointments:** `/contact/` embeds the practice's Jarvis Analytics online scheduler, as on the live site. The site has no form of its own.
 
 ## Pages (trailing slash)

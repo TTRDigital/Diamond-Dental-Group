@@ -218,8 +218,8 @@ export const fallbackPosts: Post[] = [
     disclaimer:
       "This article is for general educational purposes and is not a substitute for professional dental advice, diagnosis, or treatment. Sedation options vary by practice and not all are available everywhere. Please consult your dentist about your specific situation.",
     seo: {
-      title: "Nervous About the Dentist? Practical Things That Actually Help",
-      description: "Dental anxiety is common and usually has a specific cause. Practical steps that help, what to tell your dental team, and the sedation options worth asking about.",
+      title: "Nervous About the Dentist? Practical Things That Help",
+      description: "Dental anxiety is common and usually has a cause. Practical steps that help, what to tell your dental team, and the sedation options worth asking about.",
     },
   },
   {
@@ -826,7 +826,7 @@ export const fallbackPosts: Post[] = [
     disclaimer: "This article is general education and not personal dental advice. Only an in-person assessment can determine your treatment plan and timeline.",
     seo: {
       title: "How Long Do Dental Implants Take? Full Timeline by Stage",
-      description: "The complete dental implant timeline — from consultation through bone grafting, placement, healing and the final crown, with realistic timeframes for each stage.",
+      description: "The dental implant timeline from consultation through bone grafting, placement, healing and the final crown, with realistic timeframes for each stage.",
     },
   },
   {
@@ -999,7 +999,7 @@ export const fallbackPosts: Post[] = [
     },
     disclaimer: "This article is general education and not personal dental advice. A proper assessment of your teeth is required before any treatment decision.",
     seo: {
-      title: "Do Veneers Ruin Your Teeth? What Enamel Removal Really Involves",
+      title: "Do Veneers Ruin Your Teeth? What Enamel Removal Involves",
       description: "An honest look at whether porcelain veneers damage your teeth, how much enamel is removed, and the less invasive alternatives worth considering first.",
     },
   },
@@ -1191,7 +1191,7 @@ export const fallbackPosts: Post[] = [
     },
     disclaimer: "This article is general education and not personal medical advice. If you have symptoms that concern you after implant surgery, contact your treating dentist directly.",
     seo: {
-      title: "Dental Implant Pain: What's Normal and When to Call Your Dentist",
+      title: "Dental Implant Pain: What's Normal and When to Call",
       description: "How much pain is normal after dental implant surgery, the recovery timeline day by day, and the warning signs that mean you should call your dentist.",
     },
   },
