@@ -60,11 +60,11 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Over the first 10 years, the two do about the same. A 2019 review in the Journal of Dentistry, which pooled 18 studies that followed patients for 10 years, found that about 93 to 96 in 100 implant posts were still in place, a little lower in people 65 and older ([Howe and colleagues, 2019](https://pubmed.ncbi.nlm.nih.gov/30904559/)). The crown on top is a separate part: in another review, about 89 in 100 implant crowns were still in place after 10 years, and repairs such as a loose screw or chipped porcelain were common ([Jung and colleagues, 2012](https://pubmed.ncbi.nlm.nih.gov/23062124/)). For traditional bridges, about 89 in 100 were still in place after 10 years ([Pjetursson and colleagues, 2007](https://pubmed.ncbi.nlm.nih.gov/17594374/)).",
+        text: "Over the first 10 years, the two do about the same. A review that compared them using the same methods found about 89 in 100 traditional bridges and about 89 in 100 single crowns on implants still in place after 10 years ([Pjetursson and colleagues, 2007](https://pubmed.ncbi.nlm.nih.gov/17594374/)). The implant post under the crown does a little better: a 2019 review of 18 studies found about 93 to 96 in 100 still in place after 10 years, a little lower in people 65 and older ([Howe and colleagues, 2019](https://pubmed.ncbi.nlm.nih.gov/30904559/)). Repairs are common with both: implant crowns more often need fixes such as a loose screw or chipped porcelain, while bridges more often run into decay or an anchor tooth needing a root canal ([Pjetursson and colleagues, 2007](https://pubmed.ncbi.nlm.nih.gov/17594374/)).",
       },
       {
         style: "p",
-        text: "Over the longer run, many implant posts stay in place for decades, though none can be guaranteed. Bridges last roughly 5 to 15 years on average, and many last longer with good care ([Cleveland Clinic](https://my.clevelandclinic.org/health/treatments/10921-dental-bridges)). When a bridge fails, it is rarely the false tooth. More often the bridge comes loose, decay starts under an anchor crown, or an anchor tooth needs a root canal or cracks ([Tan and colleagues, 2004](https://pubmed.ncbi.nlm.nih.gov/15533126/)). Because the pieces are joined, a problem with one anchor usually means replacing the whole bridge.",
+        text: "Over the longer run, both need upkeep. The implant post itself often stays in place for many years, though none can be guaranteed, while the crown on top can chip, loosen or wear and may need replacing, much as a bridge does. Cleveland Clinic puts the average life of a bridge at about 5 to 15 years, and some last longer with good care ([Cleveland Clinic](https://my.clevelandclinic.org/health/treatments/10921-dental-bridges)). When a bridge fails, it is rarely the false tooth. More often the bridge comes loose, decay starts under an anchor crown, or an anchor tooth needs a root canal or cracks ([Tan and colleagues, 2004](https://pubmed.ncbi.nlm.nih.gov/15533126/)). Because the pieces are joined, a problem with one anchor usually means replacing the whole bridge.",
       },
       {
         style: "h2",
@@ -212,7 +212,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Two reasons. First, the toothache: by the time someone needs a root canal, the nerve inside the tooth is inflamed or infected, and that pain can be severe. People remember the agony and attach it to the treatment that ended it. Second, old stories. Anesthetics and techniques were less effective a generation ago. The American Association of Endodontists now describes modern root canal treatment as designed to eliminate pain, not cause it.",
+        text: "Two reasons. First, the toothache: by the time someone needs a root canal, the nerve inside the tooth is inflamed or infected, and that pain can be severe. People remember the agony and attach it to the treatment that ended it. Second, old stories. Anesthetics and techniques were less effective a generation ago. The American Association of Endodontists now describes modern root canal treatment as designed to eliminate pain, not cause it ([AAE](https://www.aae.org/patients/root-canal-treatment/myths-root-canals/)).",
       },
       {
         style: "h2",
@@ -240,7 +240,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "A very inflamed tooth, especially a lower molar, can be harder to numb than a healthy one, because an inflamed nerve is on high alert and responds less to anesthetic than a healthy one. In studies, these teeth often needed extra anesthetic ([Pak and White, 2011](https://pubmed.ncbi.nlm.nih.gov/21419285/)). Dentists know this and plan for it. We may give the anesthetic more time to work, use a different anesthetic, or add a second injection right beside the tooth. If numbing has ever failed to take for you, tell us when you book and we will plan for extra from the start.",
+        text: "A very inflamed tooth, especially a lower molar, can be harder to numb than a healthy one, because an inflamed nerve is on high alert and responds less to anesthetic than a healthy one. In a review of root canal studies, more than half of patients needed an extra injection ([Pak and White, 2011](https://pubmed.ncbi.nlm.nih.gov/21419285/)). Dentists know this and plan for it. We may give the anesthetic more time to work, use a different anesthetic, or add a second injection right beside the tooth. If numbing has ever failed to take for you, tell us when you book and we will plan for extra from the start.",
       },
       {
         style: "h2",
@@ -297,7 +297,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Usually not. For most healthy adults with a toothache from an inflamed or infected tooth, the American Dental Association's guideline recommends treating the tooth itself, with over-the-counter pain relief in the meantime, instead of antibiotics ([ADA guideline, 2019](https://doi.org/10.1016/j.adaj.2019.08.020)). Antibiotics cannot clean out the inflamed or dead tissue inside the tooth, and for an inflamed nerve they do not ease the pain ([Cochrane review, 2019](https://pubmed.ncbi.nlm.nih.gov/31145805/)). They are used when an infection is spreading or you feel unwell, such as with fever or swelling, and in a few other cases your dentist will explain.",
+        text: "Usually not. For most healthy adults with a toothache from an inflamed or infected tooth, the American Dental Association's guideline recommends treating the tooth itself, with over-the-counter pain relief in the meantime, instead of antibiotics ([ADA guideline, 2019](https://doi.org/10.1016/j.adaj.2019.08.020)). Antibiotics cannot clean out the inflamed or dead tissue inside the tooth, and for an inflamed nerve, the one trial that tested them found they eased the pain no better than a placebo ([Cochrane review, 2019](https://pubmed.ncbi.nlm.nih.gov/31145805/)). They are used when the infection is spreading or affecting your whole body, such as a fever, feeling unwell, or swelling that is spreading, and in a few other cases your dentist will explain ([ADA guideline, 2019](https://doi.org/10.1016/j.adaj.2019.08.020)).",
       },
       {
         style: "h2",
@@ -325,7 +325,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "**Is a root canal safe? I read it can make you sick.** That idea comes from research from the early 1900s that has since been discredited. The American Association of Endodontists states there is no credible scientific evidence that root canal treatment causes cancer, heart disease or other illness, and that an untreated infected tooth is the greater health risk.",
+        text: "**Is a root canal safe? I read it can make you sick.** That idea comes from research from the early 1900s that has since been discredited. The [American Association of Endodontists](https://www.aae.org/patients/root-canal-treatment/myths-root-canals/) states there is no credible scientific evidence that root canal treatment causes cancer, heart disease or other illness, and that an untreated infected tooth is the greater health risk.",
       },
       {
         style: "p",
