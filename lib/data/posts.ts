@@ -24,7 +24,7 @@ export const fallbackPosts: Post[] = [
         caption: "Dr. Akram Nikpour, DDS, goes over both options with every patient before recommending one.",
       },
       {
-        heading: "What about cost and insurance?",
+        heading: "What if I am missing more than one tooth?",
         image: { ...images.storefront, alt: "The Diamond Dental Group office front on Douglas Blvd in Roseville" },
         caption: "Diamond Dental Group on Douglas Blvd in Roseville. Bring your insurance card and the team checks your benefits before anything begins.",
       },
@@ -44,7 +44,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "An implant replaces the root as well as the tooth. A small titanium post is placed in the jawbone where the root used to be, the bone grows onto it over a few months, and a crown is fixed on top. The teeth on either side are not touched.",
+        text: "An implant replaces the root as well as the tooth. A titanium post goes into the jawbone where the root used to be, the bone fuses to it over a few months, and a crown is fixed on top. The teeth on either side are not touched.",
       },
       {
         style: "p",
@@ -60,11 +60,11 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Implants, as a rule. Reviews of patients followed for 10 years find that more than 9 in 10 implants are still in place, and a well cared for implant can serve for life. The crown on top may need replacing at some point, but the post underneath usually stays.",
+        text: "Implants, as a rule. A 2019 review in the Journal of Dentistry, which pooled 18 studies that followed patients for 10 years, found that more than 9 in 10 implants were still in place, and a well cared for implant can serve for life. The crown on top may need replacing at some point, but the post underneath usually stays.",
       },
       {
         style: "p",
-        text: "A bridge lasts about 5 to 15 years on average. What ends a bridge is rarely the false tooth. It is usually decay under one of the anchor crowns, or an anchor tooth cracking under the extra load, and when one anchor fails the whole bridge comes off.",
+        text: "A bridge lasts about 10 to 15 years on average, often longer with good care. What ends a bridge is rarely the false tooth. It is usually decay under one of the anchor crowns, or an anchor tooth cracking under the extra load, and when one anchor fails the whole bridge comes off.",
       },
       {
         style: "h2",
@@ -104,7 +104,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "An implant is minor surgery, so your general health matters more than your age. Healing is slower in people who use tobacco and in people whose diabetes is not well controlled, and gum disease needs to be under control before an implant goes in. Teenagers whose jaws are still growing wait. None of these is an automatic no, but each is a reason we might suggest a bridge for now, or treat something first and place the implant later.",
+        text: "An implant is minor surgery, so what counts is your general health rather than your age. Healing is slower in people who use tobacco and in people whose diabetes is not well controlled, and gum disease needs to be under control before an implant goes in. Teenagers whose jaws are still growing wait. None of these is an automatic no, but each is a reason we might suggest a bridge for now, or treat something first and place the implant later.",
       },
       {
         style: "h2",
@@ -125,15 +125,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "We do not push one answer. We show you both, with the trade-offs, and you decide.",
-      },
-      {
-        style: "h2",
-        text: "What about cost and insurance?",
-      },
-      {
-        style: "p",
-        text: "A bridge usually costs less up front and is more often covered by dental plans, while an implant is a bigger initial outlay that plans cover less often. Over 20 years that can change if a bridge has to be replaced. Your own plan is the deciding factor, so bring your card and we will check your benefits first.",
+        text: "Dental plans more often cover a bridge than an implant, so bring your card and we will check your benefits before you decide. We do not push one answer. We show you both, with the trade-offs, and you decide.",
       },
       {
         style: "h2",
@@ -141,7 +133,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "The same thinking applies, with more options: a longer bridge anchored on natural teeth, a bridge carried on two implants, or, when most of an arch is gone, a full set of fixed teeth on a few implants. Our [All-on-X and All-on-4](/services/all-on-x/) page explains the full-arch route. If the failing tooth is still in your mouth, we plan the [extraction](/services/extractions/) with the replacement in mind, since in some cases the implant can be placed in the same visit, depending on the bone.",
+        text: "The same thinking applies, with more options: a longer bridge anchored on natural teeth, a bridge carried on two implants, or, when most of an arch is gone, a full set of fixed teeth on a few implants. Our [All-on-X and All-on-4](/services/all-on-x/) page explains the full-arch route. If the failing tooth is still in your mouth, we plan the extraction with the replacement in mind, since in some cases the implant can be placed in the same visit, depending on the bone.",
       },
       {
         style: "h2",
@@ -157,7 +149,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "**Does getting an implant hurt more than getting a bridge?** Both are done fully numb. An implant involves a surgical site, so expect a few days of soreness and some swelling, usually managed with normal pain relievers; our guide to [what is normal after implant surgery](/blog/dental-implant-pain-what-is-normal/) goes day by day. A bridge usually means a day or two of tenderness.",
+        text: "**Does getting an implant hurt more than getting a bridge?** Both are done fully numb. An implant involves a surgical site, so expect a few days of soreness and some swelling, usually managed with normal pain relievers. A bridge usually means a day or two of tenderness.",
       },
       {
         style: "p",
@@ -248,7 +240,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "This is the part most articles leave out. A very inflamed tooth, especially a lower molar, can be harder to numb than a healthy one, because inflammation makes the nerve more sensitive to everything, including anesthetic. Dentists know this and plan for it. We may give the anesthetic more time to work, use a different anesthetic, or add a second injection right beside the tooth. If numbing has ever failed to take for you, tell us when you book and we will plan for extra from the start.",
+        text: "A very inflamed tooth, especially a lower molar, can be harder to numb than a healthy one, because inflammation makes the nerve more sensitive to everything, including anesthetic. Dentists know this and plan for it. We may give the anesthetic more time to work, use a different anesthetic, or add a second injection right beside the tooth. If numbing has ever failed to take for you, tell us when you book and we will plan for extra from the start.",
       },
       {
         style: "h2",
@@ -264,7 +256,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Call us if the pain is severe, if it is getting worse instead of better after the first few days, if there is visible swelling in the gum or face, or if the temporary filling comes out. They do not necessarily mean the treatment failed, but they need a look. Mild sensitivity that lingers for a week or two is common and settles on its own.",
+        text: "Call us if the pain is severe, if it is getting worse instead of better after the first few days, if there is visible swelling in the gum or face, or if the temporary filling comes out. They do not necessarily mean the treatment failed, but they need a look. Mild sensitivity that lingers for a week or so is common and settles on its own.",
       },
       {
         style: "h2",
