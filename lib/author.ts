@@ -14,6 +14,8 @@ export type Author = {
   /** Credential after the name, from the About page heading (e.g. "DDS"). Only the practice's dentist has one. */
   credential?: string;
   jobTitle?: string;
+  /** One line under the name in bylines, e.g. "Implant, cosmetic and family dentist in Roseville, CA". */
+  role?: string;
   /** The author's page on this site: the About page for the practice's dentist. */
   url?: string;
   image?: Img;
@@ -39,6 +41,7 @@ export function postAuthor(author: string | undefined, dentist: Dentist): Author
     label: credential ? `${name}, ${credential}` : name,
     credential,
     jobTitle: "Dentist",
+    role: "Implant, cosmetic and family dentist in Roseville, CA",
     url: "/about/",
     image: dentist.image,
     bio: firstSentences(dentist.text, 2),

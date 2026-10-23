@@ -64,6 +64,11 @@ export function articleSchema(p: {
   path: string;
   author: { name: string; credential?: string; jobTitle?: string; url?: string; image?: string };
   publisher: string;
+  wordCount?: number;
+  /** Reading time in minutes (timeRequired, ISO 8601: PT7M). */
+  minutes?: number;
+  /** The post's topic (articleSection). */
+  section?: string;
 }) {
   const a = p.author;
   const dr = /^Dr\.?\s+/.test(a.name);
@@ -75,6 +80,10 @@ export function articleSchema(p: {
     image: [abs(p.image)],
     datePublished: p.date,
     dateModified: p.date,
+    ...(p.wordCount ? { wordCount: p.wordCount } : {}),
+    ...(p.minutes ? { timeRequired: `PT${p.minutes}M` } : {}),
+    ...(p.section ? { articleSection: p.section } : {}),
+    inLanguage: "en-US",
     author: {
       "@type": "Person",
       name: a.name.replace(/^Dr\.?\s+/, ""),

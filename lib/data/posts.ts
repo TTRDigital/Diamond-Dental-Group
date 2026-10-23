@@ -15,6 +15,20 @@ export const fallbackPosts: Post[] = [
     service: "/services/dental-implants/",
     excerpt: "Implant or bridge for one missing tooth? Dr. Nikpour in Roseville compares how long each lasts, what each does to your other teeth and bone, and how to choose.",
     image: images.treatmentRoom,
+    // Section extras (photos, steps, call to action), see PostSection. Real photos of the practice only.
+    sections: [
+      { heading: "How long does each one take?", cta: "An exam and a 3D scan show which option fits your mouth, and you see both before you decide." },
+      {
+        heading: "When is a bridge the better choice?",
+        image: { ...images.drNikpour, alt: "Dr. Akram Nikpour, DDS, in a white coat, the dentist who wrote this article" },
+        caption: "Dr. Akram Nikpour, DDS, goes over both options with every patient before recommending one.",
+      },
+      {
+        heading: "What about cost and insurance?",
+        image: { ...images.storefront, alt: "The Diamond Dental Group office front on Douglas Blvd in Roseville" },
+        caption: "Diamond Dental Group on Douglas Blvd in Roseville. Bring your insurance card and the team checks your benefits before anything begins.",
+      },
+    ],
     body: [
       {
         style: "p",
@@ -176,6 +190,21 @@ export const fallbackPosts: Post[] = [
     service: "/services/root-canal/",
     excerpt: "A modern root canal is done fully numb and ends the toothache it is blamed for. Dr. Nikpour in Roseville explains what it feels like and what is normal after.",
     image: images.storefront,
+    // Section extras (photos, steps, call to action), see PostSection. Real photos of the practice only.
+    sections: [
+      {
+        heading: "What does the procedure actually feel like?",
+        image: { ...images.treatmentRoom, alt: "Treatment room at Diamond Dental Group with the dental chair and a wall-mounted monitor" },
+        caption: "A treatment room at Diamond Dental Group. A root canal is done here under local anesthetic, the same kind used for a filling.",
+        steps: true,
+      },
+      { heading: "When is pain after a root canal not normal?", cta: "If a tooth has been aching, a quick exam and an X-ray will tell you whether it needs a root canal." },
+      {
+        heading: "Would it be easier to just pull the tooth?",
+        image: { ...images.drNikpour, alt: "Dr. Akram Nikpour, DDS, in a white coat, the dentist who wrote this article" },
+        caption: "Dr. Akram Nikpour, DDS, tells patients plainly whether a tooth can be saved or is better removed.",
+      },
+    ],
     body: [
       {
         style: "p",
@@ -326,6 +355,7 @@ export const fallbackPosts: Post[] = [
     date: "2026-09-01",
     dateLabel: "September 1, 2026",
     excerpt: "Dental anxiety is common and usually has a specific cause. Practical steps that help, what to tell your dental team, and the sedation options worth asking about.",
+    category: "General & Preventive",
     image: images.blogCalmTreatmentRoom,
     body: [
       {
@@ -544,6 +574,7 @@ export const fallbackPosts: Post[] = [
     date: "2026-08-30",
     dateLabel: "August 30, 2026",
     excerpt: "Healthy gums do not bleed. Bleeding when brushing is a sign of inflammation. Here is what causes it, when it is reversible, and when to see a dentist.",
+    category: "General & Preventive",
     image: images.blogBleedingGums,
     body: [
       {
@@ -749,6 +780,7 @@ export const fallbackPosts: Post[] = [
     date: "2026-08-28",
     dateLabel: "August 28, 2026",
     excerpt: "Sudden tooth sensitivity to hot, cold or sweet usually means the inner layer of your tooth is exposed. Here are the common causes and when to see a dentist.",
+    category: "General & Preventive",
     image: images.blogToothSensitivity,
     body: [
       {
@@ -942,6 +974,7 @@ export const fallbackPosts: Post[] = [
     date: "2026-08-26",
     dateLabel: "August 26, 2026",
     excerpt: "The complete dental implant timeline — from consultation through bone grafting, placement, healing and the final crown, with realistic timeframes for each stage.",
+    category: "Implants & Restorative",
     image: images.blogImplantTimeline,
     body: [
       {
@@ -1151,6 +1184,7 @@ export const fallbackPosts: Post[] = [
     date: "2026-08-24",
     dateLabel: "August 24, 2026",
     excerpt: "An honest look at whether porcelain veneers damage your teeth, how much enamel is removed, and the less invasive alternatives worth considering first.",
+    category: "Cosmetic",
     image: images.blogVeneersSmile,
     body: [
       {
@@ -1325,6 +1359,7 @@ export const fallbackPosts: Post[] = [
     date: "2026-08-22",
     dateLabel: "August 22, 2026",
     excerpt: "How much pain is normal after dental implant surgery, the recovery timeline day by day, and the warning signs that mean you should call your dentist.",
+    category: "Implants & Restorative",
     image: images.blogImplantRecovery,
     body: [
       {
@@ -1517,6 +1552,7 @@ export const fallbackPosts: Post[] = [
     date: "2026-08-20",
     dateLabel: "August 20, 2026",
     excerpt: "A day-by-day food guide for the two weeks after dental implant surgery — what to eat, what to avoid, and when you can eat normally again.",
+    category: "Implants & Restorative",
     image: images.blogSoftFoods,
     body: [
       {

@@ -266,6 +266,7 @@ export const post = defineType({
     txt("excerpt", "Card text"),
     img("image", "Photo"),
     list("body", "Article", "richBlock"),
+    list("sections", "Section extras (photo, numbered steps, call to action line)", "postSection"),
     group("cta", "Call to action box", [str("heading", "Heading (optional)"), txt("text", "Text", "[words](/contact/) makes a link."), str("buttonLabel"), str("buttonHref", "Button link")]),
     txt("disclaimer"),
     seoField,
