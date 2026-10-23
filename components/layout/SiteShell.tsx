@@ -9,6 +9,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/layout/ChatWidget";
 import { Analytics } from "@/components/layout/Analytics";
+import { ReviewBar } from "@/components/layout/ReviewBar";
 import { HydrationSignal } from "@/components/layout/HydrationSignal";
 
 /** Header, footer and site-wide behaviors. Used by the site layout and the 404 page. */
@@ -41,6 +42,7 @@ export async function SiteShell({ children }: { children: ReactNode }) {
       <ChatWidget />
       <HydrationSignal />
       <Analytics />
+      <ReviewBar />
       <script dangerouslySetInnerHTML={{ __html: revealScript }} />
     </>
   );
