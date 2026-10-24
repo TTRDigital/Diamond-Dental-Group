@@ -337,7 +337,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "**Can I eat after a root canal?** Wait until the numbness wears off so you do not bite your cheek or tongue, then eat soft foods on the other side. Avoid chewing hard things on the treated tooth until the permanent crown or filling is in.",
+        text: "**Can I eat after a root canal?** Wait until the numbness wears off so you do not bite your cheek or tongue, then eat soft foods on the other side. Avoid chewing on the treated tooth at all until the permanent crown or filling is in.",
       },
       {
         style: "p",
