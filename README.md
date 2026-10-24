@@ -14,7 +14,7 @@ Next.js 16 (App Router) + Sanity Studio embedded at `/cms`, Tailwind CSS v4, ser
 | `/about/`, `/patient-care/`, `/contact/`, `/privacy-policy/`, `/thank-you/` (noindex) | singletons |
 | `/services/` | **new** services hub (the live site linked here but had no page) |
 | `/services/<slug>/` | 18 service pages, one template (`app/(site)/services/[slug]`) |
-| `/blog/` + `/blog/<slug>/` | Patient Education + 7 articles |
+| `/blog/` + `/blog/<slug>/` | Patient Education + 9 articles (the two dated Oct 23, 2026 are Dr. Nikpour's drafts, staged for Kia and the client) |
 | `/cms` | Sanity Studio |
 
 All dynamic routes use `generateStaticParams` with `dynamicParams = false`. Unknown URLs get the 404 page **with a 404 status** (the live site answered 200).
@@ -36,6 +36,7 @@ All dynamic routes use `generateStaticParams` with `dynamicParams = false`. Unkn
 - Photos are served from this site (WebP, resized) instead of `vibe.filesafe.space`, with metadata removed (the treatment-room photo carried GPS coordinates) and descriptive alt text.
 - The menu never wraps: the full menu shows from 1312px, below that the phone menu; a size check also switches to the phone menu if a visitor's system font is wider.
 - `/thank-you/` is noindex.
+- Blog posts carry an author (byline under the title, default Dr. Akram Nikpour, DDS, linked to the About page, with an author box at the end in the About page's own words), a category and the service page they support (a Related box). The post schema is `BlogPosting` with the author as a `Person` and the practice's `Dentist` entity as the publisher. All three are fields on the post in `/cms`.
 
 ## Setup
 
@@ -45,7 +46,7 @@ All dynamic routes use `generateStaticParams` with `dynamicParams = false`. Unkn
 4. **Load the content into Sanity (once), all in the browser:**
    1. sanity.io/manage > project > API > Tokens > Add API token, permission **Editor**.
    2. GitHub: Settings > Secrets and variables > Actions > New repository secret, name `SANITY_WRITE_TOKEN`.
-   3. Actions > "Load content into Sanity" > Run workflow, mode **add-missing**. It uploads 11 photos and writes 37 documents. **overwrite** replaces the CMS with the built-in content; **dry-run** checks without writing. The **only** box limits a run to documents whose ID starts with the given text, e.g. `homePage,service-invisalign`.
+   3. Actions > "Load content into Sanity" > Run workflow, mode **add-missing**. It uploads 11 photos and writes 39 documents. **overwrite** replaces the CMS with the built-in content; **dry-run** checks without writing. The **only** box limits a run to documents whose ID starts with the given text, e.g. `homePage,service-invisalign`.
    4. Delete or rotate the token afterwards.
 
    On a computer instead: put the token in `.env.local`, then `npm install && npm run seed` (`-- --force` to overwrite, `-- --dry-run` to check).

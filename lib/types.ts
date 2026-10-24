@@ -90,14 +90,29 @@ export type ServiceTemplate = {
   ctaButton: string;
 };
 
+/**
+ * Extras for one section of a post, matched to its heading (the H2 text, written exactly as in the article): a photo
+ * with a caption shown above the heading, its paragraphs drawn as numbered steps, or a one-line call to action band
+ * shown right above it. The article text itself never changes; these only dress it.
+ */
+export type PostSection = { heading: string; image?: Img; caption?: string; steps?: boolean; cta?: string };
+
 export type Post = {
   slug: string;
   title: string;
   date: string;
   dateLabel: string;
+  /** Who wrote it, as shown in the byline. Empty means the practice's dentist, Dr. Akram Nikpour (lib/author.ts). */
+  author?: string;
+  /** Topic shown next to the date, e.g. "Implants & Restorative". */
+  category?: string;
+  /** Path of the page the post supports, e.g. /services/dental-implants/ (shown as the Related box). */
+  service?: string;
   excerpt: string;
   image: Img;
   body: RichBlock[];
+  /** Section photos, step timelines and the mid-article call to action (optional, see PostSection). */
+  sections?: PostSection[];
   cta: { heading?: string; text: string; buttonLabel: string; buttonHref: string };
   disclaimer: string;
   seo: Seo;

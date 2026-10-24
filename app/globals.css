@@ -213,6 +213,132 @@ details.faq[open] > summary svg {
   transform: rotate(180deg);
 }
 
+/* ==========================================================================
+   Blog (Patient Education): hero text rise, reading progress line, article
+   lists and steps, topic chips. Everything stays visible without JavaScript
+   and with reduced motion.
+   ========================================================================== */
+@keyframes blog-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.blog-rise {
+  animation: blog-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.blog-rise-2 {
+  animation-delay: 0.08s;
+}
+.blog-rise-3 {
+  animation-delay: 0.16s;
+}
+
+/* Thin gold line at the very top of a post, added and scaled (0 to 1) by the post page's small script while reading. */
+.blog-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 60;
+  background: var(--color-secondary);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+/* Lists in the article: gold dots, and numbered lists with a gold number in a black circle. */
+.blog-ul {
+  list-style: none;
+  padding-left: 0;
+}
+.blog-ul > li {
+  position: relative;
+  padding-left: 1.75rem;
+}
+.blog-ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.7em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--color-secondary);
+}
+.blog-ol {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: blog-item;
+}
+.blog-ol > li {
+  position: relative;
+  padding-left: 2.75rem;
+  counter-increment: blog-item;
+}
+.blog-ol > li::before {
+  content: counter(blog-item);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 9999px;
+  background: #000;
+  color: var(--color-secondary);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Topic chips on the blog index. The filter is CSS only: the page writes one :target rule per topic. */
+.blog-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  transition:
+    color 0.2s,
+    background-color 0.2s,
+    border-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.blog-chip:hover {
+  border-color: var(--color-secondary);
+  color: #000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.06);
+}
+.blog-chip[data-on] {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: #000;
+}
+
+/* With reduced motion, nothing waits to be revealed. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal-ready] [data-reveal]:not([data-in]) {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
 /* Google Maps iframe in the band above the footer. */
 .map-frame iframe {
   width: 100%;

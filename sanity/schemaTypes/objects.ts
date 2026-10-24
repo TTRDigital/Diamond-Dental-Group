@@ -118,6 +118,21 @@ export const richBlock = defineType({
   },
 });
 
+/** Extras for one section of a blog post, matched to its heading: a photo with a caption, numbered steps, a call to action line. */
+export const postSection = defineType({
+  name: "postSection",
+  title: "Section extras",
+  type: "object",
+  fields: [
+    str("heading", "Heading", "The article heading this belongs to, written exactly as in the article."),
+    img("image", "Photo", "Shown above the heading with the caption under it. The practice's own photos only, never stock or AI-made pictures."),
+    str("caption", "Caption", "One plain sentence about the photo."),
+    defineField({ name: "steps", title: "Show this section's paragraphs as numbered steps", type: "boolean", initialValue: false }),
+    txt("cta", "Call to action line", "One sentence shown in a dark band with the Book button and the phone number, right above this heading."),
+  ],
+  preview: { select: { title: "heading", subtitle: "caption", media: "image" } },
+});
+
 export const dayHours = defineType({
   name: "dayHours",
   title: "Day",
@@ -131,4 +146,4 @@ export const dayHours = defineType({
   preview: { select: { title: "day", subtitle: "value" } },
 });
 
-export const objectTypes = [seo, altImage, link, feature, iconFeature, serviceCard, offer, faqItem, richBlock, dayHours];
+export const objectTypes = [seo, altImage, link, feature, iconFeature, serviceCard, offer, faqItem, richBlock, postSection, dayHours];
