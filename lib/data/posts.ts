@@ -248,7 +248,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "A very inflamed tooth, especially a lower molar, can be harder to numb than a healthy one, because an inflamed nerve is on high alert and responds less to anesthetic than a healthy one. In a review of root canal studies, more than half of patients needed an extra injection ([Pak and White, 2011](https://pubmed.ncbi.nlm.nih.gov/21419285/)). Dentists know this and plan for it. We may give the anesthetic more time to work, use a different anesthetic, or add a second injection right beside the tooth. If numbing has ever failed to take for you, tell us when you book and we will plan for extra from the start.",
+        text: "A very inflamed tooth, especially a lower molar, can be harder to numb than a healthy one, because an inflamed nerve is on high alert and responds less to anesthetic than a healthy one. Dentists know this and plan for it. We may give the anesthetic more time to work, use a different anesthetic, or add a second injection right beside the tooth. If numbing has ever failed to take for you, tell us when you book and we will plan for extra from the start.",
       },
       {
         style: "h2",
