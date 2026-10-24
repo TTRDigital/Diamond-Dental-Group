@@ -32,7 +32,7 @@ export const fallbackPosts: Post[] = [
     body: [
       {
         style: "p",
-        text: "For many healthy adults missing one tooth with sound teeth on either side, a dental implant is often the better long-term choice, mainly because it leaves the neighboring teeth alone. A bridge is the better fit when the neighboring teeth already need crowns, when surgery is off the table, or when the gap needs closing in weeks rather than months.",
+        text: "Dental implant vs bridge: for many healthy adults missing one tooth with sound teeth on either side, an implant is often the better long-term choice, mainly because it leaves the neighboring teeth alone. A bridge is the better fit when the neighboring teeth already need crowns, when surgery is off the table, or when the gap needs closing in weeks rather than months.",
       },
       {
         style: "p",
@@ -170,7 +170,7 @@ export const fallbackPosts: Post[] = [
     ],
     cta: {
       heading: "Ready to talk it through?",
-      text: "If you are missing a tooth in Roseville, Rocklin, Citrus Heights or anywhere around Sacramento, come in and let us look. At Diamond Dental Group I examine the gap, take a 3D scan, and show you how an implant and a bridge would each work in your mouth, with the trade-offs in plain words. [Book a consultation or call (916) 755-4769](/contact/) and we will find a time that works for you.",
+      text: "If you are missing a tooth in Roseville or anywhere in the greater Sacramento area, come in and let us look. At Diamond Dental Group I examine the gap, take a 3D scan, and show you how an implant and a bridge would each work in your mouth, with the trade-offs in plain words. [Book a consultation or call (916) 755-4769](/contact/) and we will find a time that works for you.",
       buttonLabel: "Book a Consultation",
       buttonHref: "/contact/",
     },
@@ -208,7 +208,7 @@ export const fallbackPosts: Post[] = [
     body: [
       {
         style: "p",
-        text: "For most people, a modern root canal feels much like having a filling. Once the tooth is numb, what you feel during the visit is mostly pressure and vibration, not pain, and if you feel anything sharp, we add more anesthetic. The pain people associate with root canals is the toothache that comes before treatment, and the treatment is what makes it stop.",
+        text: "Does a root canal hurt? For most people, a modern one feels much like having a filling. Once the tooth is numb, what you feel during the visit is mostly pressure and vibration, not pain, and if you feel anything sharp, we add more anesthetic. The pain people associate with root canals is the toothache that comes before treatment, and the treatment is what makes it stop.",
       },
       {
         style: "p",
