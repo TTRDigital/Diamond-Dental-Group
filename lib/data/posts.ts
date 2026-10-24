@@ -208,7 +208,7 @@ export const fallbackPosts: Post[] = [
     body: [
       {
         style: "p",
-        text: "Does a root canal hurt? For most people, a modern one feels much like having a filling. Once the tooth is numb, what you feel during the visit is mostly pressure and vibration, not pain, and if you feel anything sharp, we add more anesthetic. The pain people associate with root canals is the toothache that comes before treatment, and the treatment is what makes it stop.",
+        text: "Does a root canal hurt? For most people, a modern one feels much like having a filling. Once the tooth is numb, what you feel during the visit is mostly pressure and vibration, not pain, and if you feel anything sharp, we add more anesthetic. The pain people associate with root canals is the toothache that comes before treatment, and the treatment is what relieves it.",
       },
       {
         style: "p",
@@ -236,7 +236,7 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Cleaning and shaping. A small opening is made in the top of the tooth, and the inflamed or infected pulp is removed from the canals inside the root with fine instruments. You will feel pressure and some vibration. If the tooth was abscessed, relief can start soon after, as the pressure is released.",
+        text: "Cleaning and shaping. A small opening is made in the top of the tooth, and the inflamed or infected pulp is removed from the canals inside the root with fine instruments. You may feel pressure and some vibration, but you should not feel sharp pain. If the tooth was abscessed, relief can start soon after, as the pressure is released.",
       },
       {
         style: "p",
