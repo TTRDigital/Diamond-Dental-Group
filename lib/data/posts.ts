@@ -32,7 +32,7 @@ export const fallbackPosts: Post[] = [
     body: [
       {
         style: "p",
-        text: "For many healthy adults missing one tooth with sound teeth on either side, a dental implant is often the better long-term choice, mainly because it leaves the neighboring teeth alone and does not depend on them. It also helps protect the bone around it, and many implants last for decades with good care. A bridge is the better fit when the neighboring teeth already need crowns, when surgery is off the table, or when the gap needs closing in weeks rather than months.",
+        text: "For many healthy adults missing one tooth with sound teeth on either side, a dental implant is often the better long-term choice, mainly because it leaves the neighboring teeth alone. A bridge is the better fit when the neighboring teeth already need crowns, when surgery is off the table, or when the gap needs closing in weeks rather than months.",
       },
       {
         style: "p",
@@ -60,11 +60,19 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Over the first 10 years, the two do about the same. A review that compared them using the same methods found about 89 in 100 traditional bridges and about 89 in 100 single crowns on implants still in place after 10 years ([Pjetursson and colleagues, 2007](https://pubmed.ncbi.nlm.nih.gov/17594374/)). The implant post under the crown does a little better: a 2019 review of 18 studies found about 93 to 96 in 100 still in place after 10 years, a little lower in people 65 and older ([Howe and colleagues, 2019](https://pubmed.ncbi.nlm.nih.gov/30904559/)). Repairs are common with both: implant crowns more often need fixes such as a loose screw or chipped porcelain, while bridges more often run into decay or an anchor tooth needing a root canal ([Pjetursson and colleagues, 2007](https://pubmed.ncbi.nlm.nih.gov/17594374/)).",
+        text: "Over the first 10 years, the two do about the same. A review that compared them using the same methods found about 89 in 100 traditional bridges and about 89 in 100 single crowns on implants still in place after 10 years ([Pjetursson and colleagues, 2007](https://pubmed.ncbi.nlm.nih.gov/17594374/)). The implant post under the crown does a little better: a 2019 review of 18 studies found about 93 to 96 in 100 still in place after 10 years, a little lower in people 65 and older ([Howe and colleagues, 2019](https://pubmed.ncbi.nlm.nih.gov/30904559/)).",
       },
       {
         style: "p",
-        text: "Over the longer run, both need upkeep. The implant post itself often stays in place for many years, though none can be guaranteed, while the crown on top can chip, loosen or wear and may need replacing, much as a bridge does. Cleveland Clinic puts the average life of a bridge at about 5 to 15 years, and some last longer with good care ([Cleveland Clinic](https://my.clevelandclinic.org/health/treatments/10921-dental-bridges)). When a bridge fails, it is rarely the false tooth. More often the bridge comes loose, decay starts under an anchor crown, or an anchor tooth needs a root canal or cracks ([Tan and colleagues, 2004](https://pubmed.ncbi.nlm.nih.gov/15533126/)). Because the pieces are joined, a problem with one anchor usually means replacing the whole bridge.",
+        text: "Repairs are common with both: implant crowns more often need fixes such as a loose screw or chipped porcelain, while bridges more often run into decay or an anchor tooth needing a root canal ([Pjetursson and colleagues, 2007](https://pubmed.ncbi.nlm.nih.gov/17594374/)).",
+      },
+      {
+        style: "p",
+        text: "Over the longer run, both need upkeep. The implant post itself often stays in place for many years, though none can be guaranteed, while the crown on top can chip, loosen or wear and may need replacing, much as a bridge does. Cleveland Clinic puts the average life of a bridge at about 5 to 15 years, and some last longer with good care ([Cleveland Clinic](https://my.clevelandclinic.org/health/treatments/10921-dental-bridges)).",
+      },
+      {
+        style: "p",
+        text: "When a bridge fails, it is rarely the false tooth. More often the bridge comes loose, decay starts under an anchor crown, or an anchor tooth needs a root canal or cracks ([Tan and colleagues, 2004](https://pubmed.ncbi.nlm.nih.gov/15533126/)). Because the pieces are joined, a problem with one anchor usually means replacing the whole bridge.",
       },
       {
         style: "h2",
@@ -248,7 +256,11 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Expect the tooth to be tender for a few days, especially when you bite on it. The tissue around the root was inflamed before treatment and needs time to settle. Most people manage with over-the-counter pain relievers such as ibuprofen or acetaminophen, if they are safe for you and taken as directed on the label, and most feel much better within about a week ([Pak and White, 2011](https://pubmed.ncbi.nlm.nih.gov/21419285/)). It is a dull, bruised sort of ache, not the throbbing toothache you came in with. Until the permanent crown or filling is in place, chew on the other side, because the tooth is more fragile than it feels. Getting that crown or filling done soon matters, because a temporary filling can leak.",
+        text: "Expect the tooth to be tender for a few days, especially when you bite on it. The tissue around the root was inflamed before treatment and needs time to settle. Most people manage with over-the-counter pain relievers such as ibuprofen or acetaminophen, if they are safe for you and taken as directed on the label, and most feel much better within about a week ([Pak and White, 2011](https://pubmed.ncbi.nlm.nih.gov/21419285/)).",
+      },
+      {
+        style: "p",
+        text: "It is a dull, bruised sort of ache, not the throbbing toothache you came in with. Until the permanent crown or filling is in place, chew on the other side, because the tooth is more fragile than it feels. Getting that crown or filling done soon matters, because a temporary filling can leak.",
       },
       {
         style: "h2",
@@ -289,7 +301,11 @@ export const fallbackPosts: Post[] = [
       },
       {
         style: "p",
-        text: "Removing a tooth sounds simpler, and sometimes it is the right call, for example when a tooth is cracked below the gum or too broken to rebuild. But pulling a tooth that could be saved trades one procedure for two or three, because the gap is usually best filled with an implant or a bridge, and if it is left open, nearby teeth can drift and your bite can change. Whenever a tooth can be saved, saving it is the preferred option, and a treated tooth with a good restoration can often last a lifetime. We will tell you plainly which group your tooth is in. Our [tooth extractions](/services/extractions/) page covers what happens when removal is the better path.",
+        text: "Removing a tooth sounds simpler, and sometimes it is the right call, for example when a tooth is cracked below the gum or too broken to rebuild. But pulling a tooth that could be saved trades one procedure for two or three, because the gap is usually best filled with an implant or a bridge, and if it is left open, nearby teeth can drift and your bite can change.",
+      },
+      {
+        style: "p",
+        text: "Whenever a tooth can be saved, saving it is the preferred option, and a treated tooth with a good restoration can often last a lifetime. We will tell you plainly which group your tooth is in. Our [tooth extractions](/services/extractions/) page covers what happens when removal is the better path.",
       },
       {
         style: "h2",
