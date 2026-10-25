@@ -52,19 +52,48 @@ export function faqPageSchema(items: Faq[]) {
   };
 }
 
-/** Blog post Article, the same shape as the live posts' schema. */
-export function articleSchema(p: { title: string; description: string; date: string; image: string; path: string; publisher: string; logo: string }) {
-  const org = { "@type": "Organization", name: p.publisher };
+/**
+ * Blog post (BlogPosting). The author is a Person linked to the About page ("Dr." and the credential go in the
+ * honorific fields, so name holds only the name); the publisher is the practice's Dentist entity by its site-wide @id.
+ */
+export function articleSchema(p: {
+  title: string;
+  description: string;
+  date: string;
+  image: string;
+  path: string;
+  author: { name: string; credential?: string; jobTitle?: string; url?: string; image?: string };
+  publisher: string;
+  wordCount?: number;
+  /** Reading time in minutes (timeRequired, ISO 8601: PT7M). */
+  minutes?: number;
+  /** The post's topic (articleSection). */
+  section?: string;
+}) {
+  const a = p.author;
+  const dr = /^Dr\.?\s+/.test(a.name);
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: p.title,
     description: p.description,
     image: [abs(p.image)],
     datePublished: p.date,
     dateModified: p.date,
-    author: org,
-    publisher: { ...org, logo: { "@type": "ImageObject", url: abs(p.logo) } },
+    ...(p.wordCount ? { wordCount: p.wordCount } : {}),
+    ...(p.minutes ? { timeRequired: `PT${p.minutes}M` } : {}),
+    ...(p.section ? { articleSection: p.section } : {}),
+    inLanguage: "en-US",
+    author: {
+      "@type": "Person",
+      name: a.name.replace(/^Dr\.?\s+/, ""),
+      ...(dr ? { honorificPrefix: "Dr." } : {}),
+      ...(a.credential ? { honorificSuffix: a.credential } : {}),
+      ...(a.jobTitle ? { jobTitle: a.jobTitle } : {}),
+      ...(a.url ? { url: absoluteUrl(a.url) } : {}),
+      ...(a.image ? { image: abs(a.image) } : {}),
+    },
+    publisher: { "@type": "Dentist", "@id": `${siteUrl}/#dentist`, name: p.publisher },
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(p.path) },
   };
 }

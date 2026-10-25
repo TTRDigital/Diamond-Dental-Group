@@ -116,6 +116,7 @@ const ARRAY_TYPES: Record<string, string> = {
   trust: "trustItem",
   faqs: "faqItem",
   body: "richBlock",
+  sections: "postSection",
   others: "offer",
   steps: "feature",
 };
