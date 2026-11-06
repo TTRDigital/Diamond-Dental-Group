@@ -43,7 +43,10 @@
     var label = btn.textContent;
     btn.textContent = "Sending...";
     var fd = new FormData(form);
-    fd.set("page", location.pathname);
+    // On offer./implant. the page is served at "/" (and any other path), so name it by host for the lead's source label.
+    var path = location.pathname.replace(/\/$/, "");
+    if (path !== "/offer" && path !== "/implant") path = /^implant\./i.test(location.hostname) ? "/implant" : "/offer";
+    fd.set("page", path);
     fd.set("landing", location.href.split("#")[0]);
     fd.set("referrer", document.referrer || "");
     fetch(form.action, { method: "POST", body: fd })

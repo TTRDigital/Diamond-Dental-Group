@@ -4,9 +4,9 @@ Google Ads landing pages, apart from the SEO site (Kia: GoHighLevel is the CRM o
 offer.diamonddentalgroups.com ($49 new patient bundle) and implant.diamonddentalgroups.com (free implant consult + $500 off), in the
 main site's design.
 
-- Pages: `public/offer/index.html` -> `/offer`, `public/implant/index.html` -> `/implant`. `/` redirects to `/offer`. Static HTML, shared `public/assets/site.css` and `public/assets/lead.js`.
+- Pages: `public/offer/index.html` -> `/offer`, `public/implant/index.html` -> `/implant`. On offer.diamonddentalgroups.com every path except `/api/` and real files shows `/offer`, and on implant.diamonddentalgroups.com it shows `/implant` (rewrites in vercel.json, so `?gclid=` and old deep links keep working). On any other host `/` redirects to `/offer`. Static HTML, shared `public/assets/site.css` and `public/assets/lead.js`.
 - Form: `api/lead.js` (Vercel Function) sends each lead to GHL (`GHL_DIAMOND_WEBHOOK_URL`, an inbound webhook, set by a person in Vercel) and to TTR OS `/api/site/form` (public site key, `TTR_SITE_KEY` overrides). Honeypot field `website`.
-- Project: `diamond-ad-pages`, Root Directory `ad-landing-pages`, Framework Other, branch `claude/diamond-ad-pages`. No domain yet; add one (for example offer./implant. subdomains, DNS at GoDaddy) only on Kia's yes, then point the Google Ads final URLs at it.
+- Project: `diamond-ad-pages`, Root Directory `ad-landing-pages`, Framework Other, branch `claude/diamond-ad-pages`. Domains offer. and implant.diamonddentalgroups.com (DNS at GoDaddy, Kia's yes Nov 6 2026). Production branch `claude/diamond-ad-pages`.
 - noindex on every response (vercel.json header) and in each page.
 - Google Ads (account 927-809-7895, conversion ID AW-18248006682) runs through the old pages' Tag Manager container GTM-M664LDQG:
   - Submit lead form, label `QZYrCJeAm8IcEJr4qf1D`: fires on dataLayer event `lead`, pushed after a successful send.
