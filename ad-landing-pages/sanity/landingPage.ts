@@ -21,6 +21,7 @@ export const landingPage = defineType({
     s("title", "Browser / Google title"),
     t("description", "Meta description"),
     obj("seo", "Search engines", [defineField({ name: "noindex", title: "Hide from search engines (noindex)", type: "boolean", initialValue: true })]),
+    defineField({ name: "callTracking", title: "Swap the phone number for visitors from Google Ads (call tracking)", type: "boolean", initialValue: false, description: "Leave off until the tracking number is bought and added in TTR OS." }),
     s("headerCta", "Header button"),
     obj("hero", "Hero", [s("h1", "Headline"), s("eyebrow", "Small line above the offer"), s("big", "Big offer text"), s("sub", "Line under the offer"), s("cta", "Button"), s("note", "Note under the button"), defineField({ name: "noteCaps", title: "Note in capitals", type: "boolean" }), s("imageAlt", "Photo description")]),
     obj("offer", "Offer card", [s("h2", "Heading"), t("intro", "Intro"), s("badge", "Badge"), s("was", "Top line"), s("now", "Price / offer line"), s("save", "Savings line"), strs("checks", "What is included"), s("cta", "Button")]),

@@ -209,7 +209,7 @@ ${faq}<section class="urgency">
   </div>
 </dialog>
 <script src="/assets/lead.js" defer></script>
-</body>
+${c.callTracking === true ? '<script src="/number.js" defer></script>\n' : ""}</body>
 </html>
 `;
 }

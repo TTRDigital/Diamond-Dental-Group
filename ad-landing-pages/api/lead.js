@@ -1,7 +1,7 @@
 // Lead form of the Diamond Dental Google Ads pages (/offer and /implant). Sends each request to the GoHighLevel inbound
 // webhook (GHL_DIAMOND_WEBHOOK_URL in Vercel, set by a person, never in the page) and to TTR OS (the client's Leads page),
 // so a lead is never lost to one side being down. The visitor gets a thank-you when either side took it. Each call gives
-// up after 5 seconds. The TTR OS site key is public (it is in the main site's page source too); TTR_SITE_KEY overrides it.
+// up after 5 seconds. The free-text message goes to TTR OS only (never to GHL). The TTR OS site key is public (it is in the main site's page source too); TTR_SITE_KEY overrides it.
 const SITE_KEY = process.env.TTR_SITE_KEY || "jFPFfmHN6H1wH9hZT0Pbkg";
 const OS_URL = process.env.TTR_OS_URL || "https://ttr-portal.vercel.app";
 const FALLBACK_ORIGIN = "https://diamond-ad-pages.vercel.app";
@@ -37,11 +37,11 @@ export async function POST(req) {
   if (hook && /^https:\/\//.test(hook)) {
     tasks.push(fetch(hook, {
       method: "POST", headers: { "content-type": "application/json" }, signal: AbortSignal.timeout(5000),
-      body: JSON.stringify({ firstName, lastName, fullName: name, email, phone, visitDate, message, offer, source, consent: "yes", page: pageUrl }),
+      body: JSON.stringify({ firstName, lastName, fullName: name, email, phone, visitDate, offer, source, consent: "yes", page: pageUrl }),
     }).then((r) => r.ok).catch(() => false));
   }
 
-  const note = [offer && `Offer: ${offer}.`, `Visit date requested: ${visitDate}.`, message && `Message: ${message}`, source].filter(Boolean).join(" ");
+  const note = [offer && `Offer: ${offer}.`, `Visit date requested: ${visitDate}.`, "Consent box checked: agreed to receive communications from the practice.", message && `Message: ${message}`, source].filter(Boolean).join(" ");
   const os = new URLSearchParams({ k: SITE_KEY, p: `${path}/`, r: clean(form.get("referrer"), 500) || req.headers.get("referer") || "", u: pageUrl, f_name: name || email, f_phone: phone, f_email: email, f_message: note });
   tasks.push(fetch(`${OS_URL}/api/site/form`, {
     method: "POST", signal: AbortSignal.timeout(5000), body: os,
