@@ -21,8 +21,6 @@ const onVercel = !!process.env.VERCEL;
 
 const nextConfig: NextConfig = {
   output: onVercel ? undefined : "export",
-  // Tailwind's stylesheet is small (about 13 KB compressed): inline it so the first paint does not wait for a CSS request.
-  experimental: { inlineCss: true },
   // /about-us/ -> about-us/index.html, which Apache serves as is
   // (the live URLs had no slash; .htaccess sends /about to /about/).
   trailingSlash: true,
