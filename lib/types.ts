@@ -2,7 +2,14 @@
 
 export type Img = { src: string; alt: string; width: number; height: number };
 
-export type Seo = { title: string; description: string; noIndex?: boolean; image?: Img };
+export type Seo = {
+  title: string;
+  description: string;
+  noIndex?: boolean;
+  image?: Img;
+  /** JSON-LD text written by TTR OS's page fixer; when valid it replaces the page's generated structured data. */
+  schema?: string;
+};
 
 export type Link = { label: string; href: string };
 

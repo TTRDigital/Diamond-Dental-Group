@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getPrivacy, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
+import { seoSchemaNodes } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Inline } from "@/components/ui/RichText";
 
@@ -14,7 +16,9 @@ export default async function PrivacyPage() {
   const [p, s] = await Promise.all([getPrivacy(), getSiteSettings()]);
   return (
     <>
+      <PageSchema seo={p.seo} />
       <Breadcrumbs
+        jsonLd={!seoSchemaNodes(p.seo.schema)}
         items={[
           { name: "Home", path: "/" },
           { name: "Privacy Policy", path: "/privacy-policy/" },

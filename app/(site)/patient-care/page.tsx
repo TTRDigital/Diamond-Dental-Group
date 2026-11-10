@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { CircleCheck, ShieldCheck } from "lucide-react";
 import { getPatientCare, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
+import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { DarkHero } from "@/components/sections/DarkHero";
@@ -18,7 +20,9 @@ export default async function PatientCarePage() {
   const [p, s] = await Promise.all([getPatientCare(), getSiteSettings()]);
   return (
     <>
+      <PageSchema seo={p.seo} />
       <Breadcrumbs
+        jsonLd={!seoSchemaNodes(p.seo.schema)}
         items={[
           { name: "Home", path: "/" },
           { name: "Patient Care", path: "/patient-care/" },

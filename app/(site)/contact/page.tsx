@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Clock, MapPin, Phone } from "lucide-react";
 import { getContact, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
+import { seoSchemaNodes } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -13,7 +15,9 @@ export default async function ContactPage() {
   const [c, s] = await Promise.all([getContact(), getSiteSettings()]);
   return (
     <>
+      <PageSchema seo={c.seo} />
       <Breadcrumbs
+        jsonLd={!seoSchemaNodes(c.seo.schema)}
         items={[
           { name: "Home", path: "/" },
           { name: "Contact", path: "/contact/" },

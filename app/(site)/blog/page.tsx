@@ -5,6 +5,8 @@ import { Phone } from "lucide-react";
 import { getAbout, getBlogIndex, getPosts, getSiteSettings } from "@/lib/content";
 import { postAuthor } from "@/lib/author";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
+import { seoSchemaNodes } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { btnGold } from "@/components/ui/Buttons";
 import { PostCard } from "@/components/blog/PostCard";
@@ -39,7 +41,9 @@ export default async function BlogIndexPage() {
 
   return (
     <>
+      <PageSchema seo={b.seo} />
       <Breadcrumbs
+        jsonLd={!seoSchemaNodes(b.seo.schema)}
         items={[
           { name: "Home", path: "/" },
           { name: "Blog", path: "/blog/" },

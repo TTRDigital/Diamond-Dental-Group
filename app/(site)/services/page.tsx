@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
 import { getServices, getServicesHub, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
+import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { DarkHero } from "@/components/sections/DarkHero";
@@ -27,7 +29,9 @@ export default async function ServicesPage() {
 
   return (
     <>
+      <PageSchema seo={hub.seo} />
       <Breadcrumbs
+        jsonLd={!seoSchemaNodes(hub.seo.schema)}
         items={[
           { name: "Home", path: "/" },
           { name: "Services", path: "/services/" },

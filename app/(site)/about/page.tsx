@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { CircleCheck } from "lucide-react";
 import { getAbout, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
+import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Icon } from "@/components/ui/Icon";
@@ -18,7 +20,9 @@ export default async function AboutPage() {
   const [a, s] = await Promise.all([getAbout(), getSiteSettings()]);
   return (
     <>
+      <PageSchema seo={a.seo} />
       <Breadcrumbs
+        jsonLd={!seoSchemaNodes(a.seo.schema)}
         items={[
           { name: "Home", path: "/" },
           { name: "About", path: "/about/" },

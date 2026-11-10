@@ -97,3 +97,21 @@ export function articleSchema(p: {
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(p.path) },
   };
 }
+
+/**
+ * Structured data an editor or TTR OS stored on the page (seo.schema, JSON-LD text). Returns the objects to render,
+ * or null when the field is empty or not usable, so the page keeps its generated structured data. Only plain
+ * JSON objects that name a schema.org @type (or hold an @graph) are accepted.
+ */
+export function seoSchemaNodes(raw?: string): Record<string, unknown>[] | null {
+  if (!raw || !raw.trim()) return null;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return null;
+  }
+  const list = Array.isArray(parsed) ? parsed : [parsed];
+  const nodes = list.filter((n): n is Record<string, unknown> => typeof n === "object" && n !== null && !Array.isArray(n) && ("@type" in n || "@graph" in n));
+  return nodes.length && nodes.length === list.length ? nodes : null;
+}

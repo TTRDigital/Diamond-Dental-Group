@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
   // /about-us/ -> about-us/index.html, which Apache serves as is
   // (the live URLs had no slash; .htaccess sends /about to /about/).
   trailingSlash: true,
+  // app/api/preview/route.vercel.ts (signed draft preview) is a real server route: only the Vercel build includes it.
+  pageExtensions: onVercel ? ["tsx", "ts", "jsx", "js", "vercel.ts"] : ["tsx", "ts", "jsx", "js"],
   poweredByHeader: false,
   images: {
     loader: "custom",
