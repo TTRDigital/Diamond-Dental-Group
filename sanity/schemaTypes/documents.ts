@@ -8,6 +8,14 @@ import { group, img, paragraphs, str, strings, txt } from "./objects";
  */
 
 const seoField = defineField({ name: "seo", title: "SEO", type: "seo" });
+/** The page's address (/about/, /services/invisalign/), so TTR OS's page fixer can find the document. Set by scripts/set-paths.ts, read-only here. */
+const pathField = defineField({
+  name: "path",
+  title: "Page address",
+  type: "string",
+  readOnly: true,
+  description: "Filled in automatically (scripts/set-paths.ts). Used to find this page; to change the address edit the URL slug.",
+});
 const list = (name: string, title: string, type: string) => defineField({ name, title, type: "array", of: [defineArrayMember({ type })] });
 const slugField = defineField({
   name: "slug",
@@ -118,7 +126,7 @@ export const homePage = defineType({
     group("dentist", "Meet your dentist", [str("eyebrow"), str("heading"), txt("text"), str("link", "Link label"), img("image", "Photo")]),
     group("reviews", "Reviews section", [str("heading"), str("rating", "Rating shown", "e.g. 5.0. Starts with [PLACEHOLDER until confirmed (then hidden).")], "Reviews themselves are under Reviews; only approved ones are shown."),
     group("cta", "Bottom call to action", [str("heading"), str("text"), str("button")]),
-    seoField,
+    pathField, seoField,
   ],
   preview: { prepare: () => ({ title: "Home" }) },
 });
@@ -133,7 +141,7 @@ export const aboutPage = defineType({
     group("practice", "The practice", [str("heading"), txt("text"), list("items", "Cards", "feature")]),
     group("team", "The team", [str("heading"), txt("text"), list("items", "Cards", "iconFeature")]),
     group("cta", "Bottom call to action", [str("heading"), str("button")]),
-    seoField,
+    pathField, seoField,
   ],
   preview: { prepare: () => ({ title: "About" }) },
 });
@@ -150,7 +158,7 @@ export const patientCarePage = defineType({
     group("membership", "Membership plan", [str("heading"), txt("text"), str("priceLabel"), str("price"), str("per"), str("includesHeading"), strings("items"), str("button")]),
     group("payment", "Payment options", [str("heading"), txt("text")]),
     group("cta", "Bottom call to action", [str("heading"), str("button")]),
-    seoField,
+    pathField, seoField,
   ],
   preview: { prepare: () => ({ title: "Patient Care" }) },
 });
@@ -168,7 +176,7 @@ export const contactPage = defineType({
     str("directHeading", "Direct contact heading"),
     str("callLabel", "Line under the phone number"),
     str("hoursHeading", "Hours heading"),
-    seoField,
+    pathField, seoField,
   ],
   preview: { prepare: () => ({ title: "Contact" }) },
 });
@@ -177,7 +185,7 @@ export const blogPage = defineType({
   name: "blogPage",
   title: "Patient Education (blog)",
   type: "document",
-  fields: [str("eyebrow"), str("heading", "Heading (H1)"), txt("text"), str("readMore", "Card link label"), str("backLink", "Back link on posts"), group("cta", "Bottom call to action", [str("heading"), txt("text"), str("button")]), seoField],
+  fields: [str("eyebrow"), str("heading", "Heading (H1)"), txt("text"), str("readMore", "Card link label"), str("backLink", "Back link on posts"), group("cta", "Bottom call to action", [str("heading"), txt("text"), str("button")]), pathField, seoField],
   preview: { prepare: () => ({ title: "Patient Education" }) },
 });
 
@@ -202,7 +210,7 @@ export const servicesPage = defineType({
       str("ctaHeading"),
       str("ctaButton"),
     ]),
-    seoField,
+    pathField, seoField,
   ],
   preview: { prepare: () => ({ title: "Services hub" }) },
 });
@@ -211,7 +219,7 @@ export const privacyPage = defineType({
   name: "privacyPage",
   title: "Privacy policy",
   type: "document",
-  fields: [str("badge"), str("heading", "Heading (H1)"), str("updated", "Last updated line"), txt("intro"), list("body", "Body", "richBlock"), txt("contactIntro", "Line above the address box"), seoField],
+  fields: [str("badge"), str("heading", "Heading (H1)"), str("updated", "Last updated line"), txt("intro"), list("body", "Body", "richBlock"), txt("contactIntro", "Line above the address box"), pathField, seoField],
   preview: { prepare: () => ({ title: "Privacy policy" }) },
 });
 
@@ -219,7 +227,7 @@ export const thankYouPage = defineType({
   name: "thankYouPage",
   title: "Thank you",
   type: "document",
-  fields: [str("heading", "Heading (H1)"), txt("text"), str("callButton"), str("homeButton"), seoField],
+  fields: [str("heading", "Heading (H1)"), txt("text"), str("callButton"), str("homeButton"), pathField, seoField],
   preview: { prepare: () => ({ title: "Thank you" }) },
 });
 
@@ -242,7 +250,7 @@ export const service = defineType({
     strings("rightForYou", "Is this right for you? (points)"),
     defineField({ name: "faqs", title: "Common questions", type: "array", of: [defineArrayMember({ type: "faqItem" })] }),
     group("offer", "Grand opening offer (optional)", [str("amount"), str("title")]),
-    seoField,
+    pathField, seoField,
   ],
   orderings: [{ title: "Order", name: "order", by: [{ field: "order", direction: "asc" }] }],
   preview: { select: { title: "name", subtitle: "group", media: "heroImage" } },
@@ -269,7 +277,7 @@ export const post = defineType({
     list("sections", "Section extras (photo, numbered steps, call to action line)", "postSection"),
     group("cta", "Call to action box", [str("heading", "Heading (optional)"), txt("text", "Text", "[words](/contact/) makes a link."), str("buttonLabel"), str("buttonHref", "Button link")]),
     txt("disclaimer"),
-    seoField,
+    pathField, seoField,
   ],
   orderings: [{ title: "Newest first", name: "dateDesc", by: [{ field: "date", direction: "desc" }] }],
   preview: { select: { title: "title", subtitle: "dateLabel", media: "image" } },

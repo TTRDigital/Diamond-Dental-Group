@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ArrowRight, CircleCheck, Phone, ShieldCheck, Star } from "lucide-react";
 import { getHome, getSiteSettings, getTestimonials } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
 import { isPlaceholder } from "@/lib/placeholders";
 import { Icon, Stars } from "@/components/ui/Icon";
 import { CtaBand, SectionHeading, btnBase, btnGold } from "@/components/ui/Buttons";
@@ -21,6 +22,7 @@ export default async function HomePage() {
 
   return (
     <div className="bg-background font-sans">
+      <PageSchema seo={h.seo} />
       {/* Hero: storefront photo, the page's largest image, loaded first. */}
       <section className="relative pt-48 pb-24 md:pt-64 md:pb-32 lg:pt-72 lg:pb-40 flex items-center justify-center text-center px-4 overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">

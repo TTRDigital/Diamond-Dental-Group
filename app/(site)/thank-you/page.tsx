@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { CircleCheck, Phone } from "lucide-react";
 import { getSiteSettings, getThankYou } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
+import { PageSchema } from "@/components/ui/PageSchema";
+import { seoSchemaNodes } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { btnBase, btnGold } from "@/components/ui/Buttons";
 
@@ -15,7 +17,9 @@ export default async function ThankYouPage() {
   const [t, s] = await Promise.all([getThankYou(), getSiteSettings()]);
   return (
     <>
+      <PageSchema seo={t.seo} />
       <Breadcrumbs
+        jsonLd={!seoSchemaNodes(t.seo.schema)}
         items={[
           { name: "Home", path: "/" },
           { name: "Thank You", path: "/thank-you/" },

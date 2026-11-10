@@ -5,10 +5,11 @@ import { notFound } from "next/navigation";
 import { ChevronDown, CircleCheck, Phone, Star } from "lucide-react";
 import { getService, getServices, getServicesHub, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import { faqPageSchema } from "@/lib/schema";
+import { faqPageSchema, seoSchemaNodes } from "@/lib/schema";
 import { slugLabel } from "@/lib/text";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/ui/JsonLd";
+import { PageSchema } from "@/components/ui/PageSchema";
 import { btnBase, btnGold } from "@/components/ui/Buttons";
 
 export const dynamicParams = false;
@@ -29,11 +30,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   if (!sv) notFound();
   const t = hub.template;
   const path = `/services/${sv.slug}/`;
+  const ownSchema = !!seoSchemaNodes(sv.seo.schema);
 
   return (
     <>
       {/* Visible trail as on the live site; the schema uses the readable service name. */}
       <Breadcrumbs
+        jsonLd={!ownSchema}
         items={[
           { name: "Home", path: "/" },
           { name: "Services", path: "/services/" },
@@ -45,7 +48,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           { name: sv.name, path },
         ]}
       />
-      {sv.faqs.length ? <JsonLd data={faqPageSchema(sv.faqs)} /> : null}
+      <PageSchema seo={sv.seo} />
+      {!ownSchema && sv.faqs.length ? <JsonLd data={faqPageSchema(sv.faqs)} /> : null}
       <div className="bg-background font-sans pb-16">
         <section className="relative min-h-[80vh] flex items-center bg-black overflow-hidden">
           <div className="absolute inset-y-0 right-0 w-full lg:w-1/2 h-full z-0">

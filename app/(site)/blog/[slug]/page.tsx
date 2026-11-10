@@ -6,11 +6,12 @@ import { ArrowRight, Calendar, ChevronDown, Clock, ListChecks, Phone, Stethoscop
 import { getAbout, getBlogIndex, getPost, getPosts, getServices, getSiteSettings } from "@/lib/content";
 import { postAuthor } from "@/lib/author";
 import { pageMetadata } from "@/lib/seo";
-import { articleSchema, faqPageSchema } from "@/lib/schema";
+import { articleSchema, faqPageSchema, seoSchemaNodes } from "@/lib/schema";
 import { slugLabel, stripMarks } from "@/lib/text";
 import { articleModel, ctaBand, linkedServices, morePosts, photoFrame } from "@/lib/post-design";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/ui/JsonLd";
+import { PageSchema } from "@/components/ui/PageSchema";
 import { Inline } from "@/components/ui/RichText";
 import { btnBase, btnGold } from "@/components/ui/Buttons";
 import { ArticleBody, BODY_LINK, Blocks } from "@/components/blog/ArticleBody";
@@ -62,6 +63,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const [p, b, s, about, services, posts] = await Promise.all([getPost(slug), getBlogIndex(), getSiteSettings(), getAbout(), getServices(), getPosts()]);
   if (!p) notFound();
   const path = `/blog/${p.slug}/`;
+  const ownSchema = !!seoSchemaNodes(p.seo.schema);
   const author = postAuthor(p.author, about.dentist);
   const model = articleModel(p);
   const band = ctaBand(model.sections, p.cta.heading);
@@ -94,6 +96,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   return (
     <>
       <Breadcrumbs
+        jsonLd={!ownSchema}
         items={[
           { name: "Home", path: "/" },
           { name: "Blog", path: "/blog/" },
@@ -105,7 +108,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           { name: p.title, path },
         ]}
       />
-      <JsonLd
+      <PageSchema seo={p.seo} />
+      {ownSchema ? null : <JsonLd
         data={articleSchema({
           title: p.title,
           description: p.seo.description,
@@ -118,8 +122,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           minutes: model.minutes,
           section: p.category,
         })}
-      />
-      {model.faq?.items.length ? <JsonLd data={faqPageSchema(model.faq.items.map((f) => ({ question: f.question, answer: stripMarks(f.answer) })))} /> : null}
+      />}
+      {!ownSchema && model.faq?.items.length ? <JsonLd data={faqPageSchema(model.faq.items.map((f) => ({ question: f.question, answer: stripMarks(f.answer) })))} /> : null}
       <article className="bg-white" data-progress>
         {/* Hero: the site's dark band. Photo first on phones (edge to edge, fading into the text); text left and photo right on desktop. */}
         <header className="relative overflow-hidden bg-black text-white">

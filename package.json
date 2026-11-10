@@ -7,7 +7,8 @@
     "build": "node scripts/optimize-images.mjs && node -e \"require('fs').rmSync('.next/cache/fetch-cache',{recursive:true,force:true})\" && next build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "seed": "node --experimental-strip-types --no-warnings scripts/seed.ts"
+    "seed": "node --experimental-strip-types --no-warnings scripts/seed.ts",
+    "set-paths": "node --experimental-strip-types --no-warnings scripts/set-paths.ts"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",

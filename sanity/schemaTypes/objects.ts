@@ -26,6 +26,23 @@ export const seo = defineType({
     defineField({ name: "title", title: "SEO title", type: "string", description: "Shown in Google and the browser tab.", validation: (r) => r.max(90).warning("Long titles may be cut off in Google.") }),
     defineField({ name: "description", title: "Meta description", type: "text", rows: 3, description: "Aim for under 155 characters.", validation: (r) => r.max(170).warning("Long descriptions may be cut off in Google.") }),
     defineField({ name: "image", title: "Social share image", type: "altImage", description: "1200 x 630. Leave empty to use the page's main photo." }),
+    defineField({
+      name: "schema",
+      title: "Structured data (JSON-LD)",
+      type: "text",
+      rows: 8,
+      description: "Optional. JSON-LD for this page, written by TTR OS when the page's own structured data needs a fix. When set, it replaces the page's generated structured data (breadcrumbs, FAQ, article); the practice's business data stays. Leave empty to use the generated one.",
+      validation: (r) =>
+        r.custom((v) => {
+          if (!v) return true;
+          try {
+            JSON.parse(String(v));
+            return true;
+          } catch {
+            return "Must be valid JSON.";
+          }
+        }),
+    }),
     defineField({ name: "noIndex", title: "Hide from search engines", type: "boolean", initialValue: false }),
   ],
 });
