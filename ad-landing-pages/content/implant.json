@@ -1,0 +1,89 @@
+{
+ "slug": "implant",
+ "title": "FREE Implant Consultation + $500 OFF | Diamond Dental Group Roseville",
+ "description": "Book your FREE dental implant consultation at Diamond Dental Group in Roseville, CA, plus $500 OFF implant treatment. Same-week appointments. Call (916) 282-5377.",
+ "headerCta": "BOOK MY FREE CONSULTATION",
+ "hero": {
+  "image": "/images/storefront.jpg",
+  "imageAlt": "Diamond Dental Group office in Roseville",
+  "h1": "Restore Your Smile with Premium Dental Implants",
+  "eyebrow": "Exclusive New Patient Offer",
+  "big": "FREE Implant Consultation",
+  "sub": "+ $500 OFF Implant Treatment",
+  "cta": "Book My FREE Consultation",
+  "note": "No insurance? No problem! Limited time grand opening offer.",
+  "noteCaps": true
+ },
+ "offer": {
+  "h2": "Transform Your Smile with Premium Implants",
+  "intro": "Restore your confidence and your bite with our state-of-the-art dental implants. Start with a completely FREE implant consultation, and take advantage of our grand opening offer to get $500 OFF your implant treatment.",
+  "badge": "LIMITED TIME",
+  "was": "Exclusive New Patient Offer",
+  "wasPlain": true,
+  "now": "FREE Consultation",
+  "save": "+ $500 OFF Implant Treatment",
+  "checks": [
+   "Comprehensive implant consultation",
+   "3D Digital Imaging",
+   "Personalized treatment plan",
+   "Expert surgical placement",
+   "Natural-looking custom crown"
+  ],
+  "cta": "Book My FREE Consultation"
+ },
+ "extra": {
+  "h2": "Why Choose Dental Implants?",
+  "intro": "Dental implants are the gold standard for tooth replacement. They offer a permanent, natural-looking solution that restores your smile and your confidence.",
+  "layout": "six",
+  "cards": [
+   {
+    "icon": "smile",
+    "title": "Natural Look & Feel",
+    "text": "Designed to blend seamlessly with your natural teeth for a flawless smile."
+   },
+   {
+    "icon": "tooth",
+    "title": "Permanent Solution",
+    "text": "With proper care, dental implants can last a lifetime, unlike bridges or dentures."
+   },
+   {
+    "icon": "bone",
+    "title": "Preserves Bone Health",
+    "text": "Implants stimulate the jawbone, preventing the bone loss that occurs with missing teeth."
+   },
+   {
+    "icon": "chew",
+    "title": "Restores Chewing Power",
+    "text": "Eat your favorite foods without pain or hesitation."
+   },
+   {
+    "icon": "lock",
+    "title": "No Slipping",
+    "text": "Unlike dentures, implants are securely anchored so they won't slip or click."
+   },
+   {
+    "icon": "heart",
+    "title": "Protects Adjacent Teeth",
+    "text": "No need to alter healthy neighboring teeth, as required by traditional bridges."
+   }
+  ],
+  "button": {
+   "type": "claim",
+   "label": "Book My FREE Consultation + $500 OFF"
+  }
+ },
+ "membership": null,
+ "urgency": {
+  "h2": "Limited Spots Available: FREE Consultations Won't Last Long",
+  "text": "Book your FREE implant consultation today and lock in $500 OFF before this offer expires.",
+  "cta": "Book My FREE Consultation"
+ },
+ "mobileCta": "Book My FREE Consultation",
+ "faq": [],
+ "form": {
+  "title": "Claim Your FREE Consultation",
+  "intro": "Enter your details below to claim your FREE Implant Consultation + $500 OFF offer with Dr. Nikpour.",
+  "offerValue": "Free Implant Consultation + $500 Off",
+  "thanksText": "We got your request for a FREE implant consultation. Our team will call you shortly to confirm your visit."
+ }
+}

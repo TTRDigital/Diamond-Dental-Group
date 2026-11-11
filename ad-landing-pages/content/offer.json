@@ -1,0 +1,87 @@
+{
+ "slug": "offer",
+ "title": "$49 New Patient Dental Bundle | Diamond Dental Group Roseville",
+ "description": "New patients with no insurance: exam, digital X-rays, cleaning and oral cancer screening for $49 at Diamond Dental Group in Roseville, CA. Call (916) 282-5377.",
+ "headerCta": "CLAIM OFFER",
+ "hero": {
+  "image": "/images/treatment-room.jpg",
+  "imageAlt": "Treatment room at Diamond Dental Group in Roseville",
+  "h1": "Diamond Dental Brings The Best Dental Bundle",
+  "eyebrow": "",
+  "big": "Only $49",
+  "sub": "",
+  "cta": "Claim Offer",
+  "note": "New Patients with no insurance. This is a limited time grand opening offer.",
+  "noteCaps": false
+ },
+ "offer": {
+  "h2": "Everything You Need in One Visit",
+  "intro": "A complete dental checkup that typically costs over $325, now just $49 for new patients with no insurance. This is a limited time grand opening offer.",
+  "badge": "BEST VALUE",
+  "was": "Regular Value: $325+",
+  "wasPlain": false,
+  "now": "You Pay Just $49",
+  "save": "Save Over $276",
+  "checks": [
+   "Comprehensive dental exam",
+   "Digital X-rays",
+   "Cleaning",
+   "Oral cancer screening",
+   "Doctor consultation & personalized treatment plan"
+  ],
+  "cta": "Claim Offer"
+ },
+ "extra": {
+  "h2": "Ask Us About Our Other New Patient Offers",
+  "intro": "While you're here, take advantage of these limited time offers too. All offers are part of our Grand Opening promotion for new patients, limited time only.",
+  "layout": "three",
+  "cards": [
+   {
+    "deal": "$300 OFF",
+    "title": "Teeth Whitening"
+   },
+   {
+    "deal": "$400 OFF",
+    "title": "Invisalign"
+   },
+   {
+    "deal": "$500 OFF",
+    "title": "Implants"
+   }
+  ],
+  "button": {
+   "type": "call",
+   "tel": "+19167554769",
+   "label": "Call (916) 755-4769 to Book"
+  }
+ },
+ "membership": {
+  "heading": "Insurance / Membership",
+  "ppo": "All PPO Accepted",
+  "noInsurance": "No Insurance?",
+  "price": "Membership Plan Starts at $399/Year",
+  "label": "Plan Includes",
+  "items": [
+   "2 Periodic Exams",
+   "1 Emergency Exam",
+   "2 Dental Cleanings",
+   "2 Fluoride Treatments",
+   "2 Oral Cancer Screenings",
+   "1 Periodontal Screening",
+   "10%-20% Off all other Treatments"
+  ]
+ },
+ "urgency": {
+  "h2": "Limited Spots Available: This $49 Offer Won't Last Long",
+  "text": "Book your new patient exam today before this offer expires.",
+  "cta": "Claim Offer"
+ },
+ "mobileCta": "Claim Offer",
+ "faq": [],
+ "form": {
+  "title": "Claim Your $49 Offer",
+  "intro": "Enter your details below to secure your new patient exam with Dr. Nikpour.",
+  "offerValue": "$49 New Patient Bundle",
+  "thanksText": "We got your request for the $49 new patient exam. Our team will call you shortly to confirm your visit."
+ }
+}

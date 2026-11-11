@@ -1,0 +1,119 @@
+{
+ "gtm": "GTM-M664LDQG",
+ "topbar": {
+  "text": "1950 Douglas Blvd, Suite B1, Roseville, CA 95661",
+  "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Diamond+Dental+Group+1950+Douglas+Blvd+Suite+B1+Roseville+CA+95661"
+ },
+ "brand": "Diamond Dental Group",
+ "phone": {
+  "tel": "+19162825377",
+  "display": "(916) 282-5377"
+ },
+ "trust": [
+  {
+   "icon": "stars",
+   "text": "Hundreds of 5-Star Reviews"
+  },
+  {
+   "icon": "shield",
+   "text": "Implant & Cosmetic Experts"
+  },
+  {
+   "icon": "clock",
+   "text": "Same-Week Appointments"
+  },
+  {
+   "icon": "pin",
+   "text": "Roseville's Trusted Dentist"
+  }
+ ],
+ "trustLabel": "Why patients choose us",
+ "doctor": {
+  "image": "/images/dr-akram-nikpour.jpg",
+  "eyebrow": "Meet your dentist",
+  "name": "Dr. Akram Nikpour, DDS",
+  "bio": "Dr. Nikpour is a graduate of the University of Arizona and earned her Doctor of Dental Surgery degree from De La Salle dentistry school. A proud member of the American Dental Association, she blends advanced implant, cosmetic, and restorative dentistry with truly personalized, patient-first care, so you leave feeling healthier, more confident, and genuinely cared for.",
+  "quote": "\"Every patient deserves care that's precise, comfortable, and built around them. Education and gentle, advanced dentistry, that's what we're about.\"",
+  "checks": [
+   "Doctor of Dental Surgery (DDS)",
+   "University of Arizona graduate",
+   "Member, American Dental Association",
+   "Trusted Roseville implant & cosmetic provider"
+  ]
+ },
+ "office": {
+  "heading": "Your Dental Office For Life",
+  "addressHtml": "1950 Douglas Blvd, Suite B1<br>Roseville, CA 95661",
+  "hoursHeading": "Office Hours",
+  "hours": [
+   {
+    "day": 1,
+    "name": "Monday",
+    "open": "10:00",
+    "close": "19:00",
+    "text": "10:00 am – 7:00 pm"
+   },
+   {
+    "day": 2,
+    "name": "Tuesday",
+    "open": "10:00",
+    "close": "19:00",
+    "text": "10:00 am – 7:00 pm"
+   },
+   {
+    "day": 3,
+    "name": "Wednesday",
+    "open": "10:00",
+    "close": "19:00",
+    "text": "10:00 am – 7:00 pm"
+   },
+   {
+    "day": 4,
+    "name": "Thursday",
+    "open": "10:00",
+    "close": "19:00",
+    "text": "10:00 am – 7:00 pm"
+   },
+   {
+    "day": 5,
+    "name": "Friday",
+    "open": "08:30",
+    "close": "17:30",
+    "text": "8:30 am – 5:30 pm"
+   },
+   {
+    "day": 6,
+    "name": "Saturday",
+    "open": "",
+    "close": "",
+    "text": "Closed"
+   },
+   {
+    "day": 0,
+    "name": "Sunday",
+    "open": "",
+    "close": "",
+    "text": "Closed"
+   }
+  ]
+ },
+ "footer": {
+  "text": "Your Smile, Our Passion: providing expert, compassionate dental care to keep Roseville smiling brighter every day.",
+  "small": "© 2026 Diamond Dental Group. All rights reserved."
+ },
+ "form": {
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "email": "Email Address *",
+  "phone": "Phone Number *",
+  "visitDate": "Visit Date Request *",
+  "message": "Message",
+  "messagePlaceholder": "Any additional information...",
+  "consent": "I agree to receive communications from Diamond Dental Group. I understand I can opt out at any time. *",
+  "submit": "Submit",
+  "thanksTitle": "Thank you!"
+ },
+ "seo": {
+  "noindex": true
+ }
+}
