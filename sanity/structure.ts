@@ -31,4 +31,5 @@ export const structure: StructureResolver = (S) =>
       S.listItem().title("Services").icon(FileText).child(S.documentTypeList("service").title("Services").defaultOrdering([{ field: "order", direction: "asc" }])),
       S.listItem().title("Blog posts").icon(Newspaper).child(S.documentTypeList("post").title("Blog posts").defaultOrdering([{ field: "date", direction: "desc" }])),
       S.listItem().title("Reviews").icon(MessageSquareQuote).child(S.documentTypeList("testimonial").title("Reviews")),
+      S.listItem().title("Ad landing pages").icon(Layers).child(S.documentTypeList("landingPage").title("Ad landing pages (Google Ads)")),
     ]);
