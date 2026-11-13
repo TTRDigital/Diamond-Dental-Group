@@ -176,7 +176,7 @@ export const fallbackPosts: Post[] = [
     },
     disclaimer: "This article is general education and not personal dental advice. Only an in-person exam can determine the right option for you.",
     seo: {
-      title: "Dental Implant or Bridge? A Roseville Dentist Explains",
+      title: "Dental Implants or Bridge? A Roseville Dentist Explains",
       description: "Implant or bridge for one missing tooth? Dr. Nikpour in Roseville compares how long each lasts, what each does to your other teeth and bone, and how to choose.",
     },
   },
