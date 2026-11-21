@@ -20,8 +20,9 @@ async function draftsOn(): Promise<boolean> {
  * Fetch published content from Sanity's API CDN. In Draft Mode (Vercel only) it reads the draft version instead, from
  * the live API with SANITY_READ_TOKEN (server-side only, never sent to the browser), uncached.
  *
- * - Runs at build time only (static export): publishing in Sanity starts a
+ * - Static export (SiteGround): runs at build time only; publishing in Sanity starts a
  *   rebuild + upload (.github/workflows/deploy-siteground.yml).
+ * - Vercel: published reads are cached and tagged ("sanity", the document id, the type); /api/revalidate refreshes them.
  * - Never throws: returns null on any failure so pages fall back to
  *   lib/content.ts defaults and the site keeps working.
  */
@@ -44,7 +45,13 @@ export async function sanityFetch<T>(
   const url = `${host}/v${apiVersion}/data/query/${dataset}?${search}`;
 
   try {
-    const res = await fetch(url, drafts ? { cache: "no-store", headers: { Authorization: `Bearer ${token}` } } : { cache: "force-cache" });
+    const res = await fetch(
+      url,
+      drafts
+        ? { cache: "no-store", headers: { Authorization: `Bearer ${token}` } }
+        : // Tagged so /api/revalidate (Vercel) can refresh every page that shows a document after a publish.
+          { cache: "force-cache", next: { tags: ["sanity", ...tags] } },
+    );
     if (!res.ok) {
       console.warn(`[sanity] ${res.status} for query tags=${tags.join(",")}`);
       return null;
