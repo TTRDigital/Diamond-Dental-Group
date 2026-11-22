@@ -44,6 +44,10 @@ export const seo = defineType({
         }),
     }),
     defineField({ name: "noIndex", title: "Hide from search engines", type: "boolean", initialValue: false }),
+    // Written by TTR OS on the pages it saves (city pages); shown only when filled in.
+    defineField({ name: "canonical", title: "Canonical address (TTR OS)", type: "string", readOnly: true, hidden: ({ value }) => !value }),
+    defineField({ name: "publishedTime", title: "Published (TTR OS)", type: "string", readOnly: true, hidden: ({ value }) => !value }),
+    defineField({ name: "modifiedTime", title: "Updated (TTR OS)", type: "string", readOnly: true, hidden: ({ value }) => !value }),
   ],
 });
 

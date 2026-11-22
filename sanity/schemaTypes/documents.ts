@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { group, img, paragraphs, str, strings, txt } from "./objects";
 import { landingPage } from "./landingPage";
+import { cityPage } from "./cityPage";
 
 /*
  * Documents mirror the built-in content in lib/data (same field names), so
@@ -307,4 +308,4 @@ export const testimonial = defineType({
 
 export const singletonTypes = new Set(["siteSettings", "homePage", "aboutPage", "patientCarePage", "contactPage", "blogPage", "servicesPage", "privacyPage", "thankYouPage"]);
 
-export const documentTypes = [siteSettings, homePage, aboutPage, patientCarePage, contactPage, blogPage, servicesPage, privacyPage, thankYouPage, service, post, testimonial, landingPage];
+export const documentTypes = [siteSettings, homePage, aboutPage, patientCarePage, contactPage, blogPage, servicesPage, privacyPage, thankYouPage, service, post, testimonial, landingPage, cityPage];

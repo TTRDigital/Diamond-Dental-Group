@@ -7,7 +7,7 @@ import { apiVersion, dataset, projectId } from "@/sanity/env";
  * Draft Mode (the signed /api/preview link TTR OS and editors open) exists only in the Vercel build: a static export has
  * no requests to carry the cookie. Reading it here is safe for static pages: while prerendering it is simply off.
  */
-async function draftsOn(): Promise<boolean> {
+export async function draftsOn(): Promise<boolean> {
   if (!process.env.VERCEL) return false;
   try {
     return (await draftMode()).isEnabled;

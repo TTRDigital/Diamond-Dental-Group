@@ -146,3 +146,50 @@ export const getPosts = cache(async (): Promise<Post[]> =>
 );
 
 export const getPost = cache(async (slug: string) => (await getPosts()).find((p) => p.slug === slug));
+
+/* ---------- City pages (TTR OS) ---------- */
+
+/** A Portable Text block as TTR OS writes it, or a photo block (turned into an Img here). */
+export type PtBlock = { _type: string; _key?: string; style?: string; listItem?: string; level?: number; children?: { _type: string; text?: string; marks?: string[] }[]; markDefs?: { _key: string; _type: string; href?: string }[]; img?: { src: string; alt: string; width: number; height: number } };
+
+export type CityPage = {
+  slug: string;
+  path: string;
+  title: string;
+  author?: string;
+  image?: { src: string; alt: string; width: number; height: number };
+  /** Portable Text, kept as written (the keys and marks are needed to render it). */
+  body: PtBlock[];
+  seo: { title: string; description: string; noIndex?: boolean; schema?: string; publishedTime?: string; modifiedTime?: string };
+};
+
+const str = (v: unknown) => (typeof v === "string" ? v : "");
+
+function toCityPage(raw: Loose): CityPage | null {
+  const slug = str(isObj(raw.slug) ? raw.slug.current : raw.slug) || str(raw.path).replace(/^\/|\/$/g, "");
+  if (!slug) return null;
+  const seo = isObj(raw.seo) ? raw.seo : {};
+  const image = isObj(raw.mainImage) ? toImg(raw.mainImage) : null;
+  const body = (Array.isArray(raw.body) ? raw.body : []).filter(isObj).map((b) => (b._type === "image" ? { _type: "image", _key: str(b._key), img: toImg(b) ?? undefined } : b) as PtBlock);
+  return {
+    slug,
+    path: `/${slug}/`,
+    title: str(raw.title),
+    author: str(raw.author) || undefined,
+    image: image ?? undefined,
+    body,
+    seo: { title: str(seo.title) || str(raw.title), description: str(seo.description), noIndex: seo.noIndex === true, schema: str(seo.schema) || undefined, publishedTime: str(seo.publishedTime) || undefined, modifiedTime: str(seo.modifiedTime) || undefined },
+  };
+}
+
+/** Published city pages (sitemap, prerendered addresses). Never drafts. */
+export const getCityPages = cache(async (): Promise<CityPage[]> => {
+  const cms = await sanityFetch<Loose[]>(`*[_type == "cityPage" && !(_id in path("drafts.**"))]`, {}, ["cityPage"]);
+  return (cms ?? []).map(toCityPage).filter((p): p is CityPage => !!p);
+});
+
+/** One city page by its address (/<slug>/). In Draft Mode (signed preview link, Vercel only) this is the draft. */
+export const getCityPage = cache(async (slug: string): Promise<CityPage | null> => {
+  const raw = await sanityFetch<Loose>(`*[_type == "cityPage" && (slug.current == $slug || path == $path)][0]`, { slug, path: `/${slug}/` }, ["cityPage"]);
+  return isObj(raw) ? toCityPage(raw) : null;
+});

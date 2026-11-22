@@ -25,7 +25,9 @@ const nextConfig: NextConfig = {
   // (the live URLs had no slash; .htaccess sends /about to /about/).
   trailingSlash: true,
   // app/api/preview/route.vercel.ts (signed draft preview) is a real server route: only the Vercel build includes it.
-  pageExtensions: onVercel ? ["tsx", "ts", "jsx", "js", "vercel.ts"] : ["tsx", "ts", "jsx", "js"],
+  // So are the city pages (app/[slug]/page.vercel.tsx): TTR OS saves them as drafts, which only Vercel can show,
+  // and a static export cannot build a dynamic route before its first page is published.
+  pageExtensions: onVercel ? ["tsx", "ts", "jsx", "js", "vercel.ts", "vercel.tsx"] : ["tsx", "ts", "jsx", "js"],
   poweredByHeader: false,
   images: {
     loader: "custom",
