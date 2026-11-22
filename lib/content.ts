@@ -6,6 +6,7 @@ import { dataset, projectId } from "@/sanity/env";
 import { fallbackMenu, fallbackSettings, fallbackTestimonials, servicesMenu } from "@/lib/data/site";
 import { fallbackServices } from "@/lib/data/services";
 import { fallbackPosts } from "@/lib/data/posts";
+import { images } from "@/lib/data/images";
 import {
   fallbackAbout,
   fallbackBlogIndex,
@@ -16,7 +17,7 @@ import {
   fallbackServicesHub,
   fallbackThankYou,
 } from "@/lib/data/pages";
-import type { MenuGroup, MenuItem, Post, Service, SiteSettings, Testimonial } from "@/lib/types";
+import type { MenuGroup, MenuItem, Post, RichBlock, Service, SiteSettings, Testimonial } from "@/lib/types";
 
 /* ==========================================================================
    Content layer
@@ -60,14 +61,14 @@ async function singleton<T>(id: string, fallback: T): Promise<T> {
 }
 
 /** CMS documents merge over the matching built-in item (same slug); CMS-only documents are added. */
-async function collection<T extends { slug: string }>(type: string, fallback: T[], sort: (a: T, b: T) => number): Promise<T[]> {
+async function collection<T extends { slug: string }>(type: string, fallback: T[], sort: (a: T, b: T) => number, blank?: T): Promise<T[]> {
   const cms = await sanityFetch<Loose[]>(`*[_type == $type && defined(slug.current) && !(_id in path("drafts.**"))]`, { type }, [type]);
   if (!cms?.length) return fallback;
   const bySlug = new Map(fallback.map((f) => [f.slug, f]));
   const merged = cms.map((raw) => {
     const c = normalize(raw) as Partial<T>;
     const base = bySlug.get(c.slug ?? "");
-    return base ? merge(base, c) : (c as T);
+    return base ? merge(base, c) : blank ? merge(blank, c) : (c as T);
   });
   const missing = fallback.filter((f) => !merged.some((m) => m.slug === f.slug));
   return [...merged, ...missing].sort(sort);
@@ -112,6 +113,36 @@ export const getService = cache(async (slug: string) => (await getServices()).fi
 
 /* ---------- Blog ---------- */
 
-export const getPosts = cache(async (): Promise<Post[]> => collection("post", fallbackPosts, (a, b) => b.date.localeCompare(a.date)));
+/**
+ * What a CMS-only post falls back to field by field, so a bare draft (title, slug and one paragraph, as TTR OS's
+ * staging check saves) still renders in preview instead of crashing on a missing date, photo or call to action.
+ */
+const blankPost: Post = {
+  slug: "",
+  title: "",
+  date: "",
+  dateLabel: "",
+  excerpt: "",
+  image: images.storefront,
+  body: [],
+  cta: { text: "", buttonLabel: "Book a Consultation", buttonHref: "/contact/" },
+  disclaimer: "",
+  seo: { title: "", description: "" },
+};
+
+/** Article blocks written as Sanity Portable Text (style "normal", text in children) read as plain paragraphs. */
+function toRichBlock(b: RichBlock | { style?: string; children?: { text?: string }[] }): RichBlock {
+  if (b.style === "p" || b.style === "h2" || b.style === "ul" || b.style === "ol") return b as RichBlock;
+  const text = "children" in b && Array.isArray(b.children) ? b.children.map((c) => c?.text ?? "").join("") : "";
+  return { style: "p", text };
+}
+
+export const getPosts = cache(async (): Promise<Post[]> =>
+  (await collection("post", fallbackPosts, (a, b) => b.date.localeCompare(a.date), blankPost)).map((p) => ({
+    ...p,
+    body: (p.body ?? []).map(toRichBlock),
+    seo: { ...p.seo, title: p.seo.title || p.title },
+  })),
+);
 
 export const getPost = cache(async (slug: string) => (await getPosts()).find((p) => p.slug === slug));
