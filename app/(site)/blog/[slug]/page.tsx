@@ -17,7 +17,11 @@ import { btnBase, btnGold } from "@/components/ui/Buttons";
 import { ArticleBody, BODY_LINK, Blocks } from "@/components/blog/ArticleBody";
 import { PostCard } from "@/components/blog/PostCard";
 
-export const dynamicParams = false;
+/*
+ * No `dynamicParams = false`: on Vercel a post that was not prerendered (a new one, or a draft opened through the signed
+ * /api/preview link) renders on demand, and a slug with no post still gets notFound() below, so it stays a 404. The
+ * SiteGround static export only writes the slugs from generateStaticParams (and rejects an explicit `true`).
+ */
 
 export async function generateStaticParams() {
   return (await getPosts()).map((p) => ({ slug: p.slug }));
