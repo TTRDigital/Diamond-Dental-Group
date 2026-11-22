@@ -1,10 +1,10 @@
 import type { StructureResolver } from "sanity/structure";
-import { CircleCheck, Cog, FileText, Home, Info, Mail, MessageSquareQuote, Newspaper, Shield, Stethoscope, Wallet, Layers } from "lucide-react";
+import { CircleCheck, Cog, FileText, Home, Info, Mail, MapPin, MessageSquareQuote, Newspaper, Shield, Stethoscope, Wallet, Layers } from "lucide-react";
 
 const singleton = (S: Parameters<StructureResolver>[0], type: string, title: string, icon: React.ComponentType) =>
   S.listItem().title(title).id(type).icon(icon).child(S.document().schemaType(type).documentId(type).title(title));
 
-/** Sidebar: Settings, Pages, Services, Blog posts, Reviews. */
+/** Sidebar: Settings, Pages, Services, City pages, Blog posts, Reviews. */
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Diamond Dental Group")
@@ -29,6 +29,7 @@ export const structure: StructureResolver = (S) =>
         ),
       S.divider(),
       S.listItem().title("Services").icon(FileText).child(S.documentTypeList("service").title("Services").defaultOrdering([{ field: "order", direction: "asc" }])),
+      S.listItem().title("City pages").icon(MapPin).child(S.documentTypeList("cityPage").title("City pages")),
       S.listItem().title("Blog posts").icon(Newspaper).child(S.documentTypeList("post").title("Blog posts").defaultOrdering([{ field: "date", direction: "desc" }])),
       S.listItem().title("Reviews").icon(MessageSquareQuote).child(S.documentTypeList("testimonial").title("Reviews")),
       S.listItem().title("Ad landing pages").icon(Layers).child(S.documentTypeList("landingPage").title("Ad landing pages (Google Ads)")),

@@ -19,7 +19,7 @@ export const BODY_LINK = "font-medium text-black underline decoration-secondary 
 
 export const H2 = "mb-5 mt-12 scroll-mt-32 font-heading text-2xl font-bold leading-tight text-black before:mb-4 before:block before:h-1 before:w-10 before:rounded-full before:bg-secondary md:text-[1.75rem]";
 
-const P = "mb-6 text-[17px] leading-[1.75] text-gray-700 md:text-[18px]";
+export const P = "mb-6 text-[17px] leading-[1.75] text-gray-700 md:text-[18px]";
 
 export function Paragraph({ text }: { text: string }) {
   return (
