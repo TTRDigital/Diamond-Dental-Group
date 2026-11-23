@@ -176,7 +176,7 @@ export const fallbackPosts: Post[] = [
     },
     disclaimer: "This article is general education and not personal dental advice. Only an in-person exam can determine the right option for you.",
     seo: {
-      title: "Dental Implants or a Bridge? A Roseville Dentist Explains",
+      title: "Dental Implant or Bridge? A Roseville Dentist Explains",
       description: "Implant or bridge for one missing tooth? Dr. Nikpour in Roseville compares how long each lasts, what each does to your other teeth and bone, and how to choose.",
     },
   },
@@ -975,7 +975,7 @@ export const fallbackPosts: Post[] = [
     disclaimer:
       "This article is for general educational purposes and is not a substitute for professional dental advice, diagnosis, or treatment. Every patient is different. Please consult your dentist about your specific situation.",
     seo: {
-      title: "Sensitive Teeth Suddenly? Hot and Cold Causes and What Helps",
+      title: "Why Are My Teeth Suddenly Sensitive? Causes and What Helps",
       description: "Sudden tooth sensitivity to hot, cold or sweet usually means the inner layer of your tooth is exposed. Here are the common causes and when to see a dentist.",
     },
   },
@@ -1185,7 +1185,7 @@ export const fallbackPosts: Post[] = [
     },
     disclaimer: "This article is general education and not personal dental advice. Only an in-person assessment can determine your treatment plan and timeline.",
     seo: {
-      title: "How Long Does a Dental Implant Take? Full Timeline by Stage",
+      title: "How Long Do Dental Implants Take? Full Timeline by Stage",
       description: "The dental implant timeline from consultation through bone grafting, placement, healing and the final crown, with realistic timeframes for each stage.",
     },
   },
