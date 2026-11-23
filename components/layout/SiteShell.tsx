@@ -4,6 +4,7 @@ import { getSiteSettings } from "@/lib/content";
 import { projectId } from "@/sanity/env";
 import { businessSchema } from "@/lib/schema";
 import { revealScript } from "@/lib/reveal-script";
+import { lazyFramesScript } from "@/lib/lazy-frames-script";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -44,6 +45,7 @@ export async function SiteShell({ children }: { children: ReactNode }) {
       <Analytics />
       <ReviewBar />
       <script dangerouslySetInnerHTML={{ __html: revealScript }} />
+      <script dangerouslySetInnerHTML={{ __html: lazyFramesScript }} />
     </>
   );
 }
