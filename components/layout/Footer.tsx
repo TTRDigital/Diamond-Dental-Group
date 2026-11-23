@@ -16,17 +16,17 @@ const socialIcons = {
 
 /** Map strip, footer and the phone-only "Book Online" bar, as on the live site. */
 export function Footer({ settings: s }: { settings: SiteSettings }) {
+  const mapTitle = `Map of ${s.name}, ${s.street}, ${s.city}`;
+  const mapSrc = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${encodeURIComponent(s.mapQuery)}&t=&z=15&ie=UTF8&iwloc=B&output=embed`;
   return (
     <>
-      {/* Lazy map: the iframe loads only when it scrolls near the screen. */}
+      {/* Lazy map: the iframe loads only when it comes within 300 px of the screen (lib/lazy-frames-script.ts). */}
       <div className="w-full h-[350px] bg-gray-100 relative group border-t border-gray-200 map-frame">
         <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors pointer-events-none z-10" />
-        <iframe
-          title={`Map of ${s.name}, ${s.street}, ${s.city}`}
-          src={`https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${encodeURIComponent(s.mapQuery)}&t=&z=15&ie=UTF8&iwloc=B&output=embed`}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        <iframe title={mapTitle} data-src={mapSrc} data-load="near" loading="lazy" referrerPolicy="no-referrer-when-downgrade" suppressHydrationWarning />
+        <noscript>
+          <iframe title={mapTitle} src={mapSrc} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+        </noscript>
       </div>
       <footer className="bg-black text-white pt-16 pb-24 md:pb-8">
         <div className="container mx-auto px-4">

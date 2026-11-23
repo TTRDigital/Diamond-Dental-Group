@@ -19,11 +19,18 @@ const TRACK_CLICKS = `document.addEventListener('click',function(e){var a=e.targ
  */
 const GOOGLE_LOADER = `(function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}if(!window.gtag)window.gtag=gtag;${GA_ID ? `gtag('js',new Date());gtag('config','${GA_ID}');` : ""}var done=false;function load(){if(done)return;done=true;${GA_ID ? `var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';document.head.appendChild(s);` : ""}${GTM_ID ? `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');` : ""}}['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,load,{once:true,passive:true})});setTimeout(load,10000);})();`;
 
+/*
+ * The TTR OS tracker loads once the page has finished loading, so its download never competes with the hero on a phone
+ * (TTR-2880: anything that starts before the largest paint counts against it in Lighthouse). The visit, its source and
+ * the referrer are still there to read when it runs.
+ */
+const TTR_LOADER = `(function(){function l(){var s=document.createElement('script');s.async=true;s.src='https://ttr-portal.vercel.app/api/site/script';s.setAttribute('data-site','${TTR_SITE_KEY}');document.body.appendChild(s)}if(document.readyState==='complete')l();else addEventListener('load',l,{once:true})})();`;
+
 /** Tag Manager and/or Google Analytics 4, plus the TTR OS tracker. Nothing loads when the ids are empty. */
 export function Analytics() {
   return (
     <>
-      {TTR_SITE_KEY ? <script async src="https://ttr-portal.vercel.app/api/site/script" data-site={TTR_SITE_KEY} /> : null}
+      {TTR_SITE_KEY ? <script dangerouslySetInnerHTML={{ __html: TTR_LOADER }} /> : null}
       {GA_ID || GTM_ID ? <script dangerouslySetInnerHTML={{ __html: GOOGLE_LOADER + TRACK_CLICKS }} /> : null}
     </>
   );

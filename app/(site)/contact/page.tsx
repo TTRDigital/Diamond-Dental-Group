@@ -42,7 +42,11 @@ export default async function ContactPage() {
               <div className="lg:col-span-7">
                 {/* Online scheduler (Jarvis Analytics), as on the live page. */}
                 <div className="bg-white/70 backdrop-blur-xl p-4 md:p-8 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full min-h-[700px] overflow-hidden relative">
-                  <iframe title={c.bookingTitle} src={s.bookingUrl} loading="lazy" className="absolute inset-0 w-full h-full border-0 rounded-[2rem]" />
+                  {/* Loads once the page has loaded (lib/lazy-frames-script.ts), so it never competes with the first paint. */}
+                  <iframe title={c.bookingTitle} data-src={s.bookingUrl} data-load="after-load" className="absolute inset-0 w-full h-full border-0 rounded-[2rem]" suppressHydrationWarning />
+                  <noscript>
+                    <iframe title={c.bookingTitle} src={s.bookingUrl} loading="lazy" className="absolute inset-0 w-full h-full border-0 rounded-[2rem]" />
+                  </noscript>
                 </div>
               </div>
               <div className="lg:col-span-5 grid grid-cols-1 gap-6">
