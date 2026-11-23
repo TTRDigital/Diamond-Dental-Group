@@ -108,7 +108,7 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        <CtaBand heading={a.cta.heading} button={a.cta.button} phone={s.phone} phoneHref={s.phoneHref} bgImage={images.treatmentRoom.src} />
+        <CtaBand heading={a.cta.heading} button={a.cta.button} phone={s.phone} phoneHref={s.phoneHref} bgImage={images.treatmentRoom.src} bgAlt={images.treatmentRoom.alt} />
       </div>
     </>
   );

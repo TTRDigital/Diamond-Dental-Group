@@ -22,7 +22,7 @@ export function PostCard({ post: p, author, readMore, priority = false, compact 
         <Title className={`${compact ? "text-lg" : "text-xl"} font-heading font-bold leading-snug text-black transition-colors group-hover:text-gold-hover`}>{p.title}</Title>
         {!compact ? <p className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-gray-600">{p.excerpt}</p> : null}
         <div className="mt-auto flex items-center gap-3 pt-5">
-          {author.image ? <Image src={author.image.src} alt="" width={36} height={36} sizes="36px" className="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-secondary/60" /> : null}
+          {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={36} height={36} sizes="36px" className="h-9 w-9 shrink-0 rounded-full object-cover ring-2 ring-secondary/60" /> : null}
           <div className="text-sm leading-tight">
             <p className="font-semibold text-gray-800">{author.shortName}</p>
             <p className="mt-0.5 flex flex-wrap items-center gap-x-2 text-gray-600">
