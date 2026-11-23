@@ -11,9 +11,9 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "add-missing: only create what is not in Sanity yet. overwrite: replace with the built-in content. dry-run: check only, write nothing."
+        description: "add-missing: only create what is not in Sanity yet. overwrite: replace with the built-in content. dry-run: check only, write nothing. seo-check / seo-sync: list / write only page titles, descriptions and paths from lib/data (scripts/sync-seo.ts)."
         type: choice
-        options: [add-missing, overwrite, dry-run]
+        options: [add-missing, overwrite, dry-run, seo-check, seo-sync]
         default: add-missing
       only:
         description: "Optional: only documents whose ID starts with these, comma-separated (e.g. homePage,service-invisalign,post-). Empty = everything."
@@ -51,5 +51,7 @@ jobs:
           case "$MODE" in
             overwrite) npm run seed -- --force ${ONLY:+--only=$ONLY} ;;
             dry-run) npm run seed -- --dry-run ${ONLY:+--only=$ONLY} ;;
+            seo-check) npm run sync-seo -- ${ONLY:+--only=$ONLY} ;;
+            seo-sync) npm run sync-seo -- --apply ${ONLY:+--only=$ONLY} ;;
             *) npm run seed -- ${ONLY:+--only=$ONLY} ;;
           esac

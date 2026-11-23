@@ -280,7 +280,7 @@ export const fallbackPatientCare: PatientCareContent = {
   },
   cta: { heading: "Ready to Get Started?", button: "Book My Appointment" },
   seo: {
-    title: "New Patients, Insurance & Membership | Diamond Dental Group",
+    title: "Dental Insurance Roseville: New Patients | Diamond Dental Group",
     description:
       "$49 new patient special, all PPO insurance accepted, and an in-house membership plan from $399/year. Affordable dental care in Roseville, CA.",
   },

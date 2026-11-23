@@ -147,7 +147,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 <h1 className="blog-rise blog-rise-2 mt-4 font-heading text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">{p.title}</h1>
                 {/* Byline card: the author (linked to her page), her role, the date and the reading time. Spans, so the first <p> on the page is the answer. */}
                 <div className="blog-rise blog-rise-3 mt-7 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:inline-flex sm:pr-7">
-                  {author.image ? <Image src={author.image.src} alt="" width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-secondary" /> : null}
+                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-secondary" /> : null}
                   <div className="text-sm leading-snug">
                     <span className="block font-semibold">
                       By{" "}

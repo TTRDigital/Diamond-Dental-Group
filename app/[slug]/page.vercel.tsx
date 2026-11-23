@@ -159,7 +159,7 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
               <div className={`px-4 pb-12 ${p.image ? "pt-5" : "pt-12"} lg:order-1 lg:px-0 lg:py-0`}>
                 <h1 className="font-heading text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">{h1}</h1>
                 <div className="mt-7 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:inline-flex sm:pr-7">
-                  {author.image ? <Image src={author.image.src} alt="" width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-secondary" /> : null}
+                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-secondary" /> : null}
                   <div className="text-sm leading-snug">
                     <span className="block font-semibold">
                       By{" "}

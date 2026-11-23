@@ -74,6 +74,7 @@ export default async function ServicesPage() {
           phone={s.phone}
           phoneHref={s.phoneHref}
           bgImage={images.treatmentRoom.src}
+          bgAlt={images.treatmentRoom.alt}
         />
       </div>
     </>

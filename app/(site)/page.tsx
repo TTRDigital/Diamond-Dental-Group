@@ -342,6 +342,7 @@ export default async function HomePage() {
         phone={s.phone}
         phoneHref={s.phoneHref}
         bgImage={h.hero.image.src}
+        bgAlt={h.hero.image.alt}
         bgClass="opacity-30"
       />
     </div>

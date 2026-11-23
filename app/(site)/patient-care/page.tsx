@@ -196,7 +196,7 @@ export default async function PatientCarePage() {
           </div>
         </section>
 
-        <CtaBand heading={p.cta.heading} button={p.cta.button} phone={s.phone} phoneHref={s.phoneHref} bgImage={images.treatmentRoom.src} />
+        <CtaBand heading={p.cta.heading} button={p.cta.button} phone={s.phone} phoneHref={s.phoneHref} bgImage={images.treatmentRoom.src} bgAlt={images.treatmentRoom.alt} />
       </div>
     </>
   );
