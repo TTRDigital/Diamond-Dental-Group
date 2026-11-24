@@ -10,6 +10,9 @@
  *   npm run sync-seo -- --apply               # writes the changes (published documents and their drafts)
  *   npm run sync-seo -- --apply --only=service-,patientCarePage   # only documents whose ID starts with these
  *
+ * Blog posts are skipped unless --include-posts is given: a post is one of TTR's approved pieces, and its title and
+ * description change only through approval (TTR-3053). Their approved SEO fields stay as they are in Sanity.
+ *
  * Writes to NEXT_PUBLIC_SANITY_PROJECT_ID / NEXT_PUBLIC_SANITY_DATASET (environment or .env.local).
  * Needs SANITY_WRITE_TOKEN (Editor token from sanity.io/manage > API > Tokens). Never put the token in the repo.
  */
@@ -39,6 +42,7 @@ if (existsSync(join(root, ".env.local"))) {
 }
 
 const apply = process.argv.includes("--apply");
+const includePosts = process.argv.includes("--include-posts");
 const only = (process.argv.find((a) => a.startsWith("--only="))?.slice(7) ?? "")
   .split(",")
   .map((x) => x.trim())
@@ -62,7 +66,7 @@ const wanted = new Map<string, { path: string; seo: Seo }>([
   ["privacyPage", { path: "/privacy-policy/", seo: fallbackPrivacy.seo }],
   ["thankYouPage", { path: "/thank-you/", seo: fallbackThankYou.seo }],
   ...fallbackServices.map((s) => [`service-${s.slug}`, { path: `/services/${s.slug}/`, seo: s.seo }] as const),
-  ...fallbackPosts.map((p) => [`post-${p.slug}`, { path: `/blog/${p.slug}/`, seo: p.seo }] as const),
+  ...(includePosts ? fallbackPosts.map((p) => [`post-${p.slug}`, { path: `/blog/${p.slug}/`, seo: p.seo }] as const) : []),
 ]);
 
 // The same rulers as TTR OS's page score (SOP on-page-seo): a value outside them is never written.

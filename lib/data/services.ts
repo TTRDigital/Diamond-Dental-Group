@@ -669,7 +669,7 @@ export const fallbackServices: Service[] = [
     ],
     seo: {
       title: "Dental Sealants in Roseville, CA | Diamond Dental Group",
-      description: "Dental sealants in Roseville, CA. A thin protective coating painted onto the grooves of back teeth, for children and adults, at Diamond Dental Group.",
+      description: "Dental sealants in Roseville, CA. A thin protective coating painted onto the grooves of back teeth to help keep cavities out, at Diamond Dental Group.",
     },
   },
   {
@@ -706,7 +706,7 @@ export const fallbackServices: Service[] = [
           "Every smile is unique. We'll give you a clear, complete cost breakdown at your consultation — with insurance and financing options explained. Included twice a year in our membership plan!",
       },
     ],
-    seo: { title: "Fluoride Treatment in Roseville, CA | Diamond Dental Group", description: "Professional fluoride treatments in Roseville, CA. A varnish or gel applied in minutes after your cleaning, for children and adults, at Diamond Dental Group." },
+    seo: { title: "Fluoride Treatment in Roseville, CA | Diamond Dental Group", description: "Professional fluoride treatments in Roseville, CA. A varnish or gel applied in minutes after your cleaning to strengthen enamel, at Diamond Dental Group." },
   },
   {
     slug: "deep-cleaning",
