@@ -21,7 +21,7 @@ export async function SiteShell({ children }: { children: ReactNode }) {
   return (
     <>
       <JsonLd data={businessSchema(s)} />
-      <a href="#main" className="sr-only z-[100] rounded bg-black px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
+      <a href="#main" className="sr-only z-[100] rounded-full bg-ink-900 px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Skip to content
       </a>
       <div className="min-h-screen flex flex-col font-sans">
@@ -32,10 +32,8 @@ export async function SiteShell({ children }: { children: ReactNode }) {
           phoneHref={s.phoneHref}
           logo={s.logo}
           siteName={s.name}
-          address={`${s.street}, ${s.city}, ${s.region} ${s.postalCode}, ${s.country}`}
-          mapsUrl={s.mapsUrl}
         />
-        <main id="main" tabIndex={-1} className="grow pt-[100px] md:pt-[116px] outline-none">
+        <main id="main" tabIndex={-1} className="grow outline-none">
           {children}
         </main>
         <Footer settings={s} />

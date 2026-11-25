@@ -4,19 +4,21 @@ import { SiteShell } from "@/components/layout/SiteShell";
 
 export const metadata = { title: { absolute: "Page Not Found | Diamond Dental Group" }, robots: { index: false } };
 
-/* Same look as the live 404, but served with a real 404 status (.htaccess ErrorDocument). */
+/* The live 404's words, in the new design; served with a real 404 status. */
 export default function NotFound() {
   return (
     <SiteShell>
-      <div className="flex min-h-screen items-center justify-center bg-muted">
-        <div className="text-center">
-          <h1 className="mb-4 text-4xl font-bold">404</h1>
-          <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-          <Link href="/" className="text-primary underline hover:text-primary/90">
-            Return to Home
-          </Link>
+      <section className="section flex min-h-[60vh] items-center">
+        <div className="container-x text-center">
+          <p className="text-[4.5rem] font-semibold leading-none text-gold-700">404</p>
+          <h1 className="mt-4">Oops! Page not found</h1>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link href="/" className="btn btn-primary">
+              Return to Home
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
     </SiteShell>
   );
 }

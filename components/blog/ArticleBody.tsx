@@ -6,7 +6,6 @@ import type { Img, RichBlock } from "@/lib/types";
 import type { ArticleModel, ArticleSection, CtaBand, FaqSection } from "@/lib/post-design";
 import { isCardList, photoFrame, stepItems } from "@/lib/post-design";
 import { Inline } from "@/components/ui/RichText";
-import { btnGold } from "@/components/ui/Buttons";
 
 /*
  * The article itself: every section with its heading (anchored for the jump links), its photo and caption, its
@@ -15,11 +14,11 @@ import { btnGold } from "@/components/ui/Buttons";
  */
 
 /** Links in the text: black with the brand-gold underline (gold text alone is too light on white). */
-export const BODY_LINK = "font-medium text-black underline decoration-secondary decoration-2 underline-offset-[3px] transition-colors hover:text-gold-hover";
+export const BODY_LINK = "font-medium text-ink-900 underline decoration-gold-500 decoration-2 underline-offset-[3px] transition-colors hover:text-gold-700";
 
-export const H2 = "mb-5 mt-12 scroll-mt-32 font-heading text-2xl font-bold leading-tight text-black before:mb-4 before:block before:h-1 before:w-10 before:rounded-full before:bg-secondary md:text-[1.75rem]";
+export const H2 = "mb-5 mt-12 scroll-mt-32 font-heading text-2xl font-semibold leading-tight text-ink-900 before:mb-4 before:block before:h-1 before:w-10 before:rounded-full before:bg-gold-500 md:text-[1.75rem]";
 
-export const P = "mb-6 text-[17px] leading-[1.75] text-gray-700 md:text-[18px]";
+export const P = "mb-6 text-[17px] leading-[1.75] text-grey-700 md:text-[18px]";
 
 export function Paragraph({ text }: { text: string }) {
   return (
@@ -43,9 +42,9 @@ export function Blocks({ blocks }: { blocks: RichBlock[] }) {
                 <li
                   key={j}
                   data-reveal
-                  className="flex items-start gap-3 rounded-xl border border-gray-100 bg-gray-50 p-4 text-[16px] leading-relaxed text-gray-800 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                  className="flex items-start gap-3 rounded-md border border-line bg-ivory p-4 text-[16px] leading-relaxed text-ink-900 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-secondary" aria-hidden="true" />
+                  <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold-700" aria-hidden="true" />
                   <span>
                     <Inline text={it} linkClassName={BODY_LINK} />
                   </span>
@@ -55,7 +54,7 @@ export function Blocks({ blocks }: { blocks: RichBlock[] }) {
           );
         const List = b.style;
         return (
-          <List key={i} className={`${b.style === "ol" ? "blog-ol" : "blog-ul"} my-7 space-y-3 text-[17px] leading-[1.7] text-gray-700 md:text-[18px]`}>
+          <List key={i} className={`${b.style === "ol" ? "blog-ol" : "blog-ul"} my-7 space-y-3 text-[17px] leading-[1.7] text-grey-700 md:text-[18px]`}>
             {b.items.map((it, j) => (
               <li key={j}>
                 <Inline text={it} linkClassName={BODY_LINK} />
@@ -73,10 +72,10 @@ function Figure({ image, caption }: { image: Img; caption?: string }) {
   const frame = photoFrame(image);
   return (
     <figure className="-mx-4 my-10 sm:mx-0" data-reveal>
-      <div className={`relative overflow-hidden bg-gray-100 shadow-sm sm:rounded-2xl ${frame.aspect}`}>
+      <div className={`relative overflow-hidden bg-sand shadow-sm sm:rounded-lg ${frame.aspect}`}>
         <Image src={image.src} alt={image.alt} fill loading="lazy" sizes="(min-width: 752px) 720px, 100vw" className={`object-cover ${frame.position}`} />
       </div>
-      {caption ? <figcaption className="mt-3 px-4 text-sm leading-relaxed text-gray-600 sm:px-0">{caption}</figcaption> : null}
+      {caption ? <figcaption className="mt-3 px-4 text-sm leading-relaxed text-grey-600 sm:px-0">{caption}</figcaption> : null}
     </figure>
   );
 }
@@ -87,13 +86,13 @@ function Steps({ blocks }: { blocks: RichBlock[] }) {
   return (
     <ol className="my-8" data-reveal>
       {steps.map((st, i) => (
-        <li key={i} className="relative flex gap-5 pb-8 before:absolute before:bottom-0 before:left-[21px] before:top-12 before:w-0.5 before:bg-gray-200 last:pb-0 last:before:hidden">
-          <span className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black font-heading text-base font-bold text-secondary shadow-md ring-4 ring-white" aria-hidden="true">
+        <li key={i} className="relative flex gap-5 pb-8 before:absolute before:bottom-0 before:left-[21px] before:top-12 before:w-0.5 before:bg-line last:pb-0 last:before:hidden">
+          <span className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink-900 font-heading text-base font-bold text-gold-400 shadow-md ring-4 ring-ivory" aria-hidden="true">
             {i + 1}
           </span>
           <div className="min-w-0 pt-1.5">
-            {st.label ? <p className="mb-1 font-heading text-lg font-bold text-black">{st.label}</p> : null}
-            <p className="text-[17px] leading-[1.7] text-gray-700 md:text-[18px]">
+            {st.label ? <p className="mb-1 font-heading text-lg font-bold text-ink-900">{st.label}</p> : null}
+            <p className="text-[17px] leading-[1.7] text-grey-700 md:text-[18px]">
               <Inline text={st.text} linkClassName={BODY_LINK} />
             </p>
           </div>
@@ -106,18 +105,18 @@ function Steps({ blocks }: { blocks: RichBlock[] }) {
 /** One sentence that fits the topic, the Book button and the phone number, on the site's dark band. */
 function Band({ text, phone, phoneHref, button }: { text: string; phone: string; phoneHref: string; button: { label: string; href: string } }) {
   return (
-    <aside aria-label="Book a visit" className="relative my-12 overflow-hidden rounded-2xl bg-black bg-[radial-gradient(circle_at_top_right,rgba(229,184,51,0.16),transparent_45%)] px-6 py-8 text-white md:px-9 md:py-9" data-reveal>
+    <aside aria-label="Book a visit" className="relative my-12 overflow-hidden rounded-lg bg-ink-900 bg-[radial-gradient(circle_at_top_right,rgba(230,185,51,0.16),transparent_45%)] px-6 py-8 text-white md:px-9 md:py-9" data-reveal>
       <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <p className="font-heading text-xl font-bold leading-snug md:max-w-md md:text-2xl">{text}</p>
         <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href={button.href}
             data-track="book_appointment"
-            className={`${btnGold} rounded-lg px-7 py-6 text-base font-bold shadow-[0_4px_14px_rgba(229,184,51,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(229,184,51,0.5)]`}
+            className={`btn btn-gold`}
           >
             {button.label}
           </Link>
-          <a href={phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center gap-2 px-4 py-3 font-bold text-white transition-colors hover:text-secondary">
+          <a href={phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center gap-2 px-4 py-3 font-bold text-white transition-colors hover:text-gold-400">
             <Phone className="h-5 w-5" aria-hidden="true" />
             {phone}
           </a>
@@ -137,12 +136,12 @@ function Faq({ faq }: { faq: FaqSection }) {
       <Blocks blocks={faq.intro} />
       <div className="space-y-4">
         {faq.items.map((f) => (
-          <div key={f.question} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md" data-reveal>
-            <h3 className="flex gap-3 font-heading text-lg font-bold leading-snug text-black">
-              <CircleQuestionMark className="mt-0.5 h-6 w-6 shrink-0 text-secondary" aria-hidden="true" />
+          <div key={f.question} className="rounded-lg border border-line bg-ivory p-6 shadow-sm transition-shadow duration-300 hover:shadow-md" data-reveal>
+            <h3 className="flex gap-3 font-heading text-lg font-bold leading-snug text-ink-900">
+              <CircleQuestionMark className="mt-0.5 h-6 w-6 shrink-0 text-gold-700" aria-hidden="true" />
               <span>{f.question}</span>
             </h3>
-            <p className="mt-3 pl-9 text-[17px] leading-[1.7] text-gray-700">
+            <p className="mt-3 pl-9 text-[17px] leading-[1.7] text-grey-700">
               <Inline text={f.answer} linkClassName={BODY_LINK} />
             </p>
           </div>

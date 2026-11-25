@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-const LINK = "text-secondary underline decoration-secondary/40 hover:decoration-secondary underline-offset-2 transition-colors";
+const LINK = "font-medium text-gold-700 underline decoration-gold-500/50 hover:decoration-gold-700 underline-offset-2 transition-colors";
 
 /** Inline markup: **bold** and [label](/link/). Internal links use next/link; tel:, mailto: and https: links are plain. */
 export function Inline({ text, linkClassName = LINK, boldClassName = "font-bold text-black" }: { text: string; linkClassName?: string; boldClassName?: string }) {

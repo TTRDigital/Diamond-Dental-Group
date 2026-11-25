@@ -6,7 +6,6 @@ import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { btnBase, btnGold } from "@/components/ui/Buttons";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getThankYou();
@@ -25,27 +24,26 @@ export default async function ThankYouPage() {
           { name: "Thank You", path: "/thank-you/" },
         ]}
       />
-      <div className="min-h-[70vh] bg-background font-sans flex items-center justify-center py-20 px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="w-20 h-20 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-8">
-            <CircleCheck className="w-10 h-10 text-secondary" aria-hidden="true" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-black mb-6">{t.heading}</h1>
-          <p className="text-xl text-gray-600 mb-10 leading-relaxed">{t.text}</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href={s.phoneHref} data-track="click_to_call" className={`${btnGold} transition-colors font-bold rounded-lg px-8 py-6 text-lg shadow-xl`}>
-              <Phone className="w-5 h-5 mr-2" aria-hidden="true" />
-              {t.callButton}
-            </a>
-            <Link
-              href="/"
-              className={`${btnBase} rounded-md transition-colors border bg-background h-10 border-secondary text-black hover:bg-secondary hover:text-black px-8 py-6 text-lg font-bold`}
-            >
-              {t.homeButton}
-            </Link>
+      <section className="section flex min-h-[60vh] items-center">
+        <div className="container-x">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-ink-900 text-gold-400">
+              <CircleCheck className="h-8 w-8" aria-hidden="true" />
+            </span>
+            <h1 className="mt-8">{t.heading}</h1>
+            <p className="lead mt-4">{t.text}</p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a href={s.phoneHref} data-track="click_to_call" className="btn btn-primary">
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {t.callButton}
+              </a>
+              <Link href="/" className="btn btn-outline">
+                {t.homeButton}
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

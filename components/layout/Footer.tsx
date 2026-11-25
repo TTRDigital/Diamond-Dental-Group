@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Phone } from "lucide-react";
+import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
 import type { SiteSettings } from "@/lib/types";
 
 const socialIcons = {
@@ -14,34 +14,64 @@ const socialIcons = {
   ),
 };
 
-/** Map strip, footer and the phone-only "Book Online" bar, as on the live site. */
+/** Opening hours grouped into lines ("Monday – Thursday · 10:00 am – 7:00 pm"), days with the same hours together. */
+function hourLines(hours: SiteSettings["hours"]) {
+  const lines: { days: string; value: string; open: boolean }[] = [];
+  for (const h of hours) {
+    const last = lines[lines.length - 1];
+    if (last && last.value === h.value) {
+      last.days = `${last.days.split(" – ")[0]} – ${h.day}`;
+    } else lines.push({ days: h.day, value: h.value, open: !!h.opens });
+  }
+  return lines;
+}
+
+/** Dark footer (Valencia / Ideal style): booking band, link columns, hours and location; phone-only Call / Book bar. */
 export function Footer({ settings: s }: { settings: SiteSettings }) {
-  const mapTitle = `Map of ${s.name}, ${s.street}, ${s.city}`;
-  const mapSrc = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${encodeURIComponent(s.mapQuery)}&t=&z=15&ie=UTF8&iwloc=B&output=embed`;
+  const services = (s.menu.find((m) => m.groups?.length)?.groups ?? []).flatMap((g) => g.links).slice(0, 7);
   return (
     <>
-      {/* Lazy map: the iframe loads only when it comes within 300 px of the screen (lib/lazy-frames-script.ts). */}
-      <div className="w-full h-[350px] bg-gray-100 relative group border-t border-gray-200 map-frame">
-        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors pointer-events-none z-10" />
-        <iframe title={mapTitle} data-src={mapSrc} data-load="near" loading="lazy" referrerPolicy="no-referrer-when-downgrade" suppressHydrationWarning />
-        <noscript>
-          <iframe title={mapTitle} src={mapSrc} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-        </noscript>
-      </div>
-      <footer className="bg-black text-white pt-16 pb-24 md:pb-8">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <footer className="dark-section pb-28 md:pb-10">
+        <div className="container-x">
+          {/* Booking band */}
+          <div className="flex flex-col gap-6 border-b border-white/10 py-12 md:flex-row md:items-center md:justify-between md:py-16">
             <div>
-              <Link href="/" className="flex items-center gap-2 mb-6">
-                <Image src={s.logo.src} alt={s.logo.alt} width={s.logo.width} height={s.logo.height} sizes="54px" loading="lazy" className="h-10 w-auto object-contain" />
-                <span className="font-bold text-xl tracking-wide">{s.name}</span>
+              <p className="eyebrow">New patients welcome</p>
+              <p className="mt-3 text-[1.75rem] font-semibold leading-tight text-white md:text-[2.125rem]">
+                Book your visit at <span className="text-gold-400">{s.name}.</span>
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href={s.headerCta.href} data-track="book_appointment" className="btn btn-gold">
+                {s.headerCta.label}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <p className="text-white/70 text-sm leading-relaxed mb-6">{s.tagline}</p>
+              <a href={s.phoneHref} data-track="click_to_call" className="btn btn-outline">
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {s.phone}
+              </a>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.3fr]">
+            <div>
+              <Link href="/" className="inline-flex items-center gap-2.5">
+                <Image src={s.logo.src} alt={s.logo.alt} width={s.logo.width} height={s.logo.height} sizes="65px" loading="lazy" className="h-11 w-auto object-contain" />
+                <span className="text-lg font-semibold tracking-[0.02em] text-white">{s.name}</span>
+              </Link>
+              <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/70">{s.tagline}</p>
               {s.social.length ? (
-                <div className="flex space-x-4">
+                <div className="mt-5 flex gap-2">
                   {s.social.map((x) => (
-                    <a key={x.network} href={x.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.name} on ${x.network === "facebook" ? "Facebook" : "Instagram"}`} className="text-secondary hover:text-white transition-colors">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <a
+                      key={x.network}
+                      href={x.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${s.name} on ${x.network === "facebook" ? "Facebook" : "Instagram"}`}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-white transition-colors hover:bg-gold-400 hover:text-ink-900"
+                    >
+                      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         {socialIcons[x.network]}
                       </svg>
                     </a>
@@ -49,69 +79,88 @@ export function Footer({ settings: s }: { settings: SiteSettings }) {
                 </div>
               ) : null}
             </div>
-            <div>
-              <h2 className="font-bold text-lg mb-6 text-secondary">Contact</h2>
-              <address className="not-italic text-sm text-white/80 space-y-4">
-                <p>
-                  <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors">
-                    {s.street}
-                    <br />
-                    {s.city}, {s.region} {s.postalCode}, {s.country}
-                  </a>
-                </p>
-                <p>
-                  <a href={s.phoneHref} data-track="click_to_call" className="hover:text-secondary flex items-center">
-                    <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
-                    {s.phone}
-                  </a>
-                </p>
-                <p>
-                  <a href={`mailto:${s.email}`} className="hover:text-secondary">
-                    {s.email}
-                  </a>
-                </p>
-              </address>
-            </div>
-            <div>
-              <h2 className="font-bold text-lg mb-6 text-secondary">Office Hours</h2>
-              <ul className="text-sm text-white/80 space-y-2">
-                {s.hours.map((h) => (
-                  <li key={h.day} className={`flex justify-between ${h.opens ? "" : "text-white/50"}`}>
-                    <span>{h.day}</span>
-                    <span>{h.value}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="font-bold text-lg mb-6 text-secondary">Quick Links</h2>
-              <ul className="text-sm text-white/80 space-y-2">
+
+            <nav aria-label="Quick links">
+              <h2 className="text-base font-semibold text-white">Quick Links</h2>
+              <ul className="mt-4 space-y-1 text-sm text-white/75">
                 {s.footerLinks.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="hover:text-secondary">
+                    <Link href={l.href} className="inline-flex min-h-9 items-center transition-colors hover:text-gold-400">
                       {l.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 space-y-2">
-                {s.legalLinks.map((l) => (
-                  <Link key={l.href} href={l.href} className="block text-xs text-white/50 hover:text-white">
-                    {l.label}
-                  </Link>
+            </nav>
+
+            <nav aria-label="Popular services">
+              <h2 className="text-base font-semibold text-white">Popular Services</h2>
+              <ul className="mt-4 space-y-1 text-sm text-white/75">
+                {services.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="inline-flex min-h-9 items-center transition-colors hover:text-gold-400">
+                      {l.label}
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
+            </nav>
+
+            <div>
+              <h2 className="text-base font-semibold text-white">Hours &amp; location</h2>
+              <address className="mt-4 space-y-4 text-sm not-italic text-white/75">
+                <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex gap-3 transition-colors hover:text-gold-400">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                  <span>
+                    {s.street}
+                    <br />
+                    {s.city}, {s.region} {s.postalCode}
+                  </span>
+                </a>
+                <a href={s.phoneHref} data-track="click_to_call" className="flex items-center gap-3 transition-colors hover:text-gold-400">
+                  <Phone className="h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                  {s.phone}
+                </a>
+                <a href={`mailto:${s.email}`} className="flex items-center gap-3 break-all transition-colors hover:text-gold-400">
+                  <Mail className="h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                  {s.email}
+                </a>
+                <div className="flex gap-3">
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                  <ul className="space-y-1">
+                    {hourLines(s.hours).map((h) => (
+                      <li key={h.days} className={h.open ? "" : "text-white/50"}>
+                        <span className="text-white/90">{h.days}</span> · {h.value}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </address>
             </div>
           </div>
-          <div className="pt-8 border-t border-white/10 text-center text-xs text-white/50">{s.copyright}</div>
+
+          <div className="flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/55 md:flex-row md:items-center md:justify-between">
+            <p>{s.copyright}</p>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2">
+              {s.legalLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="inline-flex min-h-9 items-center hover:text-white">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </footer>
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 p-3 shadow-[0_-10px_20px_rgba(0,0,0,0.5)] z-40">
-        <Link
-          href={s.headerCta.href}
-          data-track="book_appointment"
-          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm px-4 py-2 w-full bg-secondary hover:bg-gold-hover text-black font-bold h-12 shadow-[0_4px_14px_rgba(229,184,51,0.4)] transition-colors"
-        >
+
+      {/* Phones: quick actions always at hand */}
+      <div className="mobile-bar fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-line bg-ivory/95 p-3 backdrop-blur md:hidden">
+        <a href={s.phoneHref} data-track="click_to_call" className="btn btn-outline btn-sm w-full">
+          <Phone className="h-4 w-4" aria-hidden="true" />
+          Call
+        </a>
+        <Link href={s.headerCta.href} data-track="book_appointment" className="btn btn-primary btn-sm w-full">
           {s.mobileBookLabel}
         </Link>
       </div>

@@ -13,7 +13,6 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { Inline } from "@/components/ui/RichText";
-import { btnBase, btnGold } from "@/components/ui/Buttons";
 import { ArticleBody, BODY_LINK, Blocks } from "@/components/blog/ArticleBody";
 import { PostCard } from "@/components/blog/PostCard";
 
@@ -41,8 +40,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
  */
 const progressScript = `(function(){var a=document.querySelector("article[data-progress]");if(!a)return;var b=document.createElement("div");b.className="blog-progress";b.setAttribute("aria-hidden","true");document.body.appendChild(b);var t=false;function u(){t=false;var r=a.getBoundingClientRect(),p=(window.innerHeight-r.top)/r.height;b.style.transform="scaleX("+(p<0?0:p>1?1:p)+")"}function s(){if(!t){t=true;requestAnimationFrame(u)}}addEventListener("scroll",s,{passive:true});addEventListener("resize",s);u()})();`;
 
-const EYEBROW = "text-xs font-bold uppercase tracking-wider text-gray-600";
-const BTN_OUTLINE = `${btnBase} h-11 rounded-lg border-2 border-black px-5 text-sm font-bold text-black transition-all hover:-translate-y-0.5 hover:bg-black hover:text-white`;
+const EYEBROW = "text-xs font-bold uppercase tracking-wider text-grey-600";
+const BTN_OUTLINE = "btn btn-outline btn-sm";
 
 /** Jump links to every heading (the same list sits in the phone <details> and in the desktop side column). */
 function Toc({ items, className = "" }: { items: { id: string; text: string }[]; className?: string }) {
@@ -50,8 +49,8 @@ function Toc({ items, className = "" }: { items: { id: string; text: string }[];
     <ol className={`space-y-1 ${className}`}>
       {items.map((t, i) => (
         <li key={t.id}>
-          <a href={`#${t.id}`} className="flex items-start gap-3 rounded-lg px-2 py-1.5 text-[15px] leading-snug text-gray-700 transition-colors hover:bg-secondary/10 hover:text-black">
-            <span className="mt-0.5 w-5 shrink-0 font-heading text-xs font-bold text-gray-600" aria-hidden="true">
+          <a href={`#${t.id}`} className="flex items-start gap-3 rounded-lg px-2 py-1.5 text-[15px] leading-snug text-grey-700 transition-colors hover:bg-gold-200/40 hover:text-ink-900">
+            <span className="mt-0.5 w-5 shrink-0 font-heading text-xs font-bold text-grey-600" aria-hidden="true">
               {String(i + 1).padStart(2, "0")}
             </span>
             <span>{t.text}</span>
@@ -128,31 +127,29 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         })}
       />}
       {!ownSchema && model.faq?.items.length ? <JsonLd data={faqPageSchema(model.faq.items.map((f) => ({ question: f.question, answer: stripMarks(f.answer) })))} /> : null}
-      <article className="bg-white" data-progress>
+      <article data-progress>
         {/* Hero: the site's dark band. Photo first on phones (edge to edge, fading into the text); text left and photo right on desktop. */}
-        <header className="relative overflow-hidden bg-black text-white">
-          {/* A still gradient: the site's drifting one repaints every frame and costs a second of main-thread time on phones. */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#161616] to-[#2a2000] opacity-90" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(229,184,51,0.16),transparent_55%)]" />
-          <div className="relative z-10 mx-auto max-w-6xl lg:px-4">
+        <header className="on-dark relative overflow-hidden bg-night-900 text-white">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(230,185,51,0.14),transparent_55%)]" />
+          <div className="relative z-10 mx-auto max-w-[1280px] lg:px-12">
             <div className="grid items-center lg:grid-cols-[minmax(0,1fr)_minmax(0,46%)] lg:gap-12 lg:py-16">
-              <figure className={`relative ${hero.aspect} lg:order-2 lg:overflow-hidden lg:rounded-3xl lg:shadow-2xl lg:ring-1 lg:ring-white/10`}>
+              <figure className={`relative ${hero.aspect} lg:order-2 lg:overflow-hidden lg:rounded-lg lg:shadow-2xl lg:ring-1 lg:ring-ivory/10`}>
                 <Image src={p.image.src} alt={p.image.alt} fill priority fetchPriority="high" sizes="(min-width: 1024px) 520px, 100vw" className={`object-cover ${hero.position}`} />
-                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black to-transparent lg:hidden" aria-hidden="true" />
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-night-900 to-transparent lg:hidden" aria-hidden="true" />
               </figure>
               <div className="px-4 pb-12 pt-5 lg:order-1 lg:px-0 lg:py-0">
                 {p.category ? (
-                  <span className="blog-rise inline-flex items-center rounded-full border border-secondary/60 bg-secondary/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-secondary">{p.category}</span>
+                  <span className="blog-rise inline-flex items-center rounded-full border border-gold-400/60 bg-gold-400/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-gold-400">{p.category}</span>
                 ) : null}
-                <h1 className="blog-rise blog-rise-2 mt-4 font-heading text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">{p.title}</h1>
+                <h1 className="blog-rise blog-rise-2 mt-4 font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">{p.title}</h1>
                 {/* Byline card: the author (linked to her page), her role, the date and the reading time. Spans, so the first <p> on the page is the answer. */}
-                <div className="blog-rise blog-rise-3 mt-7 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:inline-flex sm:pr-7">
-                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-secondary" /> : null}
+                <div className="blog-rise blog-rise-3 mt-7 flex items-center gap-4 rounded-lg border border-white/10 bg-ivory/5 p-4 sm:inline-flex sm:pr-7">
+                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-400" /> : null}
                   <div className="text-sm leading-snug">
                     <span className="block font-semibold">
                       By{" "}
                       {author.url ? (
-                        <Link href={author.url} className="underline decoration-secondary/60 underline-offset-4 transition-colors hover:text-secondary">
+                        <Link href={author.url} className="underline decoration-gold-400/60 underline-offset-4 transition-colors hover:text-gold-400">
                           {author.label}
                         </Link>
                       ) : (
@@ -162,11 +159,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                     {author.role ? <span className="mt-0.5 block text-white/70">{author.role}</span> : null}
                     <span className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-white/80">
                       <span className="inline-flex items-center gap-1.5">
-                        <Calendar className="h-4 w-4 text-secondary" aria-hidden="true" />
+                        <Calendar className="h-4 w-4 text-gold-400" aria-hidden="true" />
                         <time dateTime={p.date}>{p.dateLabel}</time>
                       </span>
                       <span className="inline-flex items-center gap-1.5">
-                        <Clock className="h-4 w-4 text-secondary" aria-hidden="true" />
+                        <Clock className="h-4 w-4 text-gold-400" aria-hidden="true" />
                         {model.minutes} min read
                       </span>
                     </span>
@@ -177,14 +174,14 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
         </header>
 
-        <div className="mx-auto max-w-6xl px-4 py-10 md:py-14">
+        <div className="container-x py-10 md:py-14">
           <div className="lg:grid lg:grid-cols-[minmax(0,720px)_300px] lg:justify-center lg:gap-14">
             <div className="mx-auto w-full max-w-[720px] lg:mx-0">
               {/* In short: the direct answer, the first paragraph of the article. */}
               {model.answer ? (
-                <div className="rounded-2xl border-l-4 border-secondary bg-secondary/10 px-6 py-6 md:px-8 md:py-7">
+                <div className="rounded-lg border-l-4 border-gold-500 bg-gold-200/40 px-6 py-6 md:px-8 md:py-7">
                   <span className={`${EYEBROW} mb-2 block`}>In short</span>
-                  <p className="text-lg leading-[1.65] text-black md:text-[1.3rem] md:leading-[1.6]">
+                  <p className="text-lg leading-[1.65] text-ink-900 md:text-[1.3rem] md:leading-[1.6]">
                     <Inline text={model.answer} linkClassName={BODY_LINK} />
                   </p>
                 </div>
@@ -192,11 +189,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
               {/* Jump links on phones (the desktop copy is in the side column). */}
               {model.toc.length ? (
-                <details className="group mt-6 rounded-2xl border border-gray-200 bg-white shadow-sm lg:hidden">
-                  <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 font-heading font-bold text-black [&::-webkit-details-marker]:hidden">
-                    <ListChecks className="h-5 w-5 text-secondary" aria-hidden="true" />
+                <details className="group mt-6 rounded-lg border border-line bg-ivory shadow-sm lg:hidden">
+                  <summary className="flex cursor-pointer list-none items-center gap-3 px-5 py-4 font-heading font-bold text-ink-900 [&::-webkit-details-marker]:hidden">
+                    <ListChecks className="h-5 w-5 text-gold-700" aria-hidden="true" />
                     In this article
-                    <ChevronDown className="ml-auto h-5 w-5 text-gray-500 transition-transform group-open:rotate-180" aria-hidden="true" />
+                    <ChevronDown className="ml-auto h-5 w-5 text-grey-600 transition-transform group-open:rotate-180" aria-hidden="true" />
                   </summary>
                   <nav aria-label="In this article" className="px-3 pb-4">
                     <Toc items={model.toc} />
@@ -211,20 +208,20 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               <ArticleBody model={model} band={band} phone={s.phone} phoneHref={s.phoneHref} button={button} />
 
               {/* The post's own call to action. */}
-              <div className="relative mt-14 overflow-hidden rounded-2xl bg-black bg-[radial-gradient(circle_at_top_right,rgba(229,184,51,0.14),transparent_45%)] p-8 text-white md:p-10" data-reveal>
-                {p.cta.heading ? <h2 className="relative z-10 mb-4 font-heading text-2xl font-bold text-secondary md:text-3xl">{p.cta.heading}</h2> : null}
+              <div className="relative mt-14 overflow-hidden rounded-lg bg-ink-900 bg-[radial-gradient(circle_at_top_right,rgba(230,185,51,0.14),transparent_45%)] p-8 text-white md:p-10" data-reveal>
+                {p.cta.heading ? <h2 className="relative z-10 mb-4 font-heading text-2xl font-bold text-gold-400 md:text-3xl">{p.cta.heading}</h2> : null}
                 <p className="relative z-10 mb-8 text-[17px] leading-[1.75] text-white/90 md:text-[18px]">
-                  <Inline text={p.cta.text} boldClassName="font-bold" linkClassName="text-secondary underline decoration-secondary/50 underline-offset-4 transition-colors hover:text-white" />
+                  <Inline text={p.cta.text} boldClassName="font-bold" linkClassName="text-gold-400 underline decoration-gold-500/50 underline-offset-4 transition-colors hover:text-white" />
                 </p>
                 <div className="relative z-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
                   <Link
                     href={p.cta.buttonHref}
                     data-track="book_appointment"
-                    className={`${btnGold} rounded-lg px-8 py-6 text-lg font-bold shadow-[0_4px_14px_rgba(229,184,51,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(229,184,51,0.5)]`}
+                    className={`btn btn-gold`}
                   >
                     {p.cta.buttonLabel}
                   </Link>
-                  <a href={s.phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center px-4 py-3 text-xl font-bold text-white transition-colors hover:text-secondary">
+                  <a href={s.phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center px-4 py-3 text-xl font-bold text-white transition-colors hover:text-gold-400">
                     <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
                     {s.phone}
                   </a>
@@ -234,20 +231,20 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               {/* The page this post supports, plus the other service pages it links to. */}
               {relatedHref ? (
                 <aside aria-label="Related" className="mt-10">
-                  <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg sm:flex" data-reveal>
+                  <div className="overflow-hidden rounded-lg border border-line bg-ivory shadow-sm transition-shadow duration-300 hover:shadow-lg sm:flex" data-reveal>
                     {relatedImage ? (
                       <div className="relative aspect-[16/9] shrink-0 sm:aspect-auto sm:w-2/5">
                         <Image src={relatedImage.src} alt={relatedImage.alt} fill loading="lazy" sizes="(min-width: 640px) 290px, 100vw" className={`object-cover ${photoFrame(relatedImage).position}`} />
                       </div>
                     ) : (
-                      <div className="flex shrink-0 items-center justify-center bg-black p-8 sm:w-2/5">
-                        <Stethoscope className="h-14 w-14 text-secondary" aria-hidden="true" />
+                      <div className="flex shrink-0 items-center justify-center bg-ink-900 p-8 sm:w-2/5">
+                        <Stethoscope className="h-14 w-14 text-gold-400" aria-hidden="true" />
                       </div>
                     )}
                     <div className="p-6 md:p-8">
                       <p className={EYEBROW}>Related</p>
-                      <p className="mt-2 font-heading text-xl font-bold text-black">{relatedName}</p>
-                      {relatedService?.sub ? <p className="mt-2 leading-relaxed text-gray-600">{relatedService.sub}</p> : null}
+                      <p className="mt-2 font-heading text-xl font-bold text-ink-900">{relatedName}</p>
+                      {relatedService?.sub ? <p className="mt-2 leading-relaxed text-grey-600">{relatedService.sub}</p> : null}
                       <Link href={relatedHref} className={`${BTN_OUTLINE} mt-5`}>
                         Explore {relatedService?.heading ?? relatedName}
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -262,10 +259,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                           <li key={sv.slug}>
                             <Link
                               href={`/services/${sv.slug}/`}
-                              className="group flex h-full items-center justify-between gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-sm font-semibold text-black shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary hover:shadow-md"
+                              className="group flex h-full items-center justify-between gap-3 rounded-md border border-line bg-ivory px-4 py-3.5 text-sm font-semibold text-ink-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-500 hover:shadow-md"
                             >
                               {sv.name}
-                              <ArrowRight className="h-4 w-4 shrink-0 text-secondary transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                              <ArrowRight className="h-4 w-4 shrink-0 text-gold-700 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                             </Link>
                           </li>
                         ))}
@@ -277,14 +274,14 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
               {/* About the author, in the About page's own words. */}
               {author.url ? (
-                <aside aria-label="About the author" className="mt-10 rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8" data-reveal>
+                <aside aria-label="About the author" className="mt-10 rounded-lg border border-line bg-ivory p-6 md:p-8" data-reveal>
                   <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-                    {author.image ? <Image src={author.image.src} alt={author.image.alt} width={112} height={112} sizes="112px" className="h-28 w-28 shrink-0 rounded-2xl object-cover shadow-md ring-4 ring-white" /> : null}
+                    {author.image ? <Image src={author.image.src} alt={author.image.alt} width={112} height={112} sizes="112px" className="h-28 w-28 shrink-0 rounded-lg object-cover shadow-md ring-4 ring-ivory" /> : null}
                     <div>
                       <p className={EYEBROW}>About the author</p>
-                      <p className="mt-2 font-heading text-xl font-bold text-black">{author.label}</p>
-                      {author.role ? <p className="text-sm text-gray-600">{author.role}</p> : null}
-                      {author.bio ? <p className="mt-3 leading-relaxed text-gray-700">{author.bio}</p> : null}
+                      <p className="mt-2 font-heading text-xl font-bold text-ink-900">{author.label}</p>
+                      {author.role ? <p className="text-sm text-grey-600">{author.role}</p> : null}
+                      {author.bio ? <p className="mt-3 leading-relaxed text-grey-700">{author.bio}</p> : null}
                       <Link href={author.url} className={`${BTN_OUTLINE} mt-5`}>
                         More about {author.shortName}
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -294,32 +291,32 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                 </aside>
               ) : null}
 
-              <div className="mt-10 border-t border-gray-200 pt-8">
-                <p className="text-sm italic leading-relaxed text-gray-600">{p.disclaimer}</p>
+              <div className="mt-10 border-t border-line pt-8">
+                <p className="text-sm italic leading-relaxed text-grey-600">{p.disclaimer}</p>
               </div>
             </div>
 
             {/* Desktop side column: jump links and quick facts, pinned while reading. */}
             <aside className="hidden lg:block" aria-label="About this article">
-              <div className="sticky top-32 space-y-6">
+              <div className="sticky top-[calc(var(--header-h)+1.5rem)] space-y-6">
                 {model.toc.length ? (
-                  <nav aria-labelledby="toc-title" className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                    <p id="toc-title" className="mb-3 flex items-center gap-2 px-2 font-heading text-base font-bold text-black">
-                      <ListChecks className="h-5 w-5 text-secondary" aria-hidden="true" />
+                  <nav aria-labelledby="toc-title" className="rounded-lg border border-line bg-ivory p-5 shadow-sm">
+                    <p id="toc-title" className="mb-3 flex items-center gap-2 px-2 font-heading text-base font-bold text-ink-900">
+                      <ListChecks className="h-5 w-5 text-gold-700" aria-hidden="true" />
                       In this article
                     </p>
                     <Toc items={model.toc} />
                   </nav>
                 ) : null}
-                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
-                  <p className="mb-4 font-heading text-base font-bold text-black">Quick facts</p>
+                <div className="rounded-lg border border-line bg-ivory p-6">
+                  <p className="mb-4 font-heading text-base font-bold text-ink-900">Quick facts</p>
                   <dl className="space-y-3.5 text-sm">
                     {facts.map((f) => (
                       <div key={f.label} className="flex items-start gap-3">
-                        <f.icon className="mt-0.5 h-4 w-4 shrink-0 text-secondary" aria-hidden="true" />
+                        <f.icon className="mt-0.5 h-4 w-4 shrink-0 text-gold-700" aria-hidden="true" />
                         <div>
-                          <dt className="text-xs font-semibold uppercase tracking-wider text-gray-600">{f.label}</dt>
-                          <dd className="mt-0.5 font-medium text-gray-800">{f.value}</dd>
+                          <dt className="text-xs font-semibold uppercase tracking-wider text-grey-600">{f.label}</dt>
+                          <dd className="mt-0.5 font-medium text-ink-900">{f.value}</dd>
                         </div>
                       </div>
                     ))}
@@ -332,13 +329,13 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
         {/* More from the blog: the same topic first. Hidden when there is nothing else to read. */}
         {more.length ? (
-          <section aria-labelledby="more-posts" className="border-t border-gray-100 bg-gray-50 px-4 py-14 md:py-20">
-            <div className="mx-auto max-w-6xl">
+          <section aria-labelledby="more-posts" className="section-tight border-t border-line bg-sand">
+            <div className="container-x">
               <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-                <h2 id="more-posts" className="font-heading text-2xl font-bold text-black md:text-3xl">
+                <h2 id="more-posts" className="font-heading text-2xl font-bold text-ink-900 md:text-3xl">
                   More from the blog
                 </h2>
-                <Link href="/blog/" className="font-bold text-black underline decoration-secondary decoration-2 underline-offset-4 transition-colors hover:text-gold-hover">
+                <Link href="/blog/" className="font-bold text-ink-900 underline decoration-gold-500 decoration-2 underline-offset-4 transition-colors hover:text-gold-700">
                   {b.backLink}
                 </Link>
               </div>

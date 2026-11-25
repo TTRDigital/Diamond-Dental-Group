@@ -1,49 +1,95 @@
 @import "tailwindcss";
 
+@custom-variant hocus (&:hover, &:focus-visible);
+
 /* ==========================================================================
-   Diamond Dental Group design tokens, taken from the live site's stylesheet
-   (Tailwind v3 + shadcn theme): near-black text, gold accent hsl(45 78% 55%),
-   white page. The live site loads no web fonts: body text is the system UI
-   font, headings ask for Montserrat and fall back to the system sans-serif.
-   The same font stacks are used here, so it renders the same on every device
-   and no font files slow the first paint.
+   Diamond Dental Group, redesign (2026-11): the Valencia Dentistry / Ideal
+   Dental design language (Urbanist type, warm flat sections, full-bleed photo
+   heroes, pill buttons, one small radius set, dark bands) in Diamond's own
+   brand: the logo's black and gold.
+   Contrast (WCAG AA): ink on cream 15:1, grey-600 on cream 6.8:1, gold-700 on
+   cream 5.4:1 (text and links on light), gold-400 on night 9.9:1 (on dark).
    ========================================================================== */
 
 @theme {
-  --color-background: hsl(0 0% 100%);
-  --color-foreground: hsl(0 0% 5%);
-  --color-primary: hsl(0 0% 5%);
-  --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(45 78% 55%);
-  --color-secondary-foreground: hsl(0 0% 5%);
-  --color-muted: hsl(0 0% 96%);
-  --color-muted-foreground: hsl(0 0% 40%);
-  --color-accent: hsl(45 78% 55%);
-  --color-accent-foreground: hsl(0 0% 5%);
-  --color-border: hsl(0 0% 90%);
-  --color-ring: hsl(45 78% 55%);
+  /* Brand */
+  --color-ink-950: #111110;
+  --color-ink-900: #1d1b18; /* text and headings */
+  --color-ink-700: #3a3733;
+  --color-night-900: #151413; /* dark surfaces */
+  --color-night-800: #1f1d1a;
+  --color-night-700: #2a2824;
+  --color-gold-200: #f3dea0;
+  --color-gold-300: #eccb6a;
+  --color-gold-400: #e6b933; /* the logo gold: accents on dark, gold buttons */
+  --color-gold-500: #c99e22;
+  --color-gold-700: #7a5c0f; /* gold as text on light (AA) */
+  --color-ivory: #faf8f2; /* header, cards */
+  --color-cream: #f3efe6; /* page background */
+  --color-sand: #e9e3d6; /* alternate band */
+  --color-line: #ddd6c8; /* borders, dividers */
+  --color-grey-700: #4a4741;
+  --color-grey-600: #55524b; /* secondary text (AA on cream) */
+  --color-grey-400: #a29d92;
+
+  /* Names the older components use, mapped onto the new palette */
+  --color-background: #f3efe6;
+  --color-foreground: #1d1b18;
+  --color-primary: #1d1b18;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #e6b933;
+  --color-secondary-foreground: #1d1b18;
+  --color-muted: #e9e3d6;
+  --color-muted-foreground: #55524b;
+  --color-accent: #e6b933;
+  --color-accent-foreground: #1d1b18;
+  --color-border: #ddd6c8;
+  --color-ring: #e6b933;
   --color-gold-hover: #c99e22;
 
-  /* Tailwind v3 font-sans (the live wrapper uses it), then Montserrat for headings. */
-  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-heading: Montserrat, sans-serif;
+  /* Type: Urbanist for everything (self-hosted, app/fonts) */
+  --font-sans: var(--font-urbanist), system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-urbanist), system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale of the reference sites (same on phones): page title 34px, section heading 24px, card title 20px, body 16px */
+  --text-base: 1rem;
+  --text-base--line-height: 1.65;
+  --text-lg: 1.0625rem;
+  --text-lg--line-height: 1.65;
+  --text-xl: 1.125rem;
+  --text-xl--line-height: 1.5;
+  --text-2xl: 1.25rem;
+  --text-2xl--line-height: 1.45;
+  --text-3xl: 1.5rem;
+  --text-3xl--line-height: 1.3;
+  --text-4xl: 1.5rem;
+  --text-4xl--line-height: 1.3;
+  --text-5xl: 2.125rem;
+  --text-5xl--line-height: 1.12;
+  --text-6xl: 2.125rem;
+  --text-6xl--line-height: 1.12;
+  --text-7xl: 2.125rem;
+  --text-7xl--line-height: 1.12;
+
+  /* One small radius set: sm tags, md fields, lg cards/panels/photos */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 10px;
+  --radius-2xl: 10px;
+  --radius-3xl: 10px;
+
+  --shadow-lift: 0 12px 28px -18px rgb(17 17 16 / 0.35);
 
   /* Full menu from this width; below it the phone menu (measured so the menu never wraps). */
-  --breakpoint-nav: 82rem;
+  --breakpoint-nav: 80rem;
 
-  /* Tailwind v3 values the live site was built with (v4 renamed or changed these). */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --drop-shadow-md: 0 4px 3px rgb(0 0 0 / 0.07), 0 2px 2px rgb(0 0 0 / 0.06);
-  --drop-shadow-lg: 0 10px 8px rgb(0 0 0 / 0.04), 0 4px 3px rgb(0 0 0 / 0.1);
-  --blur-sm: 4px;
-  --radius-md: calc(0.5rem - 2px);
-  --radius-lg: 0.5rem;
-
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
-/* The live site's container: full width with 2rem side padding, capped at 1400px only from 1400px up. */
+/* Older pages' container (kept for components not yet on the new grid) */
 @utility container {
   width: 100%;
   margin-inline: auto;
@@ -60,42 +106,6 @@
   }
 }
 
-/* Slowly drifting gold mesh behind light sections (live: bg-animated-mesh). */
-@utility bg-animated-mesh {
-  background-image:
-    radial-gradient(at 40% 20%, hsla(45, 78%, 55%, 0.15) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(0, 0%, 5%, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(45, 78%, 55%, 0.08) 0px, transparent 50%);
-  background-size: 200% 200%;
-  animation: mesh-drift 20s ease-in-out infinite alternate;
-}
-
-@utility bg-gradient-drift {
-  background-size: 200% 200%;
-  animation: drift 15s ease infinite;
-}
-
-@keyframes drift {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  to {
-    background-position: 0% 0%;
-  }
-}
-@keyframes mesh-drift {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  to {
-    background-position: 0% 100%;
-  }
-}
 @keyframes accordion-down {
   from {
     height: 0;
@@ -112,33 +122,57 @@
     height: 0;
   }
 }
-@keyframes ring-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 1;
-  }
-}
 
 @layer base {
+  :root {
+    --header-h: 80px;
+    --section-y: 56px;
+    --section-y-tight: 40px;
+    --dur-micro: 150ms;
+    --dur-std: 300ms;
+    --dur-large: 600ms;
+    --rise: 16px;
+    color-scheme: light;
+    interpolate-size: allow-keywords;
+  }
+  @media (min-width: 768px) {
+    :root {
+      --section-y: 96px;
+      --section-y-tight: 64px;
+    }
+  }
+  @media (min-width: 1280px) {
+    :root {
+      --section-y: 120px;
+      --section-y-tight: 80px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --rise: 0px;
+    }
+  }
+
   *,
   ::before,
   ::after {
-    border-color: var(--color-border);
+    border-color: var(--color-line);
   }
   html {
+    overflow-x: clip;
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    scroll-padding-top: 8rem;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+    text-rendering: optimizeLegibility;
   }
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: Inter, sans-serif;
+    background-color: var(--color-cream);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
   h1,
   h2,
@@ -147,14 +181,63 @@
   h5,
   h6 {
     font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    color: var(--color-ink-900);
+    margin: 0;
+  }
+  h1 {
+    font-size: var(--text-5xl);
+    line-height: var(--text-5xl--line-height);
+  }
+  h2 {
+    font-size: var(--text-4xl);
+    line-height: var(--text-4xl--line-height);
+  }
+  h3 {
+    font-size: var(--text-2xl);
+    line-height: var(--text-2xl--line-height);
+  }
+  h1 em,
+  h2 em {
+    font-style: normal;
+    color: var(--color-gold-700);
+  }
+  .on-dark h1 em,
+  .on-dark h2 em,
+  .dark-section h1 em,
+  .dark-section h2 em {
+    color: var(--color-gold-400);
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    text-underline-offset: 4px;
+  }
+  ::selection {
+    background: var(--color-gold-200);
+    color: var(--color-ink-900);
   }
   button,
   [role="button"] {
     cursor: pointer;
   }
   :focus-visible {
-    outline: 2px solid var(--color-secondary);
-    outline-offset: 2px;
+    outline: 3px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  img,
+  video {
+    max-width: 100%;
+  }
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -170,39 +253,457 @@
   }
 }
 
+@layer components {
+  .container-x {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1280px;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-x {
+      padding-inline: 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-x {
+      padding-inline: 2rem;
+    }
+  }
+  .section {
+    padding-block: var(--section-y);
+  }
+  .section-tight {
+    padding-block: var(--section-y-tight);
+  }
+
+  /* Eyebrow: small caps label with a short line before it */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-gold-700);
+  }
+  .eyebrow::before {
+    content: "";
+    height: 2px;
+    width: 1.5rem;
+    background: currentColor;
+  }
+  .on-dark .eyebrow,
+  .dark-section .eyebrow {
+    color: var(--color-gold-400);
+  }
+  .lead {
+    color: var(--color-grey-700);
+  }
+  .on-dark .lead,
+  .dark-section .lead {
+    color: rgb(255 255 255 / 0.78);
+  }
+  .dark-section {
+    position: relative;
+    background: var(--color-night-900);
+    color: #fff;
+  }
+  .dark-section h1,
+  .dark-section h2,
+  .dark-section h3,
+  .on-dark h1,
+  .on-dark h2,
+  .on-dark h3 {
+    color: #fff;
+  }
+
+  /* Buttons: one system (pill, 48px, never wraps). Hover lifts 1px, arrows nudge. */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.625rem 1.75rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    transition:
+      transform var(--dur-micro) var(--ease-enter),
+      background-color var(--dur-std),
+      color var(--dur-std),
+      border-color var(--dur-std),
+      box-shadow var(--dur-std);
+  }
+  .btn svg {
+    transition: transform var(--dur-std) var(--ease-enter);
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lift);
+  }
+  .btn:hover svg:last-child:not(:first-child) {
+    transform: translateX(3px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .btn-primary {
+    background: var(--color-ink-900);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: var(--color-ink-700);
+  }
+  .btn-gold {
+    background: var(--color-gold-400);
+    color: var(--color-ink-900);
+  }
+  .btn-gold:hover {
+    background: var(--color-gold-300);
+  }
+  .btn-light {
+    background: #fff;
+    color: var(--color-ink-900);
+  }
+  .btn-light:hover {
+    background: var(--color-ivory);
+  }
+  .btn-outline {
+    border: 1px solid rgb(29 27 24 / 0.28);
+    background: transparent;
+    color: var(--color-ink-900);
+  }
+  .btn-outline:hover {
+    border-color: var(--color-ink-900);
+    background: rgb(29 27 24 / 0.04);
+    box-shadow: none;
+  }
+  .on-dark .btn-outline,
+  .dark-section .btn-outline {
+    border-color: rgb(255 255 255 / 0.45);
+    color: #fff;
+  }
+  .on-dark .btn-outline:hover,
+  .dark-section .btn-outline:hover {
+    border-color: #fff;
+    background: rgb(255 255 255 / 0.08);
+  }
+  .btn-sm {
+    min-height: 2.75rem;
+    padding-inline: 1.125rem;
+    font-size: 0.875rem;
+  }
+
+  /* Text link with an arrow that nudges on hover */
+  .link-arrow {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 600;
+    color: var(--color-gold-700);
+    text-decoration: none;
+  }
+  .link-arrow svg {
+    transition: transform var(--dur-std) var(--ease-enter);
+  }
+  .link-arrow:hover {
+    text-decoration: underline;
+    text-decoration-color: rgb(122 92 15 / 0.4);
+  }
+  .link-arrow:hover svg {
+    transform: translateX(3px);
+  }
+  .on-dark .link-arrow,
+  .dark-section .link-arrow {
+    color: var(--color-gold-400);
+  }
+
+  /* Cards: one surface, one radius; interactive ones lift 3px and nudge their arrow */
+  .card {
+    border-radius: var(--radius-lg);
+    background: var(--color-ivory);
+  }
+  .card-hover {
+    position: relative;
+    transition:
+      transform var(--dur-std) var(--ease-enter),
+      box-shadow var(--dur-std);
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+  }
+  .card-hover .arrow-nudge {
+    transition: transform var(--dur-std) var(--ease-enter);
+  }
+  .card-hover:hover .arrow-nudge,
+  .card-hover:focus-within .arrow-nudge {
+    transform: translateX(4px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card-hover:hover,
+    .btn:hover {
+      transform: none;
+    }
+  }
+
+  /* Portrait arch (the one decorative shape) */
+  .arch {
+    border-radius: 9999px 9999px var(--radius-lg) var(--radius-lg);
+  }
+  /* Keep heads in frame on cover crops */
+  :where(img.object-cover) {
+    object-position: 50% 30%;
+  }
+
+  /* FAQ accordion: smooth height where supported, answer fades in */
+  .faq-item::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--dur-std) var(--ease-enter),
+      content-visibility var(--dur-std) allow-discrete;
+  }
+  .faq-item[open]::details-content {
+    block-size: auto;
+  }
+  .faq-item .faq-answer {
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--dur-std) var(--ease-enter),
+      transform var(--dur-std) var(--ease-enter);
+  }
+  .faq-item[open] .faq-answer {
+    opacity: 1;
+    transform: none;
+  }
+  .faq-item .faq-plus {
+    transition: transform var(--dur-std) var(--ease-enter);
+  }
+  .faq-item[open] .faq-plus {
+    transform: rotate(45deg);
+  }
+
+  /* Header: solid ivory bar; current page underlined in gold */
+  .nav-link {
+    position: relative;
+    text-transform: uppercase;
+  }
+  .nav-link[data-active]::after {
+    content: "";
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 0.25rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-gold-500);
+  }
+  .mega {
+    opacity: 0;
+    transform: translateY(-6px);
+    visibility: hidden;
+    transition:
+      opacity var(--dur-micro),
+      transform var(--dur-micro),
+      visibility 0s linear var(--dur-micro);
+  }
+  .mega-open .mega,
+  .mega-host:hover .mega,
+  .mega-host:focus-within .mega {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition:
+      opacity var(--dur-std) var(--ease-enter),
+      transform var(--dur-std) var(--ease-enter);
+  }
+
+  /* Hero: staged entrance on first paint (CSS only) */
+  .hero-stage [data-stage] {
+    animation: fade-rise var(--dur-large) var(--ease-enter) both;
+    animation-delay: calc(var(--d, 0) * 1ms);
+  }
+  .hero-stage [data-stage="1"] {
+    --d: 80;
+  }
+  .hero-stage [data-stage="2"] {
+    --d: 180;
+  }
+  .hero-stage [data-stage="3"] {
+    --d: 280;
+  }
+  .hero-stage [data-stage="4"] {
+    --d: 360;
+  }
+  .hero-photo > img {
+    animation: settle 1100ms var(--ease-enter) both;
+  }
+  @keyframes fade-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes settle {
+    from {
+      transform: scale(1.04);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  /* Slow ticker of what the practice does (pauses on hover; static with reduced motion) */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 48s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+    }
+    .marquee {
+      mask-image: none;
+    }
+  }
+
+  /* Phone quick-action bar */
+  .mobile-bar {
+    transition: transform 300ms var(--ease-enter);
+  }
+
+  /* Reading progress line on service pages, driven by scroll (no JS) */
+  .reading-progress {
+    display: none;
+  }
+  @supports (animation-timeline: scroll()) {
+    .reading-progress {
+      display: block;
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 60;
+      height: 3px;
+      background: var(--color-gold-400);
+      transform-origin: left;
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reading-progress {
+        display: none;
+      }
+    }
+  }
+  @keyframes grow-x {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* Rich text (privacy policy and other plain text pages) */
+  .rich {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-grey-700);
+  }
+  .rich > * + * {
+    margin-top: 1.25rem;
+  }
+  .rich h2 {
+    margin-top: 3rem;
+    margin-bottom: 0.75rem;
+  }
+  .rich h2::before {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--color-gold-400);
+    margin-bottom: 1rem;
+  }
+  .rich a {
+    color: var(--color-gold-700);
+    text-decoration: underline;
+  }
+  .rich strong {
+    font-weight: 600;
+    color: var(--color-ink-900);
+  }
+  .rich ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+  .rich li + li {
+    margin-top: 0.5rem;
+  }
+  .rich li::marker {
+    color: var(--color-gold-500);
+  }
+}
+
 /*
- * Scroll reveal (live: fade up with a short blur as sections enter the
- * screen). Content is only hidden once the inline script has set
- * html[data-reveal-ready], so it is always visible without JavaScript.
+ * Scroll reveal: content is hidden only after the inline script has set
+ * html[data-reveal-ready], so it is always visible without JavaScript; the
+ * first screen is revealed at once (lib/reveal-script.ts).
  */
 html[data-reveal-ready] [data-reveal]:not([data-in]) {
   opacity: 0;
-  filter: blur(4px);
-  transform: translateY(24px);
+  transform: translateY(var(--rise));
 }
 html[data-reveal-ready] [data-reveal="left"]:not([data-in]) {
-  transform: translateX(24px);
+  transform: translateX(var(--rise));
 }
 html[data-reveal-ready] [data-reveal] {
   transition:
-    opacity 0.6s ease-out,
-    filter 0.6s ease-out,
-    transform 0.6s ease-out;
+    opacity var(--dur-large) var(--ease-enter),
+    transform var(--dur-large) var(--ease-enter);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-reveal-ready] [data-reveal]:not([data-in]) {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-/* Decorative loops run only while on screen ([data-playing], set by the reveal script). */
-[data-anim]:not([data-playing]) .bg-animated-mesh,
-[data-anim]:not([data-playing]).bg-animated-mesh,
-[data-anim]:not([data-playing]) .bg-gradient-drift,
-[data-anim]:not([data-playing]) .animate-pulse,
-[data-anim]:not([data-playing]) .ring-pulse {
-  animation-play-state: paused;
-}
-.ring-pulse {
-  animation: ring-pulse 3s ease-in-out infinite;
-}
-
-/* FAQ accordion (native <details>, animated like the live Radix accordion). */
+/* FAQ accordion used by older components */
 details.faq > summary {
   list-style: none;
 }
@@ -238,7 +739,7 @@ details.faq[open] > summary svg {
   animation-delay: 0.16s;
 }
 
-/* Thin gold line at the very top of a post, added and scaled (0 to 1) by the post page's small script while reading. */
+/* Thin gold line at the very top of a post, scaled (0 to 1) by the post page's small script while reading. */
 .blog-progress {
   position: fixed;
   top: 0;
@@ -246,13 +747,13 @@ details.faq[open] > summary svg {
   right: 0;
   height: 3px;
   z-index: 60;
-  background: var(--color-secondary);
+  background: var(--color-gold-400);
   transform-origin: 0 50%;
   transform: scaleX(0);
   pointer-events: none;
 }
 
-/* Lists in the article: gold dots, and numbered lists with a gold number in a black circle. */
+/* Lists in the article: gold dots, and numbered lists with a gold number in a dark circle. */
 .blog-ul {
   list-style: none;
   padding-left: 0;
@@ -269,7 +770,7 @@ details.faq[open] > summary svg {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 9999px;
-  background: var(--color-secondary);
+  background: var(--color-gold-500);
 }
 .blog-ol {
   list-style: none;
@@ -289,8 +790,8 @@ details.faq[open] > summary svg {
   width: 1.9rem;
   height: 1.9rem;
   border-radius: 9999px;
-  background: #000;
-  color: var(--color-secondary);
+  background: var(--color-night-900);
+  color: var(--color-gold-400);
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 0.85rem;
@@ -305,12 +806,13 @@ details.faq[open] > summary svg {
   align-items: center;
   gap: 0.3rem;
   border-radius: 9999px;
-  border: 1px solid var(--color-border);
-  background: #fff;
+  border: 1px solid var(--color-line);
+  background: var(--color-ivory);
+  min-height: 2.75rem;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--color-ink-700);
   transition:
     color 0.2s,
     background-color 0.2s,
@@ -319,27 +821,18 @@ details.faq[open] > summary svg {
     box-shadow 0.2s;
 }
 .blog-chip:hover {
-  border-color: var(--color-secondary);
-  color: #000;
+  border-color: var(--color-gold-500);
+  color: var(--color-ink-900);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.06);
 }
 .blog-chip[data-on] {
-  background: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: #000;
+  background: var(--color-gold-400);
+  border-color: var(--color-gold-400);
+  color: var(--color-ink-900);
 }
 
-/* With reduced motion, nothing waits to be revealed. */
-@media (prefers-reduced-motion: reduce) {
-  html[data-reveal-ready] [data-reveal]:not([data-in]) {
-    opacity: 1;
-    filter: none;
-    transform: none;
-  }
-}
-
-/* Google Maps iframe in the band above the footer. */
+/* Google Maps iframe */
 .map-frame iframe {
   width: 100%;
   height: 100%;

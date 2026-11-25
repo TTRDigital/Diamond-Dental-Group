@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { siteUrl } from "@/lib/site";
+import { urbanist } from "@/lib/fonts";
 
 /*
  * Root layout is intentionally bare: the website's styles and chrome live
  * in app/(site)/layout.tsx so the embedded Sanity Studio at /cms loads
- * without them. No web fonts are loaded: the live site uses system fonts.
+ * without them. The Urbanist font is self-hosted (lib/fonts.ts).
  */
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -20,11 +21,11 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#000000" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#faf8f2" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-US" suppressHydrationWarning>
+    <html lang="en-US" className={urbanist.variable} suppressHydrationWarning>
       <body>{children}</body>
     </html>
   );

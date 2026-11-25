@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Clock, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { getContact, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { HoursList, PageHero } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const c = await getContact();
@@ -13,88 +13,86 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const [c, s] = await Promise.all([getContact(), getSiteSettings()]);
+  const mapTitle = `Map of ${s.name}, ${s.street}, ${s.city}`;
+  const mapSrc = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${encodeURIComponent(s.mapQuery)}&t=&z=15&ie=UTF8&iwloc=B&output=embed`;
   return (
     <>
       <PageSchema seo={c.seo} />
-      <Breadcrumbs
-        jsonLd={!seoSchemaNodes(c.seo.schema)}
-        items={[
+      <PageHero
+        crumbs={[
           { name: "Home", path: "/" },
           { name: "Contact", path: "/contact/" },
         ]}
+        crumbJsonLd={!seoSchemaNodes(c.seo.schema)}
+        eyebrow={c.badge}
+        heading={c.heading}
+        headingSuffix={c.headingAccent}
+        lead={c.text}
       />
-      <div className="bg-animated-mesh font-sans pb-16 min-h-screen" data-anim>
-        <section className="relative pt-32 pb-20 px-4">
-          <div className="relative z-10 max-w-6xl mx-auto">
-            <div className="inline-block bg-black text-secondary font-bold px-4 py-1.5 rounded-full text-sm mb-6 border border-secondary/20">{c.badge}</div>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-black mb-6 tracking-tight">
-              {c.heading}
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-yellow-600">{c.headingAccent}</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl">{c.text}</p>
-          </div>
-        </section>
 
-        <section className="pb-20">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-7">
-                {/* Online scheduler (Jarvis Analytics), as on the live page. */}
-                <div className="bg-white/70 backdrop-blur-xl p-4 md:p-8 rounded-[2rem] border border-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full min-h-[700px] overflow-hidden relative">
-                  {/* Loads once the page has loaded (lib/lazy-frames-script.ts), so it never competes with the first paint. */}
-                  <iframe title={c.bookingTitle} data-src={s.bookingUrl} data-load="after-load" className="absolute inset-0 w-full h-full border-0 rounded-[2rem]" suppressHydrationWarning />
-                  <noscript>
-                    <iframe title={c.bookingTitle} src={s.bookingUrl} loading="lazy" className="absolute inset-0 w-full h-full border-0 rounded-[2rem]" />
-                  </noscript>
-                </div>
-              </div>
-              <div className="lg:col-span-5 grid grid-cols-1 gap-6">
-                <div className="bg-black text-white p-8 rounded-[2rem] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl group-hover:bg-secondary/30 transition-colors" />
-                  <h2 className="text-xl font-bold text-white mb-6 relative z-10">{c.directHeading}</h2>
-                  <a href={s.phoneHref} data-track="click_to_call" className="flex items-center group/link mb-6 relative z-10">
-                    <div className="bg-white/10 p-4 rounded-full mr-4 group-hover/link:bg-secondary group-hover/link:text-black transition-colors">
-                      <Phone className="w-6 h-6" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <span className="block font-bold text-2xl text-secondary group-hover/link:text-white transition-colors">{s.phone}</span>
-                      <span className="text-white/60 text-sm">{c.callLabel}</span>
-                    </div>
-                  </a>
-                  <div className="flex items-start relative z-10">
-                    <div className="bg-white/10 p-4 rounded-full mr-4">
-                      <MapPin className="w-6 h-6 text-white" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <span className="block font-bold text-lg">{s.name}</span>
-                      <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-white/60 text-sm hover:text-secondary transition-colors">
-                        {s.street}
-                        <br />
-                        {s.city}, {s.region} {s.postalCode}, {s.country}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                  <h2 className="text-xl font-bold text-black mb-6 flex items-center">
-                    <Clock className="w-6 h-6 mr-3 text-secondary" aria-hidden="true" />
-                    {c.hoursHeading}
-                  </h2>
-                  <ul className="space-y-3 text-sm text-gray-600">
-                    {s.hours.map((h) => (
-                      <li key={h.day} className={`flex justify-between pb-2 ${h.opens ? "border-b border-gray-50" : "text-gray-400"}`}>
-                        <span>{h.day}</span>
-                        <span className={h.opens ? "font-medium text-black" : ""}>{h.value}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+      <section className="section-tight">
+        <div className="container-x grid gap-6 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            {/* Online scheduler (Jarvis Analytics), as on the live page. Loads once the page has loaded
+                (lib/lazy-frames-script.ts), so it never competes with the first paint. */}
+            <div className="relative h-full min-h-[700px] overflow-hidden rounded-lg border border-line bg-ivory">
+              <iframe title={c.bookingTitle} data-src={s.bookingUrl} data-load="after-load" className="absolute inset-0 h-full w-full border-0" suppressHydrationWarning />
+              <noscript>
+                <iframe title={c.bookingTitle} src={s.bookingUrl} loading="lazy" className="absolute inset-0 h-full w-full border-0" />
+              </noscript>
             </div>
           </div>
-        </section>
-      </div>
+          <div className="grid content-start gap-6 lg:col-span-5">
+            <div className="on-dark rounded-lg bg-ink-900 p-8 text-white">
+              <h2 className="text-[1.25rem]">{c.directHeading}</h2>
+              <a href={s.phoneHref} data-track="click_to_call" className="group mt-6 flex items-center gap-4">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-gold-400 group-hover:text-ink-900">
+                  <Phone className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span>
+                  <span className="block text-[1.5rem] font-semibold text-gold-400">{s.phone}</span>
+                  <span className="text-sm text-white/65">{c.callLabel}</span>
+                </span>
+              </a>
+              <div className="mt-6 flex items-start gap-4">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10">
+                  <MapPin className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <span className="block font-semibold">{s.name}</span>
+                  <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-white/70 transition-colors hover:text-gold-400">
+                    {s.street}
+                    <br />
+                    {s.city}, {s.region} {s.postalCode}, {s.country}
+                  </a>
+                </div>
+              </div>
+              <a href={`mailto:${s.email}`} className="mt-6 flex items-center gap-4 break-all text-sm text-white/80 transition-colors hover:text-gold-400">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10">
+                  <Mail className="h-5 w-5" aria-hidden="true" />
+                </span>
+                {s.email}
+              </a>
+            </div>
+            <div className="card border border-line p-8">
+              <h2 className="flex items-center gap-3 text-[1.25rem]">
+                <Clock className="h-5 w-5 text-gold-700" aria-hidden="true" />
+                {c.hoursHeading}
+              </h2>
+              <div className="mt-5">
+                <HoursList hours={s.hours} />
+              </div>
+            </div>
+            {/* Lazy map: loads only when it comes near the screen (lib/lazy-frames-script.ts). */}
+            <div className="map-frame aspect-[4/3] overflow-hidden rounded-lg border border-line bg-sand">
+              <iframe title={mapTitle} data-src={mapSrc} data-load="near" loading="lazy" referrerPolicy="no-referrer-when-downgrade" suppressHydrationWarning />
+              <noscript>
+                <iframe title={mapTitle} src={mapSrc} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              </noscript>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

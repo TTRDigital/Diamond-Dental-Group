@@ -16,7 +16,8 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageSchema } from "@/components/ui/PageSchema";
-import { btnBase, btnGold } from "@/components/ui/Buttons";
+import { images } from "@/lib/data/images";
+import { CtaBanner } from "@/components/sections/Blocks";
 import { BODY_LINK, H2, P } from "@/components/blog/ArticleBody";
 
 /*
@@ -53,8 +54,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return pageMetadata({ ...p.seo, noIndex: p.seo.noIndex || draft }, p.path, p.image);
 }
 
-const H3 = "mb-4 mt-10 font-heading text-xl font-bold leading-snug text-black md:text-2xl";
-const LIST = "my-7 space-y-3 text-[17px] leading-[1.7] text-gray-700 md:text-[18px]";
+const H3 = "mb-4 mt-10 font-heading text-xl font-semibold leading-snug text-ink-900";
+const LIST = "my-7 space-y-3 text-[17px] leading-[1.7] text-grey-700 md:text-[18px]";
 
 /** A link in the text: this site's own addresses (also written as full diamonddentalgroups.com URLs) stay on the site. */
 function TextLink({ href, children }: { href?: string; children: React.ReactNode }) {
@@ -71,15 +72,15 @@ const components: PortableTextComponents = {
     normal: ({ children }) => <p className={P}>{children}</p>,
     h2: ({ children }) => <h2 className={H2}>{children}</h2>,
     h3: ({ children }) => <h3 className={H3}>{children}</h3>,
-    h4: ({ children }) => <h4 className="mb-3 mt-8 font-heading text-lg font-bold text-black">{children}</h4>,
-    blockquote: ({ children }) => <blockquote className="my-8 border-l-4 border-secondary pl-5 text-[17px] italic leading-[1.75] text-gray-700">{children}</blockquote>,
+    h4: ({ children }) => <h4 className="mb-3 mt-8 text-lg font-semibold text-ink-900">{children}</h4>,
+    blockquote: ({ children }) => <blockquote className="my-8 border-l-2 border-gold-500 pl-5 text-[17px] italic leading-[1.75] text-grey-700">{children}</blockquote>,
   },
   list: {
     bullet: ({ children }) => <ul className={`blog-ul ${LIST}`}>{children}</ul>,
     number: ({ children }) => <ol className={`blog-ol ${LIST}`}>{children}</ol>,
   },
   marks: {
-    strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
+    strong: ({ children }) => <strong className="font-bold text-ink-900">{children}</strong>,
     em: ({ children }) => <em>{children}</em>,
     link: ({ value, children }) => <TextLink href={(value as { href?: string } | undefined)?.href}>{children}</TextLink>,
   },
@@ -88,7 +89,7 @@ const components: PortableTextComponents = {
       const img = (value as PtBlock).img;
       if (!img) return null;
       return (
-        <figure className={`relative my-10 overflow-hidden rounded-2xl shadow-md ${photoFrame(img).aspect}`}>
+        <figure className={`relative my-10 overflow-hidden rounded-lg ${photoFrame(img).aspect}`}>
           <Image src={img.src} alt={img.alt} fill loading="lazy" sizes="(min-width: 768px) 720px, 100vw" className={`object-cover ${photoFrame(img).position}`} />
         </figure>
       );
@@ -143,28 +144,27 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
           }}
         />
       )}
-      <article className="bg-white">
+      <article>
         {/* The site's dark band: heading and byline, with the page's photo on the right when it has one. */}
-        <header className="relative overflow-hidden bg-black text-white">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#161616] to-[#2a2000] opacity-90" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(229,184,51,0.16),transparent_55%)]" />
-          <div className="relative z-10 mx-auto max-w-6xl lg:px-4">
+        <header className="on-dark relative overflow-hidden bg-night-900 text-white">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(230,185,51,0.14),transparent_55%)]" />
+          <div className="relative z-10 mx-auto max-w-[1280px] lg:px-12">
             <div className={`grid items-center ${p.image ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,46%)]" : ""} lg:gap-12 lg:py-16`}>
               {p.image ? (
-                <figure className={`relative ${photoFrame(p.image).aspect} lg:order-2 lg:overflow-hidden lg:rounded-3xl lg:shadow-2xl lg:ring-1 lg:ring-white/10`}>
+                <figure className={`relative ${photoFrame(p.image).aspect} lg:order-2 lg:overflow-hidden lg:rounded-lg`}>
                   <Image src={p.image.src} alt={p.image.alt} fill priority fetchPriority="high" sizes="(min-width: 1024px) 520px, 100vw" className={`object-cover ${photoFrame(p.image).position}`} />
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black to-transparent lg:hidden" aria-hidden="true" />
+                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-night-900 to-transparent lg:hidden" aria-hidden="true" />
                 </figure>
               ) : null}
               <div className={`px-4 pb-12 ${p.image ? "pt-5" : "pt-12"} lg:order-1 lg:px-0 lg:py-0`}>
-                <h1 className="font-heading text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">{h1}</h1>
-                <div className="mt-7 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:inline-flex sm:pr-7">
-                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-secondary" /> : null}
+                <h1 className="text-white">{h1}</h1>
+                <div className="mt-7 flex items-center gap-4 rounded-lg border border-white/10 bg-white/5 p-4 sm:inline-flex sm:pr-7">
+                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-400" /> : null}
                   <div className="text-sm leading-snug">
                     <span className="block font-semibold">
                       By{" "}
                       {author.url ? (
-                        <Link href={author.url} className="underline decoration-secondary/60 underline-offset-4 transition-colors hover:text-secondary">
+                        <Link href={author.url} className="underline decoration-gold-400/60 underline-offset-4 transition-colors hover:text-gold-400">
                           {author.label}
                         </Link>
                       ) : (
@@ -174,12 +174,12 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
                     {author.role ? <span className="mt-0.5 block text-white/70">{author.role}</span> : null}
                   </div>
                 </div>
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                  <Link href="/contact/" data-track="book_appointment" className={`${btnGold} rounded-lg px-8 py-6 text-lg font-bold shadow-[0_4px_14px_rgba(229,184,51,0.4)] transition-all hover:-translate-y-0.5`}>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link href="/contact/" data-track="book_appointment" className="btn btn-gold">
                     {t.primaryButton}
                   </Link>
-                  <a href={s.phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center px-4 py-3 text-xl font-bold text-white transition-colors hover:text-secondary">
-                    <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
+                  <a href={s.phoneHref} data-track="click_to_call" className="btn btn-outline">
+                    <Phone className="h-4 w-4" aria-hidden="true" />
                     {s.phone}
                   </a>
                 </div>
@@ -193,27 +193,7 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
         </div>
       </article>
 
-      <section className="bg-secondary py-16 text-center px-4">
-        <div className="container mx-auto max-w-4xl" data-reveal>
-          <h2 className="text-3xl md:text-5xl font-black text-black mb-8 tracking-tight">{t.ctaHeading}</h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact/"
-              data-track="book_appointment"
-              className={`${btnBase} h-10 bg-black hover:bg-gray-900 text-white font-bold rounded-xl px-10 py-7 text-lg shadow-xl hover:-translate-y-1 transition-transform`}
-            >
-              {t.ctaButton}
-            </Link>
-            <a
-              href={s.phoneHref}
-              data-track="click_to_call"
-              className={`${btnBase} transition-colors border h-10 border-black text-black hover:bg-black hover:text-white font-bold rounded-xl px-10 py-7 text-lg bg-transparent`}
-            >
-              {s.phone}
-            </a>
-          </div>
-        </div>
-      </section>
+      <CtaBanner heading={t.ctaHeading} image={images.storefront} primary={{ label: t.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
     </SiteShell>
   );
 }

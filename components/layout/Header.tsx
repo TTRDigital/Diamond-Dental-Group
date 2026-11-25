@@ -8,31 +8,12 @@ import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import type { Img, Link as LinkT, MenuItem } from "@/lib/types";
 
 /*
- * Fixed header like the live site: black address bar, white bar with logo,
- * menu (Services opens a three-column mega menu on hover/focus), phone and
- * gold button. The full menu shows only where it fits on one line (the
- * `nav` breakpoint in globals.css); below that the phone menu (a slide-in
- * panel) takes over, so the menu never wraps.
+ * Sticky ivory header (Valencia / Ideal style): logo, uppercase menu (Services opens a three-column mega menu on
+ * hover or focus), phone and a dark "Book" pill. The full menu shows only where it fits on one line (the `nav`
+ * breakpoint in globals.css, plus a size check for wider system fonts); below that a slide-in phone menu takes
+ * over, so the menu never wraps.
  */
-export function Header({
-  menu,
-  cta,
-  phone,
-  phoneHref,
-  logo,
-  siteName,
-  address,
-  mapsUrl,
-}: {
-  menu: MenuItem[];
-  cta: LinkT;
-  phone: string;
-  phoneHref: string;
-  logo: Img;
-  siteName: string;
-  address: string;
-  mapsUrl: string;
-}) {
+export function Header({ menu, cta, phone, phoneHref, logo, siteName }: { menu: MenuItem[]; cta: LinkT; phone: string; phoneHref: string; logo: Img; siteName: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -43,8 +24,8 @@ export function Header({
   const needRef = useRef(0);
   const [compact, setCompact] = useState(false);
 
-  // Never let the menu wrap: system fonts differ per device, so besides the CSS
-  // breakpoint, switch to the phone menu whenever the full row would not fit.
+  // Never let the menu wrap: system fonts differ per device, so besides the CSS breakpoint,
+  // switch to the phone menu whenever the full row would not fit.
   useEffect(() => {
     const row = rowRef.current;
     if (!row) return;
@@ -63,7 +44,7 @@ export function Header({
   const phoneOnly = compact ? "" : "nav:hidden";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -106,99 +87,88 @@ export function Header({
     };
   }, [open]);
 
-  return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full flex flex-col">
-      <div className="bg-black text-white text-xs py-1.5 text-center">
-        <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors">
-          {address}
-        </a>
-      </div>
-      <header className={`w-full transition-all duration-300 ${scrolled ? "bg-white shadow-md py-2" : "bg-white/95 backdrop-blur-sm py-4"}`}>
-        <div ref={rowRef} className="container mx-auto px-4 flex items-center justify-between">
-          <Link href="/" data-row-logo className="flex items-center gap-2 shrink-0">
-            {/* Small logo, served at its displayed size (no preload, so it never competes with the hero image). */}
-            <Image src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} sizes="(min-width: 768px) 65px, 54px" className="h-10 md:h-12 w-auto object-contain" />
-            <span className="text-black font-bold text-lg md:text-xl tracking-wide hidden sm:block whitespace-nowrap">{siteName}</span>
-          </Link>
+  // The top-level item for the current page (a service page highlights Services, a post highlights Patient Education).
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href));
 
-          <nav aria-label="Main" data-row-nav className={`${full} items-center space-x-8`}>
+  return (
+    <header className={`sticky top-0 z-50 h-[var(--header-h)] border-b bg-ivory/95 backdrop-blur transition-[border-color,box-shadow] duration-300 ${scrolled ? "border-line shadow-[0_8px_24px_-20px_rgb(17_17_16/0.5)]" : "border-transparent"}`}>
+      <div ref={rowRef} className="mx-auto flex h-full w-full max-w-[1440px] items-center justify-between gap-6 px-4 sm:px-6 xl:px-12">
+        <Link href="/" data-row-logo className="flex min-h-12 shrink-0 items-center gap-2.5">
+          {/* Small logo: no preload, so it never competes with the hero photo. */}
+          <Image src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} sizes="65px" className="h-10 w-auto object-contain md:h-11" />
+          <span className="hidden whitespace-nowrap text-[1.0625rem] font-semibold tracking-[0.02em] text-ink-900 sm:block">{siteName}</span>
+        </Link>
+
+        <nav aria-label="Main" data-row-nav className={`${full} items-center`}>
+          <ul className="flex items-center">
             {menu.map((item) =>
               item.groups?.length ? (
-                <div key={item.href} className="relative group">
-                  <Link
-                    href={item.href}
-                    aria-haspopup="true"
-                    className="flex items-center text-sm font-bold hover:text-secondary transition-colors py-2 whitespace-nowrap"
-                  >
+                <li key={item.href} className="mega-host relative">
+                  <Link href={item.href} aria-haspopup="true" data-active={isActive(item.href) || undefined} className="nav-link flex min-h-11 items-center gap-1 whitespace-nowrap px-2.5 text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
                     {item.label}
-                    <ChevronDown className="w-4 h-4 ml-1" aria-hidden="true" />
+                    <ChevronDown className="h-4 w-4" aria-hidden="true" />
                   </Link>
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-[600px] bg-white shadow-xl rounded-xl p-6 grid grid-cols-3 gap-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto border border-gray-100">
-                    {item.groups.map((g) => (
-                      <div key={g.heading}>
-                        <p className="font-heading font-bold text-secondary mb-3 text-sm uppercase tracking-wider">{g.heading}</p>
-                        <ul className="space-y-2">
-                          {g.links.map((l) => (
-                            <li key={l.href}>
-                              <Link href={l.href} className="text-sm text-gray-600 hover:text-secondary hover:font-medium block">
-                                {l.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                  <div className="mega absolute left-1/2 top-full w-[680px] -translate-x-1/2 pt-3">
+                    <div className="grid grid-cols-3 gap-8 rounded-lg border border-line bg-ivory p-7 shadow-[0_24px_48px_-28px_rgb(17_17_16/0.45)]">
+                      {item.groups.map((g) => (
+                        <div key={g.heading}>
+                          <p className="mb-3 text-xs font-bold uppercase tracking-[0.12em] text-gold-700">{g.heading}</p>
+                          <ul className="space-y-1">
+                            {g.links.map((l) => (
+                              <li key={l.href}>
+                                <Link href={l.href} className="block rounded-sm py-1 text-[0.9375rem] text-grey-700 transition-colors hover:text-ink-900 hover:underline hover:decoration-gold-500/60">
+                                  {l.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                </li>
               ) : (
-                <Link key={item.href} href={item.href} className="text-sm font-bold hover:text-secondary transition-colors whitespace-nowrap">
-                  {item.label}
-                </Link>
+                <li key={item.href}>
+                  <Link href={item.href} data-active={isActive(item.href) || undefined} aria-current={pathname === item.href ? "page" : undefined} className="nav-link flex min-h-11 items-center whitespace-nowrap px-2.5 text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
+                    {item.label}
+                  </Link>
+                </li>
               ),
             )}
-          </nav>
+          </ul>
+        </nav>
 
-          <div data-row-right className={`${full} items-center space-x-4 shrink-0`}>
-            <a href={phoneHref} data-track="click_to_call" className="flex items-center text-black font-bold hover:text-secondary transition-colors text-sm whitespace-nowrap">
-              <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
-              {phone}
-            </a>
-            <Link
-              href={cta.href}
-              data-track="book_appointment"
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm h-10 py-2 bg-secondary hover:bg-gold-hover text-black font-bold rounded-lg px-6 shadow-md transition-all"
-            >
-              {cta.label}
-            </Link>
-          </div>
-
-          <div className={`${phoneOnly} flex items-center gap-3`}>
-            <a
-              href={phoneHref}
-              data-track="click_to_call"
-              aria-label={`Call ${siteName} at ${phone}`}
-              className="flex items-center justify-center gap-1.5 min-w-[44px] min-h-[44px] px-3 sm:px-4 rounded-lg bg-secondary text-black font-bold text-xs sm:text-base shrink-0 shadow-[0_2px_8px_rgba(229,184,51,0.4)] hover:bg-gold-hover transition-colors"
-            >
-              <Phone className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" aria-hidden="true" />
-              <span className="whitespace-nowrap">{phone}</span>
-            </a>
-            <button
-              ref={toggleRef}
-              type="button"
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              aria-label="Open menu"
-              onClick={() => setOpen(true)}
-              className="inline-flex items-center justify-center rounded-md h-10 w-10 min-w-[44px] min-h-[44px] text-black hover:bg-gray-100 transition-colors"
-            >
-              <Menu className="w-6 h-6" aria-hidden="true" />
-            </button>
-          </div>
+        <div data-row-right className={`${full} shrink-0 items-center gap-5`}>
+          <a href={phoneHref} data-track="click_to_call" className="flex min-h-11 items-center gap-2 whitespace-nowrap text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
+            <Phone className="h-4 w-4" aria-hidden="true" />
+            {phone}
+          </a>
+          <Link href={cta.href} data-track="book_appointment" className="btn btn-primary btn-sm uppercase tracking-[0.04em]">
+            {cta.label}
+          </Link>
         </div>
-      </header>
 
-      {/* Phone menu: overlay + panel from the right (live: shadcn Sheet, 300px). */}
-      <div className={`${phoneOnly} fixed inset-0 z-50 bg-black/80 transition-opacity ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`} onClick={() => setOpen(false)} aria-hidden="true" />
+        <div className={`${phoneOnly} flex items-center gap-1`}>
+          <a href={phoneHref} data-track="click_to_call" aria-label={`Call ${siteName} at ${phone}`} className="inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full px-3 text-sm font-bold text-ink-900 hover:bg-sand">
+            <Phone className="h-5 w-5 shrink-0" aria-hidden="true" />
+            <span className="hidden whitespace-nowrap sm:inline">{phone}</span>
+          </a>
+          <button
+            ref={toggleRef}
+            type="button"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label="Open menu"
+            onClick={() => setOpen(true)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-ink-900 transition-colors hover:bg-sand"
+          >
+            <Menu className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
+      {/* Phone menu: overlay + panel from the right. */}
+      <div className={`${phoneOnly} fixed inset-0 z-50 bg-ink-950/60 transition-opacity ${open ? "opacity-100" : "pointer-events-none opacity-0"}`} onClick={() => setOpen(false)} aria-hidden="true" />
       <div
         id="mobile-menu"
         ref={panelRef}
@@ -206,50 +176,58 @@ export function Header({
         aria-modal="true"
         aria-label="Menu"
         inert={!open}
-        className={`${phoneOnly} fixed z-50 inset-y-0 right-0 h-full w-[300px] sm:max-w-sm bg-white border-l p-6 shadow-lg overflow-y-auto transition-transform duration-300 ease-in-out ${open ? "translate-x-0" : "translate-x-full"}`}
+        className={`${phoneOnly} fixed inset-y-0 right-0 z-50 flex h-dvh w-[min(22rem,100vw)] flex-col overflow-y-auto bg-ivory px-6 pb-8 pt-5 shadow-2xl transition-transform duration-300 ease-out ${open ? "translate-x-0" : "translate-x-full"}`}
       >
-        <div className="flex flex-col space-y-6 mt-8">
+        <div className="mb-6 flex items-center justify-between">
+          <span className="text-xs font-bold uppercase tracking-[0.12em] text-gold-700">Menu</span>
+          <button type="button" onClick={() => setOpen(false)} className="inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-sand">
+            <X className="h-5 w-5" aria-hidden="true" />
+            <span className="sr-only">Close</span>
+          </button>
+        </div>
+        <ul className="divide-y divide-line border-y border-line">
           {menu.map((item) =>
             item.groups?.length ? (
-              <div key={item.href}>
-                <button type="button" aria-expanded={servicesOpen} onClick={() => setServicesOpen((v) => !v)} className="flex items-center text-lg font-bold w-full justify-between">
+              <li key={item.href}>
+                <button type="button" aria-expanded={servicesOpen} onClick={() => setServicesOpen((v) => !v)} className="flex min-h-14 w-full items-center justify-between text-left text-lg font-semibold uppercase tracking-[0.02em]">
                   {item.label}
-                  <ChevronDown className={`w-5 h-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+                  <ChevronDown className={`h-5 w-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} aria-hidden="true" />
                 </button>
-                <div hidden={!servicesOpen} className="pl-4 mt-4 space-y-4">
-                  {item.groups
-                    .flatMap((g) => g.links)
-                    .map((l) => (
-                      <Link key={l.href} href={l.href} className="block text-gray-600 py-1">
-                        {l.label}
-                      </Link>
-                    ))}
+                <div hidden={!servicesOpen} className="pb-4">
+                  <Link href={item.href} className="block py-2 font-semibold text-gold-700">
+                    All services
+                  </Link>
+                  {item.groups.map((g) => (
+                    <div key={g.heading} className="mt-3">
+                      <p className="mb-1 text-xs font-bold uppercase tracking-[0.12em] text-grey-600">{g.heading}</p>
+                      {g.links.map((l) => (
+                        <Link key={l.href} href={l.href} className="block py-2 text-grey-700">
+                          {l.label}
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
                 </div>
-              </div>
+              </li>
             ) : (
-              <Link key={item.href} href={item.href} className="text-lg font-bold">
-                {item.label}
-              </Link>
+              <li key={item.href}>
+                <Link href={item.href} className="flex min-h-14 items-center text-lg font-semibold uppercase tracking-[0.02em]">
+                  {item.label}
+                </Link>
+              </li>
             ),
           )}
-          <hr />
-          <a href={phoneHref} data-track="click_to_call" className="flex items-center text-lg font-bold text-secondary">
-            <Phone className="w-5 h-5 mr-2" aria-hidden="true" />
-            {phone}
-          </a>
-          <Link
-            href={cta.href}
-            data-track="book_appointment"
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm h-10 px-4 py-2 bg-secondary hover:bg-gold-hover text-black font-bold w-full transition-colors"
-          >
+        </ul>
+        <div className="mt-auto space-y-3 pt-8">
+          <Link href={cta.href} data-track="book_appointment" className="btn btn-primary w-full">
             {cta.label}
           </Link>
+          <a href={phoneHref} data-track="click_to_call" className="btn btn-outline w-full">
+            <Phone className="h-4 w-4" aria-hidden="true" />
+            {phone}
+          </a>
         </div>
-        <button type="button" onClick={() => setOpen(false)} className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100">
-          <X className="h-4 w-4" aria-hidden="true" />
-          <span className="sr-only">Close</span>
-        </button>
       </div>
-    </div>
+    </header>
   );
 }

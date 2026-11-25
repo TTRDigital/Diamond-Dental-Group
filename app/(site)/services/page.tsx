@@ -6,9 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { DarkHero } from "@/components/sections/DarkHero";
-import { CtaBand } from "@/components/ui/Buttons";
+import { CtaBanner, PageHero, SectionHead } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const hub = await getServicesHub();
@@ -30,53 +28,36 @@ export default async function ServicesPage() {
   return (
     <>
       <PageSchema seo={hub.seo} />
-      <Breadcrumbs
-        jsonLd={!seoSchemaNodes(hub.seo.schema)}
-        items={[
+      <PageHero
+        crumbs={[
           { name: "Home", path: "/" },
           { name: "Services", path: "/services/" },
         ]}
+        crumbJsonLd={!seoSchemaNodes(hub.seo.schema)}
+        heading={hub.heading}
+        lead={hub.text}
+        image={images.treatmentRoom}
       />
-      <div className="bg-background font-sans pb-16">
-        <DarkHero heading={hub.heading} text={hub.text} />
-        <section className="py-20 md:py-28 bg-animated-mesh" data-anim>
-          <div className="container mx-auto px-4 max-w-6xl relative z-10 space-y-20">
-            {groups.map((g) => (
-              <div key={g.heading}>
-                <div className="text-center mb-12" data-reveal>
-                  <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">{g.heading}</h2>
-                  <div className="w-20 h-1 bg-secondary mx-auto rounded-full" />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {g.items.map((sv) => (
-                    <div key={sv.slug} data-reveal>
-                      <Link
-                        href={`/services/${sv.slug}/`}
-                        className="bg-white/90 backdrop-blur-sm p-8 rounded-xl shadow-md hover:shadow-xl transition-all border border-gray-100 group flex flex-col items-start h-full hover:-translate-y-2"
-                      >
-                        <h3 className="text-xl font-bold text-black mb-3">{sv.name}</h3>
-                        <p className="text-gray-600 mb-4 grow">{sv.sub}</p>
-                        <span className="text-secondary font-bold group-hover:text-black flex items-center mt-auto">
-                          {hub.cardLink}
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-                        </span>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+      {groups.map((g, i) => (
+        <section key={g.heading} className={`section ${i % 2 ? "bg-sand" : ""}`}>
+          <div className="container-x">
+            <SectionHead heading={g.heading} />
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {g.items.map((sv) => (
+                <Link key={sv.slug} href={`/services/${sv.slug}/`} className="card card-hover flex flex-col border border-line p-7" data-reveal>
+                  <h3>{sv.name}</h3>
+                  <p className="mt-2 grow text-grey-700">{sv.sub}</p>
+                  <span className="link-arrow mt-5">
+                    {hub.cardLink}
+                    <ArrowRight className="arrow-nudge h-4 w-4" aria-hidden="true" />
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
-        <CtaBand
-          heading={hub.template.ctaHeading}
-          button={hub.template.ctaButton}
-          phone={s.phone}
-          phoneHref={s.phoneHref}
-          bgImage={images.treatmentRoom.src}
-          bgAlt={images.treatmentRoom.alt}
-        />
-      </div>
+      ))}
+      <CtaBanner heading={hub.template.ctaHeading} image={images.storefront} primary={{ label: hub.template.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
     </>
   );
 }

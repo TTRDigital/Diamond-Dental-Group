@@ -1,15 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CircleCheck, ShieldCheck } from "lucide-react";
+import { ArrowRight, CircleCheck, ShieldCheck } from "lucide-react";
 import { getPatientCare, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { DarkHero } from "@/components/sections/DarkHero";
-import { CtaBand, btnBase, btnGold } from "@/components/ui/Buttons";
+import { CtaBanner, PageHero, SectionHead } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const p = await getPatientCare();
@@ -21,183 +19,142 @@ export default async function PatientCarePage() {
   return (
     <>
       <PageSchema seo={p.seo} />
-      <Breadcrumbs
-        jsonLd={!seoSchemaNodes(p.seo.schema)}
-        items={[
+      <PageHero
+        crumbs={[
           { name: "Home", path: "/" },
           { name: "Patient Care", path: "/patient-care/" },
         ]}
+        crumbJsonLd={!seoSchemaNodes(p.seo.schema)}
+        heading={p.hero.heading}
+        lead={p.hero.text}
       />
-      <div className="bg-background font-sans pb-16">
-        <DarkHero heading={p.hero.heading} text={p.hero.text} />
 
-        {/* $49 new patient special */}
-        <section className="py-20 bg-animated-mesh" data-anim>
-          <div className="container mx-auto px-4 max-w-4xl relative z-10">
-            <div data-reveal>
-              <div className="bg-white/90 backdrop-blur-md border border-gray-200 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-shadow duration-500">
-                <div className="absolute top-0 right-0 bg-secondary text-black text-sm font-bold px-6 py-2 rounded-bl-xl uppercase tracking-wider group-hover:scale-105 origin-top-right transition-transform">
-                  {p.special.badge}
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-black mb-4 pr-32">{p.special.heading}</h2>
-                <p className="text-lg text-gray-600 mb-8">{p.special.text}</p>
-                <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 md:p-8 mb-8 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full blur-3xl -z-10" />
-                  <p className="text-gray-400 line-through font-medium mb-1">{p.special.regular}</p>
-                  <p className="text-4xl font-extrabold text-secondary mb-2 group-hover:scale-105 origin-left transition-transform">{p.special.price}</p>
-                  <p className="text-[#3DBA6F] font-bold text-lg mb-6">{p.special.savings}</p>
-                  <ul className="space-y-4">
-                    {p.special.items.map((it) => (
-                      <li key={it} className="flex items-start text-black font-medium">
-                        <CircleCheck className="w-6 h-6 text-secondary mr-3 shrink-0" aria-hidden="true" />
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <Link
-                  href="/contact/"
-                  data-track="book_appointment"
-                  className={`${btnGold} font-bold rounded-lg px-8 py-7 text-lg shadow-xl w-full sm:w-auto hover:scale-105 transition-transform`}
-                >
-                  {p.special.button}
-                </Link>
-              </div>
+      {/* $49 new patient special */}
+      <section className="section">
+        <div className="container-x">
+          <div className="relative grid overflow-hidden rounded-lg border border-line bg-ivory md:grid-cols-[1.2fr_1fr]" data-reveal>
+            <span className="absolute right-0 top-0 rounded-bl-md bg-gold-400 px-5 py-2 text-xs font-bold uppercase tracking-[0.08em] text-ink-900">{p.special.badge}</span>
+            <div className="p-8 md:p-12">
+              <h2 className="pr-28">{p.special.heading}</h2>
+              <p className="lead mt-4">{p.special.text}</p>
+              <Link href="/contact/" data-track="book_appointment" className="btn btn-primary mt-8">
+                {p.special.button}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="on-dark bg-ink-900 p-8 text-white md:p-12">
+              <p className="text-white/55 line-through">{p.special.regular}</p>
+              <p className="mt-1 text-[2.75rem] font-semibold leading-none text-gold-400">{p.special.price}</p>
+              <p className="mt-2 font-semibold text-white">{p.special.savings}</p>
+              <ul className="mt-6 space-y-3">
+                {p.special.items.map((it) => (
+                  <li key={it} className="flex items-start gap-3 text-white/90">
+                    <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold-400" aria-hidden="true" />
+                    {it}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* More grand opening offers */}
-        <section className="py-24 bg-white relative overflow-hidden">
-          <div className="container mx-auto px-4 max-w-6xl relative z-10">
-            <div className="text-center mb-20" data-reveal>
-              <h2 className="text-4xl md:text-5xl font-extrabold text-black mb-6 tracking-tight">{p.offers.heading}</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">{p.offers.text}</p>
-            </div>
-            <div className="space-y-12 md:space-y-24 mb-16">
-              {p.offers.items.map((o, i) => (
-                <div key={o.title} className={`flex flex-col md:flex-row items-center gap-8 md:gap-16 ${i % 2 ? "md:flex-row-reverse" : ""}`}>
-                  <div className="w-full md:w-1/2" data-reveal>
-                    <div className="relative rounded-3xl overflow-hidden aspect-video shadow-2xl border-4 border-gray-50 group">
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
-                      {o.image ? (
-                        <Image
-                          src={o.image.src}
-                          alt={o.image.alt}
-                          fill
-                          sizes="(min-width: 1152px) 512px, (min-width: 768px) 45vw, 100vw"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      ) : null}
-                      <div className="absolute bottom-6 left-6 z-20 bg-black text-secondary font-black text-3xl px-6 py-3 rounded-xl shadow-xl group-hover:-translate-y-2 transition-transform">
-                        {o.amount}
-                      </div>
-                    </div>
+      {/* More grand opening offers */}
+      <section className="section bg-sand">
+        <div className="container-x">
+          <SectionHead heading={p.offers.heading} text={p.offers.text} center />
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {p.offers.items.map((o) => (
+              <div key={o.title} className="card flex flex-col overflow-hidden" data-reveal>
+                {o.image ? (
+                  <div className="relative aspect-[16/10] bg-line">
+                    <Image src={o.image.src} alt={o.image.alt} fill sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+                    <span className="absolute bottom-4 left-4 rounded-md bg-ink-900 px-4 py-2 text-[1.5rem] font-semibold text-gold-400">{o.amount}</span>
                   </div>
-                  <div className="w-full md:w-1/2" data-reveal>
-                    <h3 className="text-3xl font-bold text-black mb-4">{o.title}</h3>
-                    <p className="text-lg text-gray-600 mb-8">{o.text}</p>
-                    <Link
-                      href="/contact/"
-                      data-track="book_appointment"
-                      aria-label={`${p.offers.button}: ${o.amount} ${o.title}`}
-                      className={`${btnBase} transition-colors border bg-background h-10 border-secondary text-black hover:bg-secondary hover:text-black font-bold px-8 py-6 rounded-xl text-lg`}
-                    >
-                      {p.offers.button}
-                    </Link>
-                  </div>
+                ) : (
+                  <p className="px-7 pt-7 text-[1.75rem] font-semibold text-gold-700">{o.amount}</p>
+                )}
+                <div className="flex grow flex-col p-7">
+                  <h3>{o.title}</h3>
+                  <p className="mt-2 grow text-grey-700">{o.text}</p>
+                  <Link href="/contact/" data-track="book_appointment" aria-label={`${p.offers.button}: ${o.amount} ${o.title}`} className="btn btn-outline btn-sm mt-6 self-start">
+                    {p.offers.button}
+                  </Link>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Insurance */}
+      <section className="section">
+        <div className="container-x">
+          <div className="mx-auto max-w-2xl text-center" data-reveal>
+            <ShieldCheck className="mx-auto h-10 w-10 text-gold-700" aria-hidden="true" />
+            <h2 className="mt-4">{p.insurance.heading}</h2>
+            <p className="lead mt-3">{p.insurance.text}</p>
+          </div>
+          <ul className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-3" data-reveal>
+            {p.insurance.plans.map((plan) => (
+              <li key={plan} className="rounded-full border border-line bg-ivory px-5 py-2.5 font-medium text-ink-900">
+                {plan}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-10 text-center font-medium text-ink-900" data-reveal>
+            {p.insurance.notePrefix}{" "}
+            <a href={s.phoneHref} data-track="click_to_call" className="font-bold text-gold-700 underline-offset-4 hover:underline">
+              {p.insurance.noteLink}
+            </a>{" "}
+            {p.insurance.noteSuffix}
+          </p>
+        </div>
+      </section>
+
+      {/* Membership plan */}
+      <section className="dark-section section">
+        <div className="container-x grid items-start gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <div data-reveal>
+            <h2>{p.membership.heading}</h2>
+            <p className="lead mt-4">{p.membership.text}</p>
+            <div className="mt-8 inline-block rounded-lg border border-gold-400/40 bg-night-800 px-8 py-6">
+              <p className="text-sm uppercase tracking-[0.08em] text-white/60">{p.membership.priceLabel}</p>
+              <p className="mt-1 text-[2.5rem] font-semibold leading-none text-gold-400">
+                {p.membership.price}
+                <span className="text-xl">{p.membership.per}</span>
+              </p>
+            </div>
+            <div className="mt-8">
+              <a href={s.phoneHref} data-track="click_to_call" className="btn btn-gold">
+                {p.membership.button}
+              </a>
+            </div>
+          </div>
+          <div className="rounded-lg bg-night-800 p-8" data-reveal>
+            <h3 className="border-b border-white/10 pb-4">{p.membership.includesHeading}</h3>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+              {p.membership.items.map((it) => (
+                <li key={it} className="flex items-start gap-3 text-white/90">
+                  <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-gold-400" aria-hidden="true" />
+                  {it}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Insurance */}
-        <section className="py-20 bg-white border-y border-gray-200">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <div className="text-center mb-12" data-reveal>
-              <ShieldCheck className="w-16 h-16 text-secondary mx-auto mb-6 drop-shadow-md" aria-hidden="true" />
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">{p.insurance.heading}</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">{p.insurance.text}</p>
-            </div>
-            <div data-reveal>
-              <div className="bg-gray-50 p-8 rounded-2xl border border-gray-100 shadow-md hover:shadow-lg transition-shadow">
-                <ul className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-gray-500 font-medium text-center">
-                  {p.insurance.plans.map((plan) => (
-                    <li key={plan} className="px-4 py-2 bg-white rounded-lg border border-gray-100 shadow-sm hover:-translate-y-1 transition-transform cursor-default">
-                      {plan}
-                    </li>
-                  ))}
-                </ul>
-                <div className="text-center mt-8 pt-8 border-t border-gray-200">
-                  <p className="text-gray-800 font-medium">
-                    {p.insurance.notePrefix}{" "}
-                    <a href={s.phoneHref} data-track="click_to_call" className="text-secondary hover:underline font-bold">
-                      {p.insurance.noteLink}
-                    </a>{" "}
-                    {p.insurance.noteSuffix}
-                  </p>
-                </div>
-              </div>
-            </div>
+      <section className="section-tight">
+        <div className="container-x">
+          <div className="mx-auto max-w-2xl text-center" data-reveal>
+            <h2>{p.payment.heading}</h2>
+            <p className="lead mt-3">{p.payment.text}</p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Membership plan */}
-        <section className="py-20 bg-animated-mesh" data-anim>
-          <div className="container mx-auto px-4 max-w-4xl relative z-10">
-            <div data-reveal>
-              <div className="bg-[#1A1A1A]/95 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl text-white relative overflow-hidden group">
-                <div className="absolute -right-20 -top-20 w-64 h-64 bg-secondary/10 rounded-full blur-3xl group-hover:bg-secondary/20 transition-colors duration-700" />
-                <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-6 relative z-10">
-                  <div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">{p.membership.heading}</h2>
-                    <p className="text-white/80 text-lg">{p.membership.text}</p>
-                  </div>
-                  <div className="bg-secondary/10 border border-secondary/30 rounded-2xl p-6 text-center min-w-[200px] hover:bg-secondary/20 transition-colors">
-                    <p className="text-white/60 mb-1 text-sm uppercase tracking-wider">{p.membership.priceLabel}</p>
-                    <p className="text-4xl font-black text-secondary">
-                      {p.membership.price}
-                      <span className="text-xl">{p.membership.per}</span>
-                    </p>
-                  </div>
-                </div>
-                <div className="bg-white/5 rounded-2xl p-6 md:p-8 relative z-10">
-                  <h3 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">{p.membership.includesHeading}</h3>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {p.membership.items.map((it) => (
-                      <li key={it} className="flex items-center text-white/90">
-                        <CircleCheck className="w-5 h-5 text-secondary mr-3 shrink-0" aria-hidden="true" />
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-10 text-center relative z-10">
-                  <a
-                    href={s.phoneHref}
-                    data-track="click_to_call"
-                    className={`${btnGold} font-bold rounded-lg px-8 py-7 text-lg w-full sm:w-auto shadow-[0_0_15px_rgba(229,184,51,0.2)] hover:scale-105 transition-transform`}
-                  >
-                    {p.membership.button}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4 max-w-4xl text-center">
-            <div data-reveal>
-              <h2 className="text-2xl font-bold text-black mb-4">{p.payment.heading}</h2>
-              <p className="text-gray-600 text-lg">{p.payment.text}</p>
-            </div>
-          </div>
-        </section>
-
-        <CtaBand heading={p.cta.heading} button={p.cta.button} phone={s.phone} phoneHref={s.phoneHref} bgImage={images.treatmentRoom.src} bgAlt={images.treatmentRoom.alt} />
-      </div>
+      <CtaBanner heading={p.cta.heading} image={images.treatmentRoom} primary={{ label: p.cta.button, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
     </>
   );
 }
