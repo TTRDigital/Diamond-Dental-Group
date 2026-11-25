@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
-import { CtaBanner, PageHero } from "@/components/sections/Blocks";
+import { CtaPanel, PageHero } from "@/components/sections/Blocks";
 import { PostCard } from "@/components/blog/PostCard";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -58,12 +58,12 @@ export default async function BlogIndexPage() {
       >
         {writer ? (
           <div className="mt-8 inline-flex items-center gap-4 rounded-lg border border-white/10 bg-white/5 px-5 py-4 text-left" data-stage="4">
-            {writer.image ? <Image src={writer.image.src} alt={writer.image.alt} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-400" /> : null}
+            {writer.image ? <Image src={writer.image.src} alt={writer.image.alt} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-300" /> : null}
             <div className="text-sm leading-snug">
               <span className="block text-white/70">Every article is written by</span>
               <span className="mt-0.5 block font-semibold text-white">
                 {writer.url ? (
-                  <Link href={writer.url} className="underline decoration-gold-400/60 underline-offset-4 transition-colors hover:text-gold-400">
+                  <Link href={writer.url} className="underline decoration-gold-300/60 underline-offset-4 transition-colors hover:text-gold-300">
                     {writer.label}
                   </Link>
                 ) : (
@@ -81,7 +81,7 @@ export default async function BlogIndexPage() {
       </PageHero>
 
       {/* Topic chips and the post cards. The anchors, chips and grid are siblings so the :target rules can reach them. */}
-      <section className="section-tight">
+      <section className="section-tight bg-cream">
         <div className="container-x">
           {topics.length ? <style dangerouslySetInnerHTML={{ __html: filterCss }} /> : null}
           <span id="all" className="block scroll-mt-36" aria-hidden="true" />
@@ -111,7 +111,7 @@ export default async function BlogIndexPage() {
       </section>
 
       {/* Have a question? */}
-      <CtaBanner heading={b.cta.heading} text={b.cta.text} image={images.treatmentRoom} primary={{ label: b.cta.button, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
+      <CtaPanel s={s} heading={b.cta.heading} text={b.cta.text} button={{ label: b.cta.button, href: "/contact/", track: "book_appointment" }} image={images.treatmentRoom} />
     </>
   );
 }

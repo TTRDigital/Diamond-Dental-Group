@@ -87,7 +87,7 @@ function Steps({ blocks }: { blocks: RichBlock[] }) {
     <ol className="my-8" data-reveal>
       {steps.map((st, i) => (
         <li key={i} className="relative flex gap-5 pb-8 before:absolute before:bottom-0 before:left-[21px] before:top-12 before:w-0.5 before:bg-line last:pb-0 last:before:hidden">
-          <span className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink-900 font-heading text-base font-bold text-gold-400 shadow-md ring-4 ring-ivory" aria-hidden="true">
+          <span className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-night-900 font-heading text-base font-bold text-gold-300 shadow-md ring-4 ring-ivory" aria-hidden="true">
             {i + 1}
           </span>
           <div className="min-w-0 pt-1.5">
@@ -105,18 +105,18 @@ function Steps({ blocks }: { blocks: RichBlock[] }) {
 /** One sentence that fits the topic, the Book button and the phone number, on the site's dark band. */
 function Band({ text, phone, phoneHref, button }: { text: string; phone: string; phoneHref: string; button: { label: string; href: string } }) {
   return (
-    <aside aria-label="Book a visit" className="relative my-12 overflow-hidden rounded-lg bg-ink-900 bg-[radial-gradient(circle_at_top_right,rgba(230,185,51,0.16),transparent_45%)] px-6 py-8 text-white md:px-9 md:py-9" data-reveal>
+    <aside aria-label="Book a visit" className="relative my-12 overflow-hidden rounded-lg bg-night-900 bg-[radial-gradient(circle_at_top_right,rgba(230,185,51,0.16),transparent_45%)] px-6 py-8 text-white md:px-9 md:py-9" data-reveal>
       <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <p className="font-heading text-xl font-bold leading-snug md:max-w-md md:text-2xl">{text}</p>
         <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href={button.href}
             data-track="book_appointment"
-            className={`btn btn-gold`}
+            className={`btn btn-light`}
           >
             {button.label}
           </Link>
-          <a href={phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center gap-2 px-4 py-3 font-bold text-white transition-colors hover:text-gold-400">
+          <a href={phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center gap-2 px-4 py-3 font-bold text-white transition-colors hover:text-gold-300">
             <Phone className="h-5 w-5" aria-hidden="true" />
             {phone}
           </a>

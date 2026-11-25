@@ -17,7 +17,7 @@ import { SiteShell } from "@/components/layout/SiteShell";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { images } from "@/lib/data/images";
-import { CtaBanner } from "@/components/sections/Blocks";
+import { PhotoCta } from "@/components/sections/Blocks";
 import { BODY_LINK, H2, P } from "@/components/blog/ArticleBody";
 
 /*
@@ -159,12 +159,12 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
               <div className={`px-4 pb-12 ${p.image ? "pt-5" : "pt-12"} lg:order-1 lg:px-0 lg:py-0`}>
                 <h1 className="text-white">{h1}</h1>
                 <div className="mt-7 flex items-center gap-4 rounded-lg border border-white/10 bg-white/5 p-4 sm:inline-flex sm:pr-7">
-                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-400" /> : null}
+                  {author.image ? <Image src={author.image.src} alt={author.image.alt || author.label} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-300" /> : null}
                   <div className="text-sm leading-snug">
                     <span className="block font-semibold">
                       By{" "}
                       {author.url ? (
-                        <Link href={author.url} className="underline decoration-gold-400/60 underline-offset-4 transition-colors hover:text-gold-400">
+                        <Link href={author.url} className="underline decoration-gold-300/60 underline-offset-4 transition-colors hover:text-gold-300">
                           {author.label}
                         </Link>
                       ) : (
@@ -175,10 +175,10 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
                   </div>
                 </div>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <Link href="/contact/" data-track="book_appointment" className="btn btn-gold">
+                  <Link href="/contact/" data-track="book_appointment" className="btn btn-ghost">
                     {t.primaryButton}
                   </Link>
-                  <a href={s.phoneHref} data-track="click_to_call" className="btn btn-outline">
+                  <a href={s.phoneHref} data-track="click_to_call" className="btn btn-light">
                     <Phone className="h-4 w-4" aria-hidden="true" />
                     {s.phone}
                   </a>
@@ -193,7 +193,7 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
         </div>
       </article>
 
-      <CtaBanner heading={t.ctaHeading} image={images.storefront} primary={{ label: t.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
+      <PhotoCta heading={t.ctaHeading} image={images.storefront} button={{ label: t.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
     </SiteShell>
   );
 }

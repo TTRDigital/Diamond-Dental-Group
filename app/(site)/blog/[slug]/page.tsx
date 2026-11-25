@@ -139,7 +139,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               </figure>
               <div className="px-4 pb-12 pt-5 lg:order-1 lg:px-0 lg:py-0">
                 {p.category ? (
-                  <span className="blog-rise inline-flex items-center rounded-full border border-gold-400/60 bg-gold-400/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-gold-400">{p.category}</span>
+                  <span className="blog-rise inline-flex items-center rounded-full border border-gold-300/60 bg-gold-300/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-gold-300">{p.category}</span>
                 ) : null}
                 <h1 className="blog-rise blog-rise-2 mt-4 font-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">{p.title}</h1>
                 {/* Byline card: the author (linked to her page), her role, the date and the reading time. Spans, so the first <p> on the page is the answer. */}
@@ -149,7 +149,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                     <span className="block font-semibold">
                       By{" "}
                       {author.url ? (
-                        <Link href={author.url} className="underline decoration-gold-400/60 underline-offset-4 transition-colors hover:text-gold-400">
+                        <Link href={author.url} className="underline decoration-gold-300/60 underline-offset-4 transition-colors hover:text-gold-300">
                           {author.label}
                         </Link>
                       ) : (
@@ -159,11 +159,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                     {author.role ? <span className="mt-0.5 block text-white/70">{author.role}</span> : null}
                     <span className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-white/80">
                       <span className="inline-flex items-center gap-1.5">
-                        <Calendar className="h-4 w-4 text-gold-400" aria-hidden="true" />
+                        <Calendar className="h-4 w-4 text-gold-300" aria-hidden="true" />
                         <time dateTime={p.date}>{p.dateLabel}</time>
                       </span>
                       <span className="inline-flex items-center gap-1.5">
-                        <Clock className="h-4 w-4 text-gold-400" aria-hidden="true" />
+                        <Clock className="h-4 w-4 text-gold-300" aria-hidden="true" />
                         {model.minutes} min read
                       </span>
                     </span>
@@ -208,20 +208,20 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               <ArticleBody model={model} band={band} phone={s.phone} phoneHref={s.phoneHref} button={button} />
 
               {/* The post's own call to action. */}
-              <div className="relative mt-14 overflow-hidden rounded-lg bg-ink-900 bg-[radial-gradient(circle_at_top_right,rgba(230,185,51,0.14),transparent_45%)] p-8 text-white md:p-10" data-reveal>
-                {p.cta.heading ? <h2 className="relative z-10 mb-4 font-heading text-2xl font-bold text-gold-400 md:text-3xl">{p.cta.heading}</h2> : null}
+              <div className="relative mt-14 overflow-hidden rounded-lg bg-night-900 bg-[radial-gradient(circle_at_top_right,rgba(230,185,51,0.14),transparent_45%)] p-8 text-white md:p-10" data-reveal>
+                {p.cta.heading ? <h2 className="relative z-10 mb-4 font-heading text-2xl font-bold text-gold-300 md:text-3xl">{p.cta.heading}</h2> : null}
                 <p className="relative z-10 mb-8 text-[17px] leading-[1.75] text-white/90 md:text-[18px]">
-                  <Inline text={p.cta.text} boldClassName="font-bold" linkClassName="text-gold-400 underline decoration-gold-500/50 underline-offset-4 transition-colors hover:text-white" />
+                  <Inline text={p.cta.text} boldClassName="font-bold" linkClassName="text-gold-300 underline decoration-gold-500/50 underline-offset-4 transition-colors hover:text-white" />
                 </p>
                 <div className="relative z-10 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
                   <Link
                     href={p.cta.buttonHref}
                     data-track="book_appointment"
-                    className={`btn btn-gold`}
+                    className={`btn btn-light`}
                   >
                     {p.cta.buttonLabel}
                   </Link>
-                  <a href={s.phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center px-4 py-3 text-xl font-bold text-white transition-colors hover:text-gold-400">
+                  <a href={s.phoneHref} data-track="click_to_call" className="inline-flex items-center justify-center px-4 py-3 text-xl font-bold text-white transition-colors hover:text-gold-300">
                     <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
                     {s.phone}
                   </a>
@@ -237,8 +237,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
                         <Image src={relatedImage.src} alt={relatedImage.alt} fill loading="lazy" sizes="(min-width: 640px) 290px, 100vw" className={`object-cover ${photoFrame(relatedImage).position}`} />
                       </div>
                     ) : (
-                      <div className="flex shrink-0 items-center justify-center bg-ink-900 p-8 sm:w-2/5">
-                        <Stethoscope className="h-14 w-14 text-gold-400" aria-hidden="true" />
+                      <div className="flex shrink-0 items-center justify-center bg-night-900 p-8 sm:w-2/5">
+                        <Stethoscope className="h-14 w-14 text-gold-300" aria-hidden="true" />
                       </div>
                     )}
                     <div className="p-6 md:p-8">

@@ -99,17 +99,17 @@ export function Header({ menu, cta, phone, phoneHref, logo, siteName }: { menu: 
           <span className="hidden whitespace-nowrap text-[1.0625rem] font-semibold tracking-[0.02em] text-ink-900 sm:block">{siteName}</span>
         </Link>
 
-        <nav aria-label="Main" data-row-nav className={`${full} items-center`}>
+        <nav aria-label="Main" data-row-nav className={`${full} ml-auto items-center`}>
           <ul className="flex items-center">
             {menu.map((item) =>
               item.groups?.length ? (
                 <li key={item.href} className="mega-host relative">
-                  <Link href={item.href} aria-haspopup="true" data-active={isActive(item.href) || undefined} className="nav-link flex min-h-11 items-center gap-1 whitespace-nowrap px-2.5 text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
+                  <Link href={item.href} aria-haspopup="true" data-active={isActive(item.href) || undefined} className="nav-link relative flex min-h-11 items-center gap-1 whitespace-nowrap px-2 text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
                     {item.label}
                     <ChevronDown className="h-4 w-4" aria-hidden="true" />
                   </Link>
                   <div className="mega absolute left-1/2 top-full w-[680px] -translate-x-1/2 pt-3">
-                    <div className="grid grid-cols-3 gap-8 rounded-lg border border-line bg-ivory p-7 shadow-[0_24px_48px_-28px_rgb(17_17_16/0.45)]">
+                    <div className="grid grid-cols-3 gap-8 rounded-lg bg-ivory p-7 ring-1 ring-ink-900/5 shadow-[0_24px_48px_-28px_rgb(17_17_16/0.45)]">
                       {item.groups.map((g) => (
                         <div key={g.heading}>
                           <p className="mb-3 text-xs font-bold uppercase tracking-[0.12em] text-gold-700">{g.heading}</p>
@@ -129,7 +129,7 @@ export function Header({ menu, cta, phone, phoneHref, logo, siteName }: { menu: 
                 </li>
               ) : (
                 <li key={item.href}>
-                  <Link href={item.href} data-active={isActive(item.href) || undefined} aria-current={pathname === item.href ? "page" : undefined} className="nav-link flex min-h-11 items-center whitespace-nowrap px-2.5 text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
+                  <Link href={item.href} data-active={isActive(item.href) || undefined} aria-current={pathname === item.href ? "page" : undefined} className="nav-link relative flex min-h-11 items-center whitespace-nowrap px-2 text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
                     {item.label}
                   </Link>
                 </li>
@@ -138,14 +138,13 @@ export function Header({ menu, cta, phone, phoneHref, logo, siteName }: { menu: 
           </ul>
         </nav>
 
-        <div data-row-right className={`${full} shrink-0 items-center gap-5`}>
-          <a href={phoneHref} data-track="click_to_call" className="flex min-h-11 items-center gap-2 whitespace-nowrap text-[0.9375rem] font-bold text-ink-900 transition-colors hover:text-gold-700">
-            <Phone className="h-4 w-4" aria-hidden="true" />
-            {phone}
-          </a>
-          <Link href={cta.href} data-track="book_appointment" className="btn btn-primary btn-sm uppercase tracking-[0.04em]">
+        <div data-row-right className={`${full} shrink-0 items-center gap-4`}>
+          <Link href={cta.href} data-track="book_appointment" className="inline-flex min-h-12 items-center whitespace-nowrap border-b-2 border-ink-900 px-2 text-[0.9375rem] font-bold uppercase text-ink-900 transition-colors hover:border-gold-700 hover:text-gold-700">
             {cta.label}
           </Link>
+          <a href={phoneHref} data-track="click_to_call" className="inline-flex min-h-11 items-center whitespace-nowrap px-1 text-[0.9375rem] font-bold tabular-nums text-ink-900 transition-colors hover:text-gold-700">
+            {phone}
+          </a>
         </div>
 
         <div className={`${phoneOnly} flex items-center gap-1`}>

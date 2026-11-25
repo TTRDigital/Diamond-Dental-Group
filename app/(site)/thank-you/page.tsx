@@ -27,7 +27,7 @@ export default async function ThankYouPage() {
       <section className="section flex min-h-[60vh] items-center">
         <div className="container-x">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-ink-900 text-gold-400">
+            <span className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-full bg-night-900 text-gold-300">
               <CircleCheck className="h-8 w-8" aria-hidden="true" />
             </span>
             <h1 className="mt-8">{t.heading}</h1>

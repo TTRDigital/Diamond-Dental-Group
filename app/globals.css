@@ -12,38 +12,40 @@
    ========================================================================== */
 
 @theme {
-  /* Brand */
-  --color-ink-950: #111110;
-  --color-ink-900: #1d1b18; /* text and headings */
-  --color-ink-700: #3a3733;
-  --color-night-900: #151413; /* dark surfaces */
-  --color-night-800: #1f1d1a;
-  --color-night-700: #2a2824;
-  --color-gold-200: #f3dea0;
-  --color-gold-300: #eccb6a;
-  --color-gold-400: #e6b933; /* the logo gold: accents on dark, gold buttons */
+  /* Brand: Valencia's colour roles (greige page, ivory panels, one muted dark brand surface, a soft accent on dark)
+     filled with Diamond's own logo colours: warm charcoal for every dark surface and button, the logo gold as accent. */
+  --color-ink-950: #141414;
+  --color-ink-900: #2e2e2e; /* text, headings */
+  --color-ink-700: #474747;
+  --color-night-900: #2f2b27; /* brand charcoal: every dark surface, primary buttons */
+  --color-night-800: #3a3631;
+  --color-night-700: #24211e; /* hover on charcoal */
+  --color-gold-200: #f1e2b5;
+  --color-gold-300: #dcc078; /* gold on dark: eyebrows, accents, lines */
+  --color-gold-400: #e6b933; /* the logo gold */
   --color-gold-500: #c99e22;
-  --color-gold-700: #7a5c0f; /* gold as text on light (AA) */
-  --color-ivory: #faf8f2; /* header, cards */
-  --color-cream: #f3efe6; /* page background */
-  --color-sand: #e9e3d6; /* alternate band */
-  --color-line: #ddd6c8; /* borders, dividers */
-  --color-grey-700: #4a4741;
-  --color-grey-600: #55524b; /* secondary text (AA on cream) */
-  --color-grey-400: #a29d92;
+  --color-gold-700: #6f5410; /* gold as text on light (AA on greige) */
+  --color-ivory: #f7f5ef; /* header, panels */
+  --color-cream: #e6e2da; /* page background (warm greige) */
+  --color-sand: #dcd7cd; /* deeper greige band, icon chips */
+  --color-line: #d6d3cc; /* borders, dividers */
+  --color-grey-900: #1f1f1f; /* body text */
+  --color-grey-700: #4b4b47;
+  --color-grey-600: #5e5e57; /* secondary text (AA on greige) */
+  --color-grey-400: #a7a7a0;
 
   /* Names the older components use, mapped onto the new palette */
-  --color-background: #f3efe6;
-  --color-foreground: #1d1b18;
-  --color-primary: #1d1b18;
+  --color-background: #e6e2da;
+  --color-foreground: #2e2e2e;
+  --color-primary: #2f2b27;
   --color-primary-foreground: #ffffff;
   --color-secondary: #e6b933;
-  --color-secondary-foreground: #1d1b18;
-  --color-muted: #e9e3d6;
-  --color-muted-foreground: #55524b;
+  --color-secondary-foreground: #2e2e2e;
+  --color-muted: #dcd7cd;
+  --color-muted-foreground: #5e5e57;
   --color-accent: #e6b933;
-  --color-accent-foreground: #1d1b18;
-  --color-border: #ddd6c8;
+  --color-accent-foreground: #2e2e2e;
+  --color-border: #d6d3cc;
   --color-ring: #e6b933;
   --color-gold-hover: #c99e22;
 
@@ -167,7 +169,7 @@
   }
   body {
     background-color: var(--color-cream);
-    color: var(--color-ink-900);
+    color: var(--color-grey-900);
     font-family: var(--font-sans);
     font-size: var(--text-base);
     line-height: var(--text-base--line-height);
@@ -208,7 +210,7 @@
   .on-dark h2 em,
   .dark-section h1 em,
   .dark-section h2 em {
-    color: var(--color-gold-400);
+    color: var(--color-gold-300);
   }
   p {
     text-wrap: pretty;
@@ -296,7 +298,7 @@
   }
   .on-dark .eyebrow,
   .dark-section .eyebrow {
-    color: var(--color-gold-400);
+    color: var(--color-gold-300);
   }
   .lead {
     color: var(--color-grey-700);
@@ -356,11 +358,60 @@
     transform: translateY(0) scale(0.98);
   }
   .btn-primary {
-    background: var(--color-ink-900);
+    background: var(--color-night-900);
     color: #fff;
   }
   .btn-primary:hover {
-    background: var(--color-ink-700);
+    background: var(--color-night-700);
+  }
+  /* On charcoal surfaces the primary button turns white so it stands out */
+  .on-dark .btn-primary,
+  .dark-section .btn-primary {
+    background: #fff;
+    color: var(--color-night-900);
+  }
+  .on-dark .btn-primary:hover,
+  .dark-section .btn-primary:hover {
+    background: var(--color-sand);
+  }
+  /* Outlined white button on photos and charcoal (Valencia's hero button) */
+  .btn-ghost {
+    border: 1px solid #fff;
+    color: #fff;
+    background: transparent;
+  }
+  .btn-ghost:hover {
+    background: #fff;
+    color: var(--color-night-900);
+    box-shadow: none;
+  }
+  /* Square outlined button (Valencia's "Schedule a Consultation" above the step photos) */
+  .btn-square {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    border: 1px solid var(--color-ink-900);
+    padding-inline: 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-ink-900);
+    text-decoration: none;
+    transition: background-color var(--dur-std), color var(--dur-std);
+  }
+  .btn-square:hover {
+    background: var(--color-ink-900);
+    color: #fff;
+  }
+  /* Underlined caps link (photo banners, step tiles) */
+  .link-line {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.125rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-decoration: none;
   }
   .btn-gold {
     background: var(--color-gold-400);
@@ -377,13 +428,13 @@
     background: var(--color-ivory);
   }
   .btn-outline {
-    border: 1px solid rgb(29 27 24 / 0.28);
+    border: 1px solid rgb(46 46 46 / 0.25);
     background: transparent;
     color: var(--color-ink-900);
   }
   .btn-outline:hover {
     border-color: var(--color-ink-900);
-    background: rgb(29 27 24 / 0.04);
+    background: rgb(46 46 46 / 0.05);
     box-shadow: none;
   }
   .on-dark .btn-outline,
@@ -417,14 +468,14 @@
   }
   .link-arrow:hover {
     text-decoration: underline;
-    text-decoration-color: rgb(122 92 15 / 0.4);
+    text-decoration-color: rgb(111 84 16 / 0.4);
   }
   .link-arrow:hover svg {
     transform: translateX(3px);
   }
   .on-dark .link-arrow,
   .dark-section .link-arrow {
-    color: var(--color-gold-400);
+    color: var(--color-gold-300);
   }
 
   /* Cards: one surface, one radius; interactive ones lift 3px and nudge their arrow */

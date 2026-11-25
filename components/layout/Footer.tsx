@@ -38,11 +38,11 @@ export function Footer({ settings: s }: { settings: SiteSettings }) {
             <div>
               <p className="eyebrow">New patients welcome</p>
               <p className="mt-3 text-[1.75rem] font-semibold leading-tight text-white md:text-[2.125rem]">
-                Book your visit at <span className="text-gold-400">{s.name}.</span>
+                Book your visit at <span className="text-gold-300">{s.name}.</span>
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Link href={s.headerCta.href} data-track="book_appointment" className="btn btn-gold">
+              <Link href={s.headerCta.href} data-track="book_appointment" className="btn btn-light">
                 {s.headerCta.label}
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -69,7 +69,7 @@ export function Footer({ settings: s }: { settings: SiteSettings }) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${s.name} on ${x.network === "facebook" ? "Facebook" : "Instagram"}`}
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-white transition-colors hover:bg-gold-400 hover:text-ink-900"
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-md bg-white/10 text-white transition-colors hover:bg-white hover:text-night-900"
                     >
                       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         {socialIcons[x.network]}
@@ -85,7 +85,7 @@ export function Footer({ settings: s }: { settings: SiteSettings }) {
               <ul className="mt-4 space-y-1 text-sm text-white/75">
                 {s.footerLinks.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="inline-flex min-h-9 items-center transition-colors hover:text-gold-400">
+                    <Link href={l.href} className="inline-flex min-h-9 items-center transition-colors hover:text-gold-300">
                       {l.label}
                     </Link>
                   </li>
@@ -98,7 +98,7 @@ export function Footer({ settings: s }: { settings: SiteSettings }) {
               <ul className="mt-4 space-y-1 text-sm text-white/75">
                 {services.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className="inline-flex min-h-9 items-center transition-colors hover:text-gold-400">
+                    <Link href={l.href} className="inline-flex min-h-9 items-center transition-colors hover:text-gold-300">
                       {l.label}
                     </Link>
                   </li>
@@ -109,24 +109,24 @@ export function Footer({ settings: s }: { settings: SiteSettings }) {
             <div>
               <h2 className="text-base font-semibold text-white">Hours &amp; location</h2>
               <address className="mt-4 space-y-4 text-sm not-italic text-white/75">
-                <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex gap-3 transition-colors hover:text-gold-400">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="flex gap-3 transition-colors hover:text-gold-300">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
                   <span>
                     {s.street}
                     <br />
                     {s.city}, {s.region} {s.postalCode}
                   </span>
                 </a>
-                <a href={s.phoneHref} data-track="click_to_call" className="flex items-center gap-3 transition-colors hover:text-gold-400">
-                  <Phone className="h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                <a href={s.phoneHref} data-track="click_to_call" className="flex items-center gap-3 transition-colors hover:text-gold-300">
+                  <Phone className="h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
                   {s.phone}
                 </a>
-                <a href={`mailto:${s.email}`} className="flex items-center gap-3 break-all transition-colors hover:text-gold-400">
-                  <Mail className="h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                <a href={`mailto:${s.email}`} className="flex items-center gap-3 break-all transition-colors hover:text-gold-300">
+                  <Mail className="h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
                   {s.email}
                 </a>
                 <div className="flex gap-3">
-                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" aria-hidden="true" />
+                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" aria-hidden="true" />
                   <ul className="space-y-1">
                     {hourLines(s.hours).map((h) => (
                       <li key={h.days} className={h.open ? "" : "text-white/50"}>

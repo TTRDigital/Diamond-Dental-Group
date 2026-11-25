@@ -26,7 +26,7 @@ export default async function PrivacyPage() {
         heading={p.heading}
         note={p.updated}
       />
-      <section className="section-tight">
+      <section className="section-tight bg-cream">
         <div className="container-x">
           <article className="mx-auto max-w-3xl space-y-6 text-[1.0625rem] text-grey-700">
             <p className="text-[1.1875rem] text-ink-900">{p.intro}</p>
@@ -40,7 +40,7 @@ export default async function PrivacyPage() {
                   <Inline text={b.text} />
                 </p>
               ) : (
-                <ul key={i} className="list-disc space-y-1.5 rounded-lg border border-line bg-ivory py-5 pl-10 pr-6">
+                <ul key={i} className="list-disc space-y-1.5 rounded-lg bg-ivory ring-1 ring-ink-900/5 py-5 pl-10 pr-6">
                   {b.items.map((it) => (
                     <li key={it}>{it}</li>
                   ))}
@@ -48,14 +48,14 @@ export default async function PrivacyPage() {
               ),
             )}
             <p>{p.contactIntro}</p>
-            <address className="on-dark rounded-lg bg-ink-900 p-8 not-italic text-white/85">
-              <strong className="mb-2 block text-gold-400">{s.name}</strong>
+            <address className="on-dark rounded-lg bg-night-900 p-8 not-italic text-white/85">
+              <strong className="mb-2 block text-gold-300">{s.name}</strong>
               {s.street}
               <br />
               {s.city}, {s.region} {s.postalCode}, {s.country}
               <br />
               Phone:{" "}
-              <a href={s.phoneHref} data-track="click_to_call" className="text-gold-400 hover:underline">
+              <a href={s.phoneHref} data-track="click_to_call" className="text-gold-300 hover:underline">
                 {s.phone}
               </a>
             </address>

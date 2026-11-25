@@ -1,16 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, Clock, MapPin, Phone, Plus } from "lucide-react";
+import { ArrowRight, Clock, MapPin, Navigation, Phone } from "lucide-react";
 import type { Faq, Img, SiteSettings } from "@/lib/types";
 import { Breadcrumbs, type Crumb } from "@/components/layout/Breadcrumbs";
 
 /*
- * The redesign's shared sections (Valencia / Ideal design language in Diamond's black and gold): page hero,
- * section heading, FAQ list, photo call-to-action banner and the visit/map block.
+ * The redesign's shared sections, ported from the Valencia Dentistry site (Ideal Dental / Beverly Hills style):
+ * full-bleed photo heroes with the words low on the left, three photos edge to edge, a full-width photo banner,
+ * numbered steps over photos, the doctor beside a half-screen photo, the visit block with the map, plain FAQ rows
+ * and the closing panel. Valencia's olive is Diamond's warm charcoal; its bronze is Diamond's gold.
  */
 
-type Action = { label: string; href: string; track?: string };
+export type Action = { label: string; href: string; track?: string };
 
 /** Internal links use next/link; tel:/mailto:/https: are plain anchors. */
 export function ActionLink({ a, className, children }: { a: Action; className: string; children?: ReactNode }) {
@@ -26,9 +28,13 @@ export function ActionLink({ a, className, children }: { a: Action; className: s
   );
 }
 
+const FADE = "lg:bg-[linear-gradient(90deg,rgba(47,43,39,0.92)_0%,rgba(47,43,39,0.6)_38%,rgba(47,43,39,0)_62%)]";
+const FADE_HOME = "lg:bg-[linear-gradient(90deg,rgba(47,43,39,0.92)_0%,rgba(47,43,39,0.6)_32%,rgba(47,43,39,0)_52%)]";
+
 /**
- * Page hero: one full-width photo with the words low on the left over a dark fade (desktop). Phones: the photo
- * stands on its own and the words sit below it on black, so nothing covers faces. Without a photo: a plain dark band.
+ * Page hero (Valencia PageHero): one full-width photo, the title low on the left over a charcoal fade.
+ * Phones: the photo stands on its own and the words sit below it on charcoal. Without a photo: a charcoal band.
+ * `home` is the taller home-page version.
  */
 export function PageHero({
   crumbs,
@@ -36,14 +42,14 @@ export function PageHero({
   crumbJsonLd = true,
   eyebrow,
   heading,
-  headingSuffix,
+  sub,
   lead,
   image,
+  imageClass = "object-[50%_30%]",
   primary,
   secondary,
   note,
-  tall = false,
-  imageClass = "object-center",
+  home = false,
   children,
 }: {
   crumbs?: Crumb[];
@@ -51,66 +57,60 @@ export function PageHero({
   crumbJsonLd?: boolean;
   eyebrow?: string;
   heading: ReactNode;
-  headingSuffix?: string;
+  sub?: string;
   lead?: string;
   image?: Img;
+  imageClass?: string;
   primary?: Action;
   secondary?: Action;
-  note?: string;
-  tall?: boolean;
-  /** Where the photo is anchored when cropped (e.g. "object-center lg:object-top" keeps a sign in view). */
-  imageClass?: string;
+  note?: ReactNode;
+  home?: boolean;
   children?: ReactNode;
 }) {
   return (
-    <section className={`on-dark relative isolate overflow-hidden bg-night-900 text-white lg:flex lg:items-end ${image ? (tall ? "lg:min-h-[640px]" : "lg:min-h-[500px]") : ""}`} aria-labelledby="hero-heading">
+    <section className={`on-dark relative isolate overflow-hidden bg-night-900 text-white lg:flex lg:items-end ${image ? (home ? "lg:min-h-[640px]" : "lg:min-h-[520px]") : ""}`} aria-labelledby="hero-heading">
       {image ? (
-        <div className="hero-photo relative aspect-[16/10] w-full sm:aspect-[16/8] lg:absolute lg:inset-0 lg:-z-20 lg:aspect-auto">
+        <div className={`hero-photo relative w-full lg:absolute lg:inset-0 lg:-z-20 lg:aspect-auto ${home ? "aspect-[4/3] sm:aspect-[16/9]" : "aspect-[16/10]"}`}>
           <Image src={image.src} alt={image.alt} fill priority fetchPriority="high" sizes="100vw" className={`object-cover ${imageClass}`} />
           <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent to-night-900 lg:hidden" />
         </div>
       ) : null}
-      <div
-        aria-hidden="true"
-        className={image ? "absolute inset-0 -z-10 hidden lg:block lg:bg-[linear-gradient(90deg,rgba(21,20,19,0.94)_0%,rgba(21,20,19,0.72)_38%,rgba(21,20,19,0.15)_70%,rgba(21,20,19,0)_100%)]" : "hidden"}
-      />
-      {!image ? <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_75%_20%,rgba(230,185,51,0.16),transparent_55%)]" /> : null}
-      <div className={`container-x w-full pb-12 pt-4 ${image ? "lg:pb-20 lg:pt-28" : "pt-14 md:pb-20 md:pt-20"}`}>
-        <div className="hero-stage max-w-[36rem]">
+      <div aria-hidden="true" className={image ? `absolute inset-0 -z-10 hidden lg:block ${home ? FADE_HOME : FADE}` : "hidden"} />
+      <div className={`container-x w-full ${image ? "pb-10 pt-4 lg:pb-16 lg:pt-28" : "py-14 lg:py-20"} ${home && image ? "lg:pb-24" : ""}`}>
+        <div className={`hero-stage ${home ? "lg:max-w-[31rem]" : "max-w-[34rem]"}`}>
           {crumbs ? (
             <div className="mb-5" data-stage="0">
               <Breadcrumbs variant="hero" items={crumbs} schema={crumbSchema} jsonLd={crumbJsonLd} />
             </div>
           ) : null}
           {eyebrow ? (
-            <p className="eyebrow mb-4" data-stage="1">
+            <p className="eyebrow mb-3" data-stage="1">
               {eyebrow}
             </p>
           ) : null}
           <h1 id="hero-heading" className="text-white" data-stage="1">
             {heading}
-            {headingSuffix ? <span className="mt-1 block text-gold-400">{headingSuffix}</span> : null}
           </h1>
+          {sub ? (
+            <p className="mt-3 text-[1.25rem] font-semibold text-white" data-stage="2">
+              {sub}
+            </p>
+          ) : null}
           {lead ? (
-            <p className="mt-4 text-[1.0625rem] text-white/85" data-stage="2">
+            <p className="mt-3 text-white/85" data-stage="2">
               {lead}
             </p>
           ) : null}
           {primary || secondary ? (
-            <div className="mt-7 flex flex-wrap gap-3" data-stage="3">
-              {primary ? <ActionLink a={primary} className="btn btn-gold" /> : null}
-              {secondary ? (
-                <ActionLink a={secondary} className="btn btn-outline">
-                  {secondary.href.startsWith("tel:") ? <Phone className="h-4 w-4" aria-hidden="true" /> : null}
-                  {secondary.label}
-                </ActionLink>
-              ) : null}
+            <div className="mt-6 flex flex-wrap gap-3" data-stage="3">
+              {primary ? <ActionLink a={primary} className="btn btn-ghost" /> : null}
+              {secondary ? <ActionLink a={secondary} className="btn btn-light" /> : null}
             </div>
           ) : null}
           {note ? (
-            <p className="mt-4 text-sm text-white/70" data-stage="4">
+            <div className="mt-5 text-sm text-white/75" data-stage="4">
               {note}
-            </p>
+            </div>
           ) : null}
           {children}
         </div>
@@ -119,116 +119,231 @@ export function PageHero({
   );
 }
 
-/** Section heading block: eyebrow, H2 and an intro line; centred or left. */
-export function SectionHead({ eyebrow, heading, text, center = false, className = "" }: { eyebrow?: string; heading: ReactNode; text?: string; center?: boolean; className?: string }) {
+/** Section heading: eyebrow, H2 and a lead line; centred or left (Valencia RichHeading). */
+export function SectionHead({ eyebrow, heading, text, center = false, upper = false, className = "", id }: { eyebrow?: string; heading: ReactNode; text?: string; center?: boolean; upper?: boolean; className?: string; id?: string }) {
   return (
-    <div className={`${center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`} data-reveal>
-      {eyebrow ? <p className={`eyebrow mb-3 ${center ? "justify-center" : ""}`}>{eyebrow}</p> : null}
-      <h2>{heading}</h2>
+    <div className={`max-w-[46rem] ${center ? "mx-auto text-center" : ""} ${className}`} data-reveal>
+      {eyebrow ? <p className={`eyebrow mb-4 ${center ? "justify-center" : ""}`}>{eyebrow}</p> : null}
+      <h2 id={id} className={upper ? "uppercase" : ""}>
+        {heading}
+      </h2>
       {text ? <p className="lead mt-3">{text}</p> : null}
     </div>
   );
 }
 
-/** FAQ accordion (native details; the questions stay in the page for search engines and screen readers). */
-export function FaqList({ faqs, dark = false }: { faqs: Faq[]; dark?: boolean }) {
+/** FAQ rows (Beverly Hills style): plain rows, question at 20px, + / − on the right, the first one open. */
+export function FaqList({ faqs, dark = false, className = "" }: { faqs: Faq[]; dark?: boolean; className?: string }) {
   return (
-    <div className={`divide-y border-y ${dark ? "divide-white/15 border-white/15" : "divide-line border-line"}`}>
-      {faqs.map((f) => (
-        <details key={f.question} className="faq-item group">
-          <summary className="flex min-h-16 cursor-pointer items-center justify-between gap-6 py-4 text-left">
-            <h3 className={`text-[1.0625rem] font-semibold ${dark ? "text-white" : "text-ink-900"}`}>{f.question}</h3>
-            <Plus className={`faq-plus h-5 w-5 shrink-0 ${dark ? "text-gold-400" : "text-gold-700"}`} aria-hidden="true" />
+    <div className={className}>
+      {faqs.map((f, i) => (
+        <details key={f.question} className="faq-item group" name="faq" open={i === 0 || undefined}>
+          <summary className={`flex min-h-14 cursor-pointer items-center justify-between gap-6 py-3 text-left ${dark ? "text-white" : "text-ink-900"}`}>
+            <h3 className={`text-[1.125rem] font-semibold sm:text-[1.25rem] ${dark ? "text-white" : ""}`}>{f.question}</h3>
+            <span aria-hidden="true" className="shrink-0 text-2xl font-light leading-none">
+              <span className="group-open:hidden">+</span>
+              <span className="hidden group-open:inline">−</span>
+            </span>
           </summary>
-          <p className={`faq-answer pb-5 pr-10 ${dark ? "text-white/75" : "text-grey-700"}`}>{f.answer}</p>
+          <div className={`faq-answer pb-4 ${dark ? "text-white/85" : "pl-4 text-grey-700"}`}>
+            <p>{f.answer}</p>
+          </div>
         </details>
       ))}
     </div>
   );
 }
 
-/** Photo banner with a dark tint and the booking buttons (Valencia "photo CTA"). */
-export function CtaBanner({ heading, text, image, primary, phone, phoneHref }: { heading: string; text?: string; image: Img; primary: Action; phone: string; phoneHref: string }) {
+/** Centred heading and line, then three photos edge to edge, each with a title and text below (Ideal Dental). */
+export function PhotoTrio({ heading, text, items, id }: { heading: string; text?: string; items: { title: string; text: string; image: Img; imageClass?: string }[]; id?: string }) {
   return (
-    <section className="on-dark relative isolate overflow-hidden bg-night-900 text-white">
+    <section className="section bg-cream pb-0 sm:pb-0" id={id}>
+      <div className="container-x text-center" data-reveal>
+        <h2>{heading}</h2>
+        {text ? <p className="mx-auto mt-3 max-w-2xl text-grey-700">{text}</p> : null}
+      </div>
+      <ul className="mt-10 grid sm:grid-cols-3">
+        {items.map((it) => (
+          <li key={it.title} className="flex flex-col bg-ivory" data-reveal>
+            <span className="relative block aspect-[16/9] overflow-hidden sm:aspect-[16/10]">
+              <Image src={it.image.src} alt={it.image.alt} fill sizes="(min-width: 640px) 34vw, 100vw" className={`object-cover transition-transform duration-700 hover:scale-[1.04] ${it.imageClass ?? ""}`} />
+            </span>
+            <span className="block px-5 py-6 sm:px-7 sm:py-8">
+              <h3>{it.title}</h3>
+              <p className="mt-2 text-grey-700">{it.text}</p>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** A full-width office photo with a short statement in caps and a link, low on the left. */
+export function PhotoBanner({ eyebrow, heading, text, image, link, children }: { eyebrow?: string; heading: string; text?: string; image: Img; link?: Action; children?: ReactNode }) {
+  return (
+    <section className="on-dark relative isolate flex min-h-[420px] items-end overflow-hidden text-white sm:min-h-[520px]">
       <Image src={image.src} alt={image.alt} fill loading="lazy" sizes="100vw" className="-z-20 object-cover object-center" />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(21,20,19,0.92)_0%,rgba(21,20,19,0.7)_45%,rgba(21,20,19,0.45)_100%)]" />
-      <div className="container-x py-20 md:py-28" data-reveal>
-        <div className="max-w-xl">
-          <h2 className="text-white">{heading}</h2>
-          {text ? <p className="mt-3 text-white/80">{text}</p> : null}
-          <div className="mt-7 flex flex-wrap gap-3">
-            <ActionLink a={primary} className="btn btn-gold">
-              {primary.label}
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </ActionLink>
-            <a href={phoneHref} data-track="click_to_call" className="btn btn-outline">
-              <Phone className="h-4 w-4" aria-hidden="true" />
-              {phone}
-            </a>
-          </div>
+      <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-night-900/90 via-night-900/50 to-night-900/15 sm:bg-gradient-to-r sm:from-night-900/90 sm:via-night-900/50 sm:to-night-900/5" />
+      <div className="container-x w-full pb-10 sm:pb-16" data-reveal>
+        <div className="max-w-lg">
+          {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}
+          <h2 className="font-bold uppercase tracking-[0.08em] text-white">{heading}</h2>
+          {text ? <p className="mt-3 text-[1.0625rem] text-white/90">{text}</p> : null}
+          {children}
+          {link ? <ActionLink a={link} className="link-line mt-5 px-1 uppercase tracking-[0.12em] text-white hover:text-gold-300" /> : null}
         </div>
       </div>
     </section>
   );
 }
 
-/** Opening hours as rows; closed days dimmed. */
-export function HoursList({ hours, dark = false }: { hours: SiteSettings["hours"]; dark?: boolean }) {
+/** Numbered steps, each written over its own photo (or a charcoal tile), under a centred heading and a square button. */
+export function PhotoSteps({ eyebrow, heading, text, button, items }: { eyebrow?: string; heading: string; text?: string; button?: Action; items: { title: string; text: string; image?: Img; link?: Action }[] }) {
+  const cols = items.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3";
   return (
-    <ul className="space-y-1.5 text-[0.9375rem]">
-      {hours.map((h) => (
-        <li key={h.day} className={`flex justify-between gap-6 ${h.opens ? (dark ? "text-white/85" : "text-ink-900") : dark ? "text-white/45" : "text-grey-600"}`}>
-          <span>{h.day}</span>
-          <span className="tabular-nums">{h.value}</span>
-        </li>
-      ))}
-    </ul>
+    <section aria-labelledby="steps-heading" className="bg-cream">
+      <div className="container-x section pb-10 text-center sm:pb-12" data-reveal>
+        {eyebrow ? <p className="eyebrow mb-4 justify-center">{eyebrow}</p> : null}
+        <h2 id="steps-heading">{heading}</h2>
+        {text ? <p className="mx-auto mt-3 max-w-2xl text-grey-700">{text}</p> : null}
+        {button ? <ActionLink a={button} className="btn-square mt-6" /> : null}
+      </div>
+      <ol className={`grid ${cols}`}>
+        {items.map((it, i) => (
+          <li key={it.title} className="on-dark relative isolate flex min-h-[260px] items-end overflow-hidden bg-night-900 text-white sm:min-h-[420px]">
+            {it.image ? (
+              <Image src={it.image.src} alt={it.image.alt} fill loading="lazy" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="-z-20 object-cover" />
+            ) : (
+              <span aria-hidden="true" className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_30%_20%,rgba(220,192,120,0.22),transparent_60%)]" />
+            )}
+            <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-night-900/92 via-night-900/50 to-transparent" />
+            <span className="block p-6 sm:p-8">
+              <h3 className="text-white">
+                {i + 1}. {it.title}
+              </h3>
+              <p className="mt-2 text-white/85">{it.text}</p>
+              {it.link ? <ActionLink a={it.link} className="link-line mt-4 text-white hover:text-gold-300" /> : null}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 
-/** Visit block: address, phone, hours and the map (loads only when it comes near the screen). */
-export function VisitSection({ s, heading, text, bookLabel }: { s: SiteSettings; heading: string; text?: string; bookLabel: string }) {
+/** The dentist: words on the left, a large photo filling the right half to the screen edge (phones: photo first). */
+export function DoctorSplit({ eyebrow, heading, paragraphs, image, primary, secondary, children, id }: { eyebrow?: string; heading: string; paragraphs: string[]; image: Img; primary?: Action; secondary?: Action; children?: ReactNode; id?: string }) {
+  return (
+    <section className="bg-cream" id={id} aria-labelledby="doctor-heading">
+      <div className="grid lg:min-h-[640px] lg:grid-cols-2">
+        <div className="flex items-center">
+          <div className="w-full px-4 py-12 sm:px-8 sm:py-16 lg:ml-auto lg:max-w-[38rem] lg:py-24 lg:pl-0 lg:pr-16 xl:pr-20" data-reveal>
+            {eyebrow ? <p className="eyebrow mb-4">{eyebrow}</p> : null}
+            <h2 id="doctor-heading">{heading}</h2>
+            <div className="mt-5 space-y-4 text-grey-700 sm:mt-6">
+              {paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            {children}
+            {primary || secondary ? (
+              <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">
+                {primary ? (
+                  <ActionLink a={primary} className="btn btn-primary">
+                    {primary.label}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </ActionLink>
+                ) : null}
+                {secondary ? <ActionLink a={secondary} className="btn btn-outline" /> : null}
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <div className="relative order-first aspect-[5/4] w-full bg-sand sm:aspect-[4/3] lg:order-none lg:aspect-auto">
+          <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-top" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Opening hours as a two-column list; closed days dimmed. */
+export function HoursList({ hours, dark = false }: { hours: SiteSettings["hours"]; dark?: boolean }) {
+  return (
+    <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-0.5">
+      {hours.map((h) => (
+        <div key={h.day} className="contents">
+          <dt className={h.opens ? "" : dark ? "text-white/50" : "text-grey-600"}>{h.day}</dt>
+          <dd className={`tabular-nums ${h.opens ? (dark ? "font-medium text-white" : "font-medium text-ink-900") : dark ? "text-white/50" : "text-grey-600"}`}>{h.value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/** The lazy Google map (loads only when it comes within 300 px of the screen; lib/lazy-frames-script.ts). */
+export function MapFrame({ s, className = "" }: { s: SiteSettings; className?: string }) {
   const mapTitle = `Map of ${s.name}, ${s.street}, ${s.city}`;
   const mapSrc = `https://maps.google.com/maps?width=100%25&height=600&hl=en&q=${encodeURIComponent(s.mapQuery)}&t=&z=15&ie=UTF8&iwloc=B&output=embed`;
   return (
-    <section className="section bg-cream">
-      <div className="container-x grid items-start gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-        <div data-reveal>
+    <div className={`map-frame overflow-hidden rounded-lg bg-sand ring-1 ring-ink-900/10 ${className}`}>
+      <iframe title={mapTitle} data-src={mapSrc} data-load="near" loading="lazy" referrerPolicy="no-referrer-when-downgrade" suppressHydrationWarning />
+      <noscript>
+        <iframe title={mapTitle} src={mapSrc} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+      </noscript>
+    </div>
+  );
+}
+
+/** Visit block (Valencia): heading and contact details on the left, the map on the right. */
+export function VisitSection({ s, heading, text, bookLabel }: { s: SiteSettings; heading: string; text?: string; bookLabel: string }) {
+  const chip = "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-sand text-gold-700";
+  return (
+    <section className="section bg-cream" id="visit">
+      <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="lg:col-span-5" data-reveal>
           <h2>{heading}</h2>
           {text ? <p className="lead mt-3">{text}</p> : null}
-          <ul className="mt-8 space-y-6">
+          <ul className="mt-8 space-y-5">
             <li className="flex gap-4">
-              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand text-gold-700">
+              <span className={chip}>
                 <MapPin className="h-5 w-5" aria-hidden="true" />
               </span>
-              <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="pt-2 font-semibold hover:text-gold-700">
-                {s.street}
-                <span className="block font-normal text-grey-600">
-                  {s.city}, {s.region} {s.postalCode}
-                </span>
-              </a>
+              <div className="text-grey-700">
+                <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold text-ink-900 hover:underline">
+                  {s.street}
+                </a>
+                <br />
+                {s.city}, {s.region} {s.postalCode}
+              </div>
             </li>
             <li className="flex gap-4">
-              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand text-gold-700">
+              <span className={chip}>
                 <Phone className="h-5 w-5" aria-hidden="true" />
               </span>
-              <a href={s.phoneHref} data-track="click_to_call" className="pt-2 font-semibold hover:text-gold-700">
-                {s.phone}
-              </a>
+              <div className="text-grey-700">
+                <a href={s.phoneHref} data-track="click_to_call" className="inline-flex min-h-11 items-center font-semibold text-ink-900 hover:underline">
+                  {s.phone}
+                </a>
+                <br />
+                <a href={`mailto:${s.email}`} className="inline-flex min-h-11 items-center break-all hover:underline">
+                  {s.email}
+                </a>
+              </div>
             </li>
             <li className="flex gap-4">
-              <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand text-gold-700">
+              <span className={chip}>
                 <Clock className="h-5 w-5" aria-hidden="true" />
               </span>
-              <div className="w-full max-w-xs pt-2">
+              <div className="pt-2.5 text-grey-700">
                 <HoursList hours={s.hours} />
               </div>
             </li>
           </ul>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={s.mapsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
-              <MapPin className="h-4 w-4" aria-hidden="true" />
+              <Navigation className="h-4 w-4" aria-hidden="true" />
               Get directions
             </a>
             <Link href={s.headerCta.href} data-track="book_appointment" className="btn btn-primary">
@@ -237,12 +352,77 @@ export function VisitSection({ s, heading, text, bookLabel }: { s: SiteSettings;
             </Link>
           </div>
         </div>
-        {/* Lazy map: the iframe loads only when it comes within 300 px of the screen (lib/lazy-frames-script.ts). */}
-        <div className="map-frame aspect-[4/3] overflow-hidden rounded-lg border border-line bg-sand lg:aspect-auto lg:h-[480px]" data-reveal>
-          <iframe title={mapTitle} data-src={mapSrc} data-load="near" loading="lazy" referrerPolicy="no-referrer-when-downgrade" suppressHydrationWarning />
-          <noscript>
-            <iframe title={mapTitle} src={mapSrc} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-          </noscript>
+        <div className="lg:col-span-7" data-reveal>
+          <MapFrame s={s} className="aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[480px]" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Closing panel (Valencia CtaBanner): a rounded charcoal panel with the booking button, phone, hours, address and a photo. */
+export function CtaPanel({ s, heading, text, button, image }: { s: SiteSettings; heading: string; text?: string; button: Action; image?: Img }) {
+  const open = s.hours.find((h) => h.opens);
+  return (
+    <section className="section bg-cream">
+      <div className="container-x">
+        <div className="on-dark relative isolate overflow-hidden rounded-lg bg-night-900 text-white" data-reveal>
+          <div className="grid items-center gap-10 p-6 sm:p-12 lg:grid-cols-12 lg:gap-14 lg:p-16">
+            <div className="lg:col-span-7">
+              <h2 className="text-white">{heading}</h2>
+              {text ? <p className="mt-5 max-w-xl text-[1.0625rem] text-white/80">{text}</p> : null}
+              <div className="mt-9 flex flex-wrap items-center gap-6">
+                <ActionLink a={button} className="btn btn-light">
+                  {button.label}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </ActionLink>
+                <div className="grid gap-2">
+                  <a href={s.phoneHref} data-track="click_to_call" className="inline-flex min-h-11 items-center gap-2 text-[1.5rem] font-semibold text-white hover:text-gold-300">
+                    <Phone className="h-6 w-6 text-gold-300" aria-hidden="true" />
+                    {s.phone}
+                  </a>
+                  {open ? (
+                    <p className="flex items-center gap-2 text-sm text-white/75">
+                      <Clock className="h-4 w-4 text-gold-300" aria-hidden="true" />
+                      {open.day}, {open.value}
+                    </p>
+                  ) : null}
+                  <p className="flex items-center gap-2 text-sm text-white/75">
+                    <MapPin className="h-4 w-4 text-gold-300" aria-hidden="true" />
+                    {s.street}, {s.city}
+                  </p>
+                </div>
+              </div>
+            </div>
+            {image ? (
+              <div className="relative hidden aspect-[4/5] overflow-hidden rounded-lg lg:col-span-5 lg:block">
+                <Image src={image.src} alt={image.alt} fill loading="lazy" sizes="(min-width: 1024px) 460px, 100vw" className="object-cover" />
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Full-width photo with the closing call to action (service pages): caps heading, white button, outlined phone. */
+export function PhotoCta({ heading, text, image, button, phone, phoneHref }: { heading: string; text?: string; image: Img; button: Action; phone: string; phoneHref: string }) {
+  return (
+    <section className="on-dark relative isolate flex min-h-[460px] items-center overflow-hidden text-white sm:min-h-[560px]">
+      <Image src={image.src} alt={image.alt} fill loading="lazy" sizes="100vw" className="-z-20 object-cover object-[50%_15%]" />
+      <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-night-900/92 via-night-900/65 to-night-900/25" />
+      <div className="container-x w-full py-14" data-reveal>
+        <div className="max-w-2xl">
+          <h2 className="uppercase text-white">{heading}</h2>
+          {text ? <p className="mt-3 text-white/90">{text}</p> : null}
+          <div className="mt-6 flex flex-wrap gap-3">
+            <ActionLink a={button} className="btn btn-light" />
+            <a href={phoneHref} data-track="click_to_call" className="btn btn-ghost">
+              <Phone className="h-4 w-4" aria-hidden="true" />
+              {phone}
+            </a>
+          </div>
         </div>
       </div>
     </section>
