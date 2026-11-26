@@ -36,17 +36,30 @@ export default async function ServicesPage() {
         heading={hub.heading}
         lead={hub.text}
         image={images.treatmentRoom}
+        imageClass="object-center"
+        primary={{ label: hub.template.primaryButton, href: "/contact/", track: "book_appointment" }}
+        secondary={{ label: s.phone, href: s.phoneHref, track: "click_to_call" }}
       />
-      {groups.map((g, i) => (
-        <section key={g.heading} className={`section bg-cream ${i ? "border-t border-ink-900/10" : ""}`}>
-          <div className="container-x">
-            <h2 className="uppercase">{g.heading}</h2>
-            <div className="mt-8">
-              <PhotoCards items={g.items.map((sv) => ({ title: sv.name, text: sv.sub, href: `/services/${sv.slug}/`, image: serviceHero(sv.slug, sv.heroImage) }))} />
+      <section className="section bg-cream">
+        <div className="container-x space-y-16 lg:space-y-24">
+          {groups.map((g, i) => (
+            <div key={g.heading} className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+              <div className="lg:col-span-3" data-reveal>
+                <div className="lg:sticky lg:top-28">
+                  <p className="flex items-center gap-2 text-xs font-semibold tabular-nums text-grey-600">
+                    <span aria-hidden="true" className="h-px w-6 bg-ink-900/40" />
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h2 className="mt-3">{g.heading}</h2>
+                </div>
+              </div>
+              <div className="lg:col-span-9">
+                <PhotoCards items={g.items.map((sv) => ({ title: sv.name, text: sv.sub, href: `/services/${sv.slug}/`, image: serviceHero(sv.slug, sv.heroImage) }))} />
+              </div>
             </div>
-          </div>
-        </section>
-      ))}
+          ))}
+        </div>
+      </section>
       <CtaPanel s={s} heading={hub.template.ctaHeading} button={{ label: hub.template.ctaButton, href: "/contact/", track: "book_appointment" }} image={images.storefront} />
     </>
   );

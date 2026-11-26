@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, Clock, MapPin, Navigation, Phone } from "lucide-react";
+import { ArrowRight, Check, Clock, MapPin, Navigation, Phone } from "lucide-react";
 import type { Faq, Img, SiteSettings } from "@/lib/types";
 import { Breadcrumbs, type Crumb } from "@/components/layout/Breadcrumbs";
 
@@ -50,6 +50,8 @@ export function PageHero({
   secondary,
   note,
   home = false,
+  pill,
+  light = false,
   children,
 }: {
   crumbs?: Crumb[];
@@ -65,8 +67,30 @@ export function PageHero({
   secondary?: Action;
   note?: ReactNode;
   home?: boolean;
+  /** Short line in a pill above the heading (Valencia's rating pill). */
+  pill?: ReactNode;
+  /** Light header without a photo (Valencia's blog). */
+  light?: boolean;
   children?: ReactNode;
 }) {
+  if (light)
+    return (
+      <section className="border-b border-ink-900/10 bg-cream" aria-labelledby="hero-heading">
+        <div className="container-x py-12 lg:py-16">
+          <div className="max-w-[40rem]">
+            {crumbs ? (
+              <div className="mb-6">
+                <Breadcrumbs variant="plain" items={crumbs} schema={crumbSchema} jsonLd={crumbJsonLd} />
+              </div>
+            ) : null}
+            {eyebrow ? <p className="eyebrow mb-3">{eyebrow}</p> : null}
+            <h1 id="hero-heading">{heading}</h1>
+            {lead ? <p className="mt-3 text-grey-700">{lead}</p> : null}
+            {children}
+          </div>
+        </div>
+      </section>
+    );
   return (
     <section className={`on-dark relative isolate overflow-hidden bg-night-900 text-white lg:flex lg:items-end ${image ? (home ? "lg:min-h-[640px]" : "lg:min-h-[520px]") : ""}`} aria-labelledby="hero-heading">
       {image ? (
@@ -82,6 +106,11 @@ export function PageHero({
             <div className="mb-5" data-stage="0">
               <Breadcrumbs variant="hero" items={crumbs} schema={crumbSchema} jsonLd={crumbJsonLd} />
             </div>
+          ) : null}
+          {pill ? (
+            <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm text-white/90 ring-1 ring-white/25" data-stage="0">
+              {pill}
+            </p>
           ) : null}
           {eyebrow ? (
             <p className="eyebrow mb-3" data-stage="1">
@@ -591,5 +620,175 @@ export function PhotoCards({ items, columns = 3 }: { items: { title: string; tex
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * One large photo with a label and caption on the left, a 3 x 2 grid of smaller photos on the right, each a link
+ * with its name (the shape of Valencia's before/after showcase, used here for the treatments).
+ */
+export function ShowcaseGrid({ heading, text, items, moreLabel, allLink }: { heading: string; text?: string; items: { title: string; text: string; href: string; image: Img }[]; moreLabel: string; allLink: Action }) {
+  const [first, ...rest] = items;
+  if (!first) return null;
+  return (
+    <section className="section bg-cream" id="treatments">
+      <div className="container-x">
+        <SectionHead heading={heading} text={text} center />
+        <div className="mt-10 grid items-start gap-8 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5" data-reveal>
+            <Link href={first.href} className="group relative block aspect-square overflow-hidden rounded-lg">
+              <Image src={first.image.src} alt={first.image.alt} fill loading="lazy" sizes="(min-width: 1024px) 500px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+              <span className="absolute left-3 top-3 rounded-sm bg-night-900/85 px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white">{first.title}</span>
+            </Link>
+            <p className="mt-3 text-sm">
+              <span className="font-semibold text-ink-900">{first.title}:</span> <span className="text-grey-600">{first.text}</span>
+            </p>
+          </div>
+          <div className="lg:col-span-7" data-reveal>
+            {moreLabel ? <p className="mb-3 text-sm font-semibold text-ink-900">{moreLabel}</p> : null}
+            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {rest.map((it) => (
+                <li key={it.href}>
+                  <Link href={it.href} className="group relative block aspect-[4/3] overflow-hidden rounded-lg">
+                    <Image src={it.image.src} alt={it.image.alt} fill loading="lazy" sizes="(min-width: 1024px) 230px, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+                    <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-900/80 via-night-900/10 to-transparent" />
+                    <span className="absolute inset-x-3 bottom-2.5 text-sm font-semibold text-white">{it.title}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4">
+              <ActionLink a={allLink} className="link-arrow text-sm">
+                {allLink.label}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </ActionLink>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Heading on the left, a summary box on the right, then a row of white cards running off the right edge (Valencia's reviews row). */
+export function CardRail({ heading, text, box, cards, footer }: { heading: string; text?: string; box?: ReactNode; cards: ReactNode[]; footer?: ReactNode }) {
+  return (
+    <section className="section overflow-hidden bg-cream" aria-labelledby="rail-heading">
+      <div className="container-x">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl" data-reveal>
+            <h2 id="rail-heading">{heading}</h2>
+            {text ? <p className="mt-3 text-grey-700">{text}</p> : null}
+          </div>
+          {box ? <div className="shrink-0">{box}</div> : null}
+        </div>
+      </div>
+      <div className="no-scrollbar mt-10 overflow-x-auto pl-4 sm:pl-6 lg:pl-[max(2rem,calc((100vw-1280px)/2+2rem))]">
+        <ul className="flex w-max gap-4 pr-4 sm:pr-6">
+          {cards.map((c, i) => (
+            <li key={i} className="flex w-[17rem] shrink-0 flex-col rounded-lg bg-white p-6 sm:w-[19rem]">
+              {c}
+            </li>
+          ))}
+        </ul>
+      </div>
+      {footer ? <div className="container-x mt-6 text-sm text-grey-600">{footer}</div> : null}
+    </section>
+  );
+}
+
+/** Text on the left, a framed photo on the right with a small address tag over its corner (Valencia's "Our story"). */
+export function IntroSplit({ eyebrow, heading, paragraphs, image, tag }: { eyebrow?: string; heading: string; paragraphs: string[]; image: Img; tag?: { title: string; text: string } }) {
+  return (
+    <section className="section bg-cream">
+      <div className="container-x grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-6" data-reveal>
+          {eyebrow ? <p className="eyebrow mb-4">{eyebrow}</p> : null}
+          <h2>{heading}</h2>
+          <div className="mt-5 space-y-4 text-grey-700">
+            {paragraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </div>
+        <div className="relative lg:col-span-6" data-reveal>
+          <div className="relative ml-auto aspect-[4/3] w-full max-w-[34rem] overflow-hidden rounded-lg bg-sand shadow-[var(--shadow-lift)]">
+            <Image src={image.src} alt={image.alt} fill loading="lazy" sizes="(min-width: 1024px) 540px, 100vw" className="object-cover" />
+          </div>
+          {tag ? (
+            <div className="absolute -bottom-5 left-2 flex items-center gap-3 rounded-lg bg-white px-4 py-3 shadow-[var(--shadow-lift)] sm:left-0 lg:bottom-10 lg:-left-6">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-sand text-gold-700">
+                <MapPin className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <span className="text-sm leading-tight">
+                <span className="block font-semibold text-ink-900">{tag.title}</span>
+                <span className="text-grey-600">{tag.text}</span>
+              </span>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Numbered values in a grid, each under a short rule (Valencia's "The values behind every appointment"). */
+export function ValuesGrid({ eyebrow, heading, text, items }: { eyebrow?: string; heading: string; text?: string; items: { title: string; text: string }[] }) {
+  return (
+    <section className="section bg-cream pt-0 sm:pt-0">
+      <div className="container-x">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16" data-reveal>
+          <div>
+            {eyebrow ? <p className="eyebrow mb-4">{eyebrow}</p> : null}
+            <h2>{heading}</h2>
+          </div>
+          {text ? <p className="text-grey-700">{text}</p> : null}
+        </div>
+        <ul className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((it, i) => (
+            <li key={it.title} data-reveal>
+              <span aria-hidden="true" className="block h-px w-8 bg-ink-900/40" />
+              <p className="mt-5 text-xs font-semibold tabular-nums text-grey-600">{String(i + 1).padStart(2, "0")}</p>
+              <h3 className="mt-2 text-[1.0625rem]">{it.title}</h3>
+              <p className="mt-2 text-sm text-grey-700">{it.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/** Service groups as cards with a check list of what each covers and two buttons (Valencia's "Everything under one roof"). */
+export function CategoryCards({ eyebrow, heading, text, groups, exploreLabel, book }: { eyebrow?: string; heading: string; text?: string; groups: { heading: string; links: { label: string; href: string }[] }[]; exploreLabel: string; book: Action }) {
+  return (
+    <section className="section bg-cream">
+      <div className="container-x">
+        <SectionHead eyebrow={eyebrow} heading={heading} text={text} center />
+        <ul className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {groups.map((g) => (
+            <li key={g.heading} className="flex flex-col rounded-lg bg-ivory p-7 ring-1 ring-ink-900/5" data-reveal>
+              <h3>{g.heading}</h3>
+              <ul className="mt-5 grid grow grid-cols-1 content-start gap-x-6 gap-y-2 text-sm text-grey-700 sm:grid-cols-2">
+                {g.links.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="inline-flex items-start gap-2 hover:text-ink-900 hover:underline">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-700" aria-hidden="true" />
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link href="/services/" className="btn btn-outline btn-sm">
+                  {exploreLabel}
+                </Link>
+                <ActionLink a={book} className="btn btn-primary btn-sm" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

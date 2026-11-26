@@ -10,7 +10,7 @@ export type Crumb = { name: string; path: string };
  * readable post title instead of the slug label). jsonLd={false} leaves the schema out (the page's own seo.schema
  * replaces it).
  */
-export function Breadcrumbs({ items, schema, jsonLd = true, variant = "bar" }: { items: Crumb[]; schema?: Crumb[]; jsonLd?: boolean; variant?: "bar" | "hero" }) {
+export function Breadcrumbs({ items, schema, jsonLd = true, variant = "bar" }: { items: Crumb[]; schema?: Crumb[]; jsonLd?: boolean; variant?: "bar" | "hero" | "plain" }) {
   const onHero = variant === "hero";
   const trail = (
     <ol className={`flex items-center overflow-x-auto whitespace-nowrap text-sm no-scrollbar ${onHero ? "text-white/70" : "text-grey-600"}`}>
@@ -37,7 +37,7 @@ export function Breadcrumbs({ items, schema, jsonLd = true, variant = "bar" }: {
   return (
     <>
       {jsonLd ? <JsonLd data={breadcrumbSchema(schema ?? items)} /> : null}
-      {onHero ? (
+      {onHero || variant === "plain" ? (
         <nav aria-label="Breadcrumb">{trail}</nav>
       ) : (
         <nav aria-label="Breadcrumb" className="border-b border-line bg-cream">

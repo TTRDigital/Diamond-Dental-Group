@@ -12,7 +12,7 @@ import { RESULT_SMILES, SERVICE_PHOTOS, STOCK, serviceHero } from "@/lib/data/st
 import { Icon } from "@/components/ui/Icon";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageSchema } from "@/components/ui/PageSchema";
-import { FaqList, PageHero, PhotoCards, PhotoCta } from "@/components/sections/Blocks";
+import { FaqList, PageHero, PhotoCta } from "@/components/sections/Blocks";
 
 export const dynamicParams = false;
 
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 /*
  * Service page in the Valencia template: photo banner, what it is, a charcoal band (the treatment's photo beside
  * who it suits and the offer), the steps with photos, why patients choose the practice, a full-width photo call
- * to action, the questions as plain rows, and the other treatments in the same group as photo cards.
+ * to action and the questions as plain rows.
  */
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -46,13 +46,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     0,
   );
   const stepPhotos = [images.drNikpour, STOCK.jawboneXrayScreen, images.treatmentRoom, RESULT_SMILES[order % RESULT_SMILES.length]];
-  // The other treatments in this service's menu group.
+  // The service's menu group, shown under the title (Valencia shows the category there).
   const group = (s.menu.find((m) => m.groups?.length)?.groups ?? []).find((g) => g.links.some((l) => l.href === path));
-  const related = (group?.links ?? [])
-    .filter((l) => l.href !== path)
-    .map((l) => all.find((x) => `/services/${x.slug}/` === l.href))
-    .filter((x) => x !== undefined)
-    .slice(0, 3);
 
   return (
     <article>
@@ -79,14 +74,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         lead={sv.sub}
         image={hero}
         imageClass="object-center"
-        primary={{ label: t.primaryButton, href: "/contact/", track: "book_appointment" }}
-        secondary={{ label: s.phone, href: s.phoneHref, track: "click_to_call" }}
       />
 
       {/* 2. What it is */}
       <section id="overview" className="section bg-cream">
-        <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-7" data-reveal>
+        <div className="container-x">
+          <div className="max-w-3xl" data-reveal>
             <h2>{t.whatItIsHeading}</h2>
             <div className="mt-4 space-y-4 text-grey-700">
               {sv.whatItIs.map((p, i) => (
@@ -94,30 +87,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               ))}
             </div>
           </div>
-          <aside className="lg:col-span-5" data-reveal>
-            <div className="rounded-lg bg-ivory p-7 ring-1 ring-ink-900/5 lg:sticky lg:top-28">
-              <h3>{t.stepsHeading}</h3>
-              <ol className="mt-5 space-y-4">
-                {t.steps.map((st, i) => (
-                  <li key={st.title} className="flex gap-4">
-                    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-night-900 text-sm font-semibold text-white">{i + 1}</span>
-                    <span>
-                      <span className="block font-semibold text-ink-900">{st.title}</span>
-                      <span className="text-sm text-grey-600">{st.text}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-              <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                <Link href="/contact/" data-track="book_appointment" className="btn btn-primary btn-sm">
-                  {t.primaryButton}
-                </Link>
-                <a href={s.phoneHref} data-track="click_to_call" className="btn btn-outline btn-sm">
-                  {s.phone}
-                </a>
-              </div>
-            </div>
-          </aside>
         </div>
       </section>
 
@@ -210,22 +179,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
       ) : null}
 
-      {/* 8. The other treatments in the same group */}
-      {related.length ? (
-        <section id="related" className="section border-t border-ink-900/10 bg-cream">
-          <div className="container-x">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <h2 className="uppercase">{group?.heading}</h2>
-              <Link href="/services/" className="link-arrow shrink-0">
-                {home.featured.button}
-              </Link>
-            </div>
-            <div className="mt-8">
-              <PhotoCards items={related.map((x) => ({ title: x.name, text: x.sub, href: `/services/${x.slug}/`, image: serviceHero(x.slug, x.heroImage) }))} />
-            </div>
-          </div>
-        </section>
-      ) : null}
     </article>
   );
 }

@@ -34,7 +34,7 @@ export default async function BlogIndexPage() {
     .map((c) => {
       const id = topicId(c);
       const cat = c.replace(/["\\]/g, "");
-      return `#${id}:target~.blog-grid>li:not([data-cat="${cat}"]){display:none}#${id}:target~.blog-chips a[href="#${id}"]{background:var(--color-gold-400);border-color:var(--color-gold-400);color:var(--color-ink-900)}#${id}:target~.blog-chips a[href="#all"]{background:var(--color-ivory);border-color:var(--color-line);color:var(--color-grey-700)}`;
+      return `#${id}:target~.blog-grid>li:not([data-cat="${cat}"]){display:none}#${id}:target~.blog-chips a[href="#${id}"]{background:var(--color-night-900);border-color:var(--color-night-900);color:#fff}#${id}:target~.blog-chips a[href="#all"]{background:var(--color-ivory);border-color:var(--color-line);color:var(--color-grey-700)}`;
     })
     .join("");
 
@@ -52,29 +52,30 @@ export default async function BlogIndexPage() {
           { name: b.heading, path: "/blog/" },
         ]}
         crumbJsonLd={!seoSchemaNodes(b.seo.schema)}
+        light
         eyebrow={b.eyebrow}
         heading={b.heading}
         lead={b.text}
       >
         {writer ? (
-          <div className="mt-8 inline-flex items-center gap-4 rounded-lg border border-white/10 bg-white/5 px-5 py-4 text-left" data-stage="4">
-            {writer.image ? <Image src={writer.image.src} alt={writer.image.alt} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-300" /> : null}
+          <div className="mt-8 inline-flex items-center gap-4 rounded-lg bg-white px-5 py-4 text-left">
+            {writer.image ? <Image src={writer.image.src} alt={writer.image.alt} width={56} height={56} sizes="56px" className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-gold-500" /> : null}
             <div className="text-sm leading-snug">
-              <span className="block text-white/70">Every article is written by</span>
-              <span className="mt-0.5 block font-semibold text-white">
+              <span className="block text-grey-600">Every article is written by</span>
+              <span className="mt-0.5 block font-semibold text-ink-900">
                 {writer.url ? (
-                  <Link href={writer.url} className="underline decoration-gold-300/60 underline-offset-4 transition-colors hover:text-gold-300">
+                  <Link href={writer.url} className="underline decoration-gold-500/60 underline-offset-4 transition-colors hover:text-gold-700">
                     {writer.label}
                   </Link>
                 ) : (
                   writer.label
                 )}
               </span>
-              {writer.role ? <span className="mt-0.5 block text-white/70">{writer.role}</span> : null}
+              {writer.role ? <span className="mt-0.5 block text-grey-600">{writer.role}</span> : null}
             </div>
           </div>
         ) : (
-          <p className="mt-6 text-white/70" data-stage="4">
+          <p className="mt-6 text-grey-600">
             Articles by the {s.name} team.
           </p>
         )}

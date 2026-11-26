@@ -881,9 +881,9 @@ details.faq[open] > summary svg {
   box-shadow: 0 4px 12px rgb(0 0 0 / 0.06);
 }
 .blog-chip[data-on] {
-  background: var(--color-gold-400);
-  border-color: var(--color-gold-400);
-  color: var(--color-ink-900);
+  background: var(--color-night-900);
+  border-color: var(--color-night-900);
+  color: #fff;
 }
 
 /* Google Maps iframe */
