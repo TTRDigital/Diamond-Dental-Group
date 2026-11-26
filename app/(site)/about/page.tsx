@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { CircleCheck } from "lucide-react";
-import { getAbout, getSiteSettings } from "@/lib/content";
+import { getAbout, getHome, getPatientCare, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
+import { INSURER_LOGOS, STOCK, photoForHref } from "@/lib/data/stock";
 import { Icon } from "@/components/ui/Icon";
-import { CtaPanel, DoctorSplit, PageHero, SectionHead } from "@/components/sections/Blocks";
+import { CtaPanel, DoctorSplit, InsuranceStrip, PageHero, PhotoTrio, SectionHead, TechCards } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const a = await getAbout();
@@ -14,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [a, s] = await Promise.all([getAbout(), getSiteSettings()]);
+  const [a, s, home, care] = await Promise.all([getAbout(), getSiteSettings(), getHome(), getPatientCare()]);
   return (
     <>
       <PageSchema seo={a.seo} />
@@ -45,24 +46,18 @@ export default async function AboutPage() {
         </ul>
       </DoctorSplit>
 
-      {/* The practice: heading and text on the left, the three promises on the right (Ideal Dental's icon band) */}
-      <section className="dark-section section">
-        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5 lg:self-center lg:pr-8" data-reveal>
-            <h2 className="uppercase">{a.practice.heading}</h2>
-            <p className="mt-4 text-white/90">{a.practice.text}</p>
-          </div>
-          <ul className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:col-span-7">
-            {a.practice.items.map((it, i) => (
-              <li key={it.title} data-reveal>
-                <span className="text-[2.125rem] font-semibold leading-none text-gold-300">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-4">{it.title}</h3>
-                <p className="mt-2 text-white/90">{it.text}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* The practice and its technology, as photo cards */}
+      <TechCards
+        heading={a.practice.heading}
+        text={a.practice.text}
+        items={a.practice.items.map((it, i) => ({ label: String(i + 1).padStart(2, "0"), title: it.title, text: it.text, image: [STOCK.jawboneXrayScreen, STOCK.calmPatientChair, STOCK.restorativeModels][i % 3] }))}
+      />
+
+      {/* What the practice treats */}
+      <PhotoTrio
+        heading={home.featured.heading}
+        items={home.featured.items.slice(0, 3).map((it) => ({ title: it.title, text: it.text, image: photoForHref(it.href) ?? images.treatmentRoom }))}
+      />
 
       {/* The team */}
       <section className="section bg-cream">
@@ -79,6 +74,8 @@ export default async function AboutPage() {
           </ul>
         </div>
       </section>
+
+      <InsuranceStrip heading={care.insurance.heading} text={care.insurance.text} plans={care.insurance.plans} logos={care.insurance.plans.map((p) => INSURER_LOGOS[p]).filter((l) => !!l)} />
 
       <CtaPanel s={s} heading={a.cta.heading} button={{ label: a.cta.button, href: "/contact/", track: "book_appointment" }} image={images.treatmentRoom} />
     </>

@@ -428,3 +428,168 @@ export function PhotoCta({ heading, text, image, button, phone, phoneHref }: { h
     </section>
   );
 }
+
+/** Photo cards that open to a line of text on hover or focus (Valencia's technology cards). */
+export function TechCards({ eyebrow, heading, text, items, link }: { eyebrow?: string; heading: string; text?: string; items: { label: string; title: string; text: string; image: Img }[]; link?: Action }) {
+  return (
+    <section className="section bg-cream">
+      <div className="container-x">
+        <SectionHead eyebrow={eyebrow} heading={heading} text={text} center />
+        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+          {items.map((it) => (
+            <li key={it.title} className="tech-card group" tabIndex={0} data-reveal>
+              <span className="relative block aspect-[4/3] overflow-hidden">
+                <Image src={it.image.src} alt={it.image.alt} fill loading="lazy" sizes="(min-width: 768px) 400px, 100vw" className="tech-photo object-cover" />
+              </span>
+              <span className="block p-6">
+                <span className="text-xs font-bold uppercase tracking-[0.12em] text-gold-700">{it.label}</span>
+                <span className="mt-1 flex items-center justify-between gap-4">
+                  <span className="text-[1.25rem] font-semibold text-ink-900">{it.title}</span>
+                  <span aria-hidden="true" className="tech-plus text-2xl font-light leading-none text-ink-900">+</span>
+                </span>
+                <span className="tech-desc block text-grey-700">{it.text}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+        {link ? (
+          <p className="mt-8 text-center">
+            <ActionLink a={link} className="link-arrow">
+              {link.label}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </ActionLink>
+          </p>
+        ) : null}
+      </div>
+    </section>
+  );
+}
+
+/** Treatments as a photo grid: one large photo card, the rest as photo cards around it (Valencia's services bento). */
+export function ServiceBento({ heading, text, items, allLink, featuredLabel }: { heading: string; text?: string; items: { title: string; text: string; href: string; image: Img }[]; allLink: Action; featuredLabel: string }) {
+  const [first, ...rest] = items;
+  return (
+    <section className="section bg-cream" id="services">
+      <div className="container-x">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+          <SectionHead heading={heading} text={text} />
+          <ActionLink a={allLink} className="link-arrow hidden shrink-0 sm:inline-flex">
+            {allLink.label}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </ActionLink>
+        </div>
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 lg:grid-cols-3">
+          {first ? (
+            <li className="col-span-2 lg:row-span-2" data-reveal>
+              <Link href={first.href} className="group relative flex aspect-[4/3] h-full flex-col justify-end overflow-hidden rounded-lg text-white sm:aspect-[16/10] lg:aspect-auto lg:min-h-[560px]">
+                <Image src={first.image.src} alt={first.image.alt} fill loading="lazy" sizes="(min-width: 1024px) 820px, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-night-900 via-night-900/55 to-transparent" />
+                <span className="relative p-6 sm:p-9">
+                  <span className="text-xs font-semibold uppercase tracking-[0.14em] text-gold-300">{featuredLabel}</span>
+                  <span className="mt-2 block text-[1.5rem] font-semibold text-white sm:text-[2.125rem]">{first.title}</span>
+                  <span className="mt-2 block max-w-md text-white/85">{first.text}</span>
+                  <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-night-900">
+                    Explore {first.title}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ) : null}
+          {rest.map((it) => (
+            <li key={it.href} data-reveal>
+              <Link href={it.href} className="group flex h-full flex-col overflow-hidden rounded-lg bg-ivory ring-1 ring-ink-900/5 transition-shadow hover:shadow-[var(--shadow-lift)]">
+                <span className="relative block aspect-[4/3] overflow-hidden">
+                  <Image src={it.image.src} alt={it.image.alt} fill loading="lazy" sizes="(min-width: 1024px) 400px, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+                </span>
+                <span className="flex flex-1 items-start justify-between gap-2 p-4 sm:p-5">
+                  <span>
+                    <span className="block font-semibold text-ink-900 sm:text-[1.125rem]">{it.title}</span>
+                    <span className="mt-1 hidden text-sm text-grey-700 sm:block">{it.text}</span>
+                  </span>
+                  <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-night-900 text-white transition-transform group-hover:translate-x-0.5">
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6 text-center sm:hidden">
+          <ActionLink a={allLink} className="link-arrow">
+            {allLink.label}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </ActionLink>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/** Accepted insurance: heading and line, the insurers' logos gliding past, every plan name listed below. */
+export function InsuranceStrip({ heading, text, plans, logos, note }: { heading: string; text: string; plans: string[]; logos: Img[]; note?: ReactNode }) {
+  return (
+    <section className="section-tight border-y border-ink-900/10 bg-cream" id="insurance">
+      <div className="container-x">
+        <div className="text-center" data-reveal>
+          <h2>{heading}</h2>
+          <p className="mx-auto mt-3 max-w-[48rem] text-grey-600">{text}</p>
+        </div>
+        {logos.length ? (
+          <div className="marquee mt-10">
+            <div className="marquee-track">
+              {[0, 1].map((copy) => (
+                <ul key={copy} aria-hidden={copy === 1 || undefined} className="flex shrink-0 items-center gap-4 pr-4">
+                  {logos.map((l) => {
+                    const ratio = l.width / l.height;
+                    const h = ratio > 4.5 ? "h-7" : ratio > 3 ? "h-8" : ratio > 2 ? "h-10" : "h-12";
+                    return (
+                      <li key={l.src} className="flex h-24 w-52 items-center justify-center rounded-lg bg-ivory px-6 opacity-85 grayscale transition-[filter,opacity] duration-300 hover:opacity-100 hover:grayscale-0">
+                        <Image src={l.src} alt={copy === 1 ? "" : l.alt} width={l.width} height={l.height} loading="lazy" sizes="180px" className={`${h} w-auto max-w-full object-contain`} />
+                      </li>
+                    );
+                  })}
+                </ul>
+              ))}
+            </div>
+          </div>
+        ) : null}
+        <ul className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-grey-700" data-reveal>
+          {plans.map((p) => (
+            <li key={p} className="inline-flex items-center gap-2">
+              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-gold-700" />
+              {p}
+            </li>
+          ))}
+        </ul>
+        {note ? <div className="mt-6 text-center text-ink-900">{note}</div> : null}
+      </div>
+    </section>
+  );
+}
+
+/** Other treatments as photo cards (service pages, services hub). */
+export function PhotoCards({ items, columns = 3 }: { items: { title: string; text?: string; href: string; image: Img }[]; columns?: 3 | 4 }) {
+  return (
+    <ul className={`grid gap-5 sm:grid-cols-2 ${columns === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+      {items.map((it) => (
+        <li key={it.href} data-reveal>
+          <Link href={it.href} className="group flex h-full flex-col overflow-hidden rounded-lg bg-ivory ring-1 ring-ink-900/5 transition-shadow hover:shadow-[var(--shadow-lift)]">
+            <span className="relative block aspect-[4/3] overflow-hidden">
+              <Image src={it.image.src} alt={it.image.alt} fill loading="lazy" sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+            </span>
+            <span className="flex flex-1 items-start justify-between gap-3 p-5">
+              <span>
+                <span className="block text-[1.125rem] font-semibold text-ink-900">{it.title}</span>
+                {it.text ? <span className="mt-1 block text-grey-700">{it.text}</span> : null}
+              </span>
+              <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-night-900 text-white transition-transform group-hover:translate-x-0.5">
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}

@@ -8,6 +8,7 @@ import { postAuthor } from "@/lib/author";
 import { pageMetadata } from "@/lib/seo";
 import { articleSchema, faqPageSchema, seoSchemaNodes } from "@/lib/schema";
 import { slugLabel, stripMarks } from "@/lib/text";
+import { serviceHero } from "@/lib/data/stock";
 import { articleModel, ctaBand, linkedServices, morePosts, photoFrame } from "@/lib/post-design";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/ui/JsonLd";
@@ -81,7 +82,8 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   // address and a Sanity one, so the size is compared as well).
   const photoKey = (img: { src: string; width: number; height: number }) => [img.src, `${img.width}x${img.height}`];
   const usedPhotos = new Set([p.image, ...(p.sections ?? []).map((x) => x.image)].flatMap((img) => (img ? photoKey(img) : [])));
-  const relatedImage = relatedService && !photoKey(relatedService.heroImage).some((k) => usedPhotos.has(k)) ? relatedService.heroImage : undefined;
+  const relatedHero = relatedService ? serviceHero(relatedService.slug, relatedService.heroImage) : undefined;
+  const relatedImage = relatedHero && !photoKey(relatedHero).some((k) => usedPhotos.has(k)) ? relatedHero : undefined;
   const relatedServices = linkedServices(p.body, relatedHref)
     .map((href) => services.find((sv) => `/services/${sv.slug}/` === href))
     .filter((sv): sv is NonNullable<typeof sv> => !!sv)

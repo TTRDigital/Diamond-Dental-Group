@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, CircleCheck, ShieldCheck } from "lucide-react";
+import { ArrowRight, CircleCheck } from "lucide-react";
 import { getPatientCare, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
 import { images } from "@/lib/data/images";
-import { CtaPanel, PageHero, SectionHead } from "@/components/sections/Blocks";
+import { INSURER_LOGOS, STOCK, isDefaultRoomPhoto } from "@/lib/data/stock";
+import { CtaPanel, InsuranceStrip, PageHero, SectionHead } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const p = await getPatientCare();
@@ -65,16 +66,18 @@ export default async function PatientCarePage() {
         <div className="container-x">
           <SectionHead heading={p.offers.heading} text={p.offers.text} center />
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {p.offers.items.map((o) => (
+            {p.offers.items.map((o, i) => (
               <div key={o.title} className="flex flex-col overflow-hidden rounded-lg bg-ivory ring-1 ring-ink-900/5" data-reveal>
-                {o.image ? (
-                  <div className="relative aspect-[16/10] bg-line">
-                    <Image src={o.image.src} alt={o.image.alt} fill sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw" className="object-cover" />
-                    <span className="absolute bottom-4 left-4 rounded-md bg-night-900 px-4 py-2 text-[1.5rem] font-semibold text-gold-300">{o.amount}</span>
-                  </div>
-                ) : (
-                  <p className="px-7 pt-7 text-[1.75rem] font-semibold text-gold-700">{o.amount}</p>
-                )}
+                {(() => {
+                  // The offer's own photo when one was chosen in /cms, otherwise its treatment's photo.
+                  const ph = o.image && !isDefaultRoomPhoto(o.image) ? o.image : [STOCK.whiteningLight, STOCK.clearAlignerSmile, STOCK.implantModel][i % 3];
+                  return (
+                    <div className="relative aspect-[16/10] bg-line">
+                      <Image src={ph.src} alt={ph.alt} fill sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+                      <span className="absolute bottom-4 left-4 rounded-md bg-night-900 px-4 py-2 text-[1.5rem] font-semibold text-gold-300">{o.amount}</span>
+                    </div>
+                  );
+                })()}
                 <div className="flex grow flex-col p-7">
                   <h3>{o.title}</h3>
                   <p className="mt-2 grow text-grey-700">{o.text}</p>
@@ -88,30 +91,22 @@ export default async function PatientCarePage() {
         </div>
       </section>
 
-      {/* Insurance */}
-      <section className="section">
-        <div className="container-x">
-          <div className="mx-auto max-w-2xl text-center" data-reveal>
-            <ShieldCheck className="mx-auto h-10 w-10 text-gold-700" aria-hidden="true" />
-            <h2 className="mt-4">{p.insurance.heading}</h2>
-            <p className="lead mt-3">{p.insurance.text}</p>
-          </div>
-          <ul className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-3" data-reveal>
-            {p.insurance.plans.map((plan) => (
-              <li key={plan} className="rounded-lg bg-ivory px-5 py-3 font-medium text-ink-900 ring-1 ring-ink-900/5">
-                {plan}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-10 text-center font-medium text-ink-900" data-reveal>
+      {/* Insurance: the insurers' logos and every accepted plan */}
+      <InsuranceStrip
+        heading={p.insurance.heading}
+        text={p.insurance.text}
+        plans={p.insurance.plans}
+        logos={p.insurance.plans.map((x) => INSURER_LOGOS[x]).filter((l) => !!l)}
+        note={
+          <p className="font-medium">
             {p.insurance.notePrefix}{" "}
             <a href={s.phoneHref} data-track="click_to_call" className="font-bold text-gold-700 underline-offset-4 hover:underline">
               {p.insurance.noteLink}
             </a>{" "}
             {p.insurance.noteSuffix}
           </p>
-        </div>
-      </section>
+        }
+      />
 
       {/* Membership plan */}
       <section className="dark-section section">

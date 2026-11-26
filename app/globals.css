@@ -649,6 +649,9 @@
     .marquee {
       mask-image: none;
     }
+    .marquee-track > [aria-hidden] {
+      display: none !important;
+    }
   }
 
   /* Phone quick-action bar */
@@ -888,4 +891,67 @@ details.faq[open] > summary svg {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+/* Technology cards (Valencia): lift, photo zoom, and the line of text slides open on hover, focus or tap */
+@layer components {
+  .tech-card {
+    overflow: hidden;
+    background: var(--color-ivory);
+    border: 1px solid rgb(46 46 46 / 0.08);
+    transition:
+      transform 300ms,
+      box-shadow 300ms,
+      border-color 300ms;
+  }
+  .tech-card .tech-photo {
+    transition: transform 500ms;
+  }
+  .tech-card .tech-desc {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      max-height 380ms,
+      opacity 300ms,
+      margin 300ms;
+  }
+  .tech-card .tech-plus {
+    transition: transform 300ms;
+  }
+  .tech-card:focus-within .tech-desc,
+  .tech-card:focus .tech-desc {
+    max-height: 12rem;
+    opacity: 1;
+    margin-top: 0.5rem;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tech-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 52px rgb(46 46 46 / 0.12);
+      border-color: rgb(46 46 46 / 0.14);
+    }
+    .tech-card:hover .tech-photo {
+      transform: scale(1.04);
+    }
+    .tech-card:hover .tech-desc {
+      max-height: 12rem;
+      opacity: 1;
+      margin-top: 0.5rem;
+    }
+    .tech-card:hover .tech-plus {
+      transform: rotate(45deg);
+    }
+  }
+  /* Touch screens: the text is always shown */
+  @media (hover: none) {
+    .tech-card .tech-desc {
+      max-height: none;
+      opacity: 1;
+      margin-top: 0.5rem;
+    }
+    .tech-card .tech-plus {
+      display: none;
+    }
+  }
 }
