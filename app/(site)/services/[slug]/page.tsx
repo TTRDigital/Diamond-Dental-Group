@@ -7,8 +7,7 @@ import { getHome, getService, getServices, getServicesHub, getSiteSettings } fro
 import { pageMetadata } from "@/lib/seo";
 import { faqPageSchema, seoSchemaNodes } from "@/lib/schema";
 import { slugLabel } from "@/lib/text";
-import { images } from "@/lib/data/images";
-import { RESULT_SMILES, SERVICE_PHOTOS, STOCK, serviceHero } from "@/lib/data/stock";
+import { OFFICE, RESULT_PHOTOS, SERVICE_PHOTOS, serviceHero } from "@/lib/data/photos";
 import { Icon } from "@/components/ui/Icon";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageSchema } from "@/components/ui/PageSchema";
@@ -39,13 +38,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const path = `/services/${sv.slug}/`;
   const ownSchema = !!seoSchemaNodes(sv.seo.schema);
   const hero = serviceHero(sv.slug, sv.heroImage);
-  const benefit = SERVICE_PHOTOS[sv.slug]?.benefit ?? images.drNikpour;
-  // Step photos: Dr. Nikpour for the consultation, the digital scan the plan is built on, her treatment room, then a smiling patient.
+  const benefit = SERVICE_PHOTOS[sv.slug]?.benefit ?? OFFICE.operatory;
+  // Step photos from the office: Dr. Nikpour scanning, the chair-side screen the plan is shown on, a treatment room, then the front of the office.
   const order = Math.max(
     all.findIndex((x) => x.slug === sv.slug),
     0,
   );
-  const stepPhotos = [images.drNikpour, STOCK.jawboneXrayScreen, images.treatmentRoom, RESULT_SMILES[order % RESULT_SMILES.length]];
+  const stepPhotos = [OFFICE.drScanning, OFFICE.treatmentChair, OFFICE.treatmentRoom4, RESULT_PHOTOS[order % RESULT_PHOTOS.length]];
   // The service's menu group, shown under the title (Valencia shows the category there).
   const group = (s.menu.find((m) => m.groups?.length)?.groups ?? []).find((g) => g.links.some((l) => l.href === path));
 
@@ -167,7 +166,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 6. Full-width photo with the call to action */}
-      <PhotoCta heading={t.ctaHeading} text={sv.sub} image={images.storefront} button={{ label: t.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
+      <PhotoCta heading={t.ctaHeading} text={sv.sub} image={OFFICE.treatmentRooms} button={{ label: t.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
 
       {/* 7. Questions */}
       {sv.faqs.length ? (

@@ -6,7 +6,7 @@ import { postAuthor } from "@/lib/author";
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
-import { images } from "@/lib/data/images";
+import { OFFICE } from "@/lib/data/photos";
 import { CtaPanel, PageHero } from "@/components/sections/Blocks";
 import { PostCard } from "@/components/blog/PostCard";
 
@@ -112,7 +112,7 @@ export default async function BlogIndexPage() {
       </section>
 
       {/* Have a question? */}
-      <CtaPanel s={s} heading={b.cta.heading} text={b.cta.text} button={{ label: b.cta.button, href: "/contact/", track: "book_appointment" }} image={images.treatmentRoom} />
+      <CtaPanel s={s} heading={b.cta.heading} text={b.cta.text} button={{ label: b.cta.button, href: "/contact/", track: "book_appointment" }} image={OFFICE.drScanning} />
     </>
   );
 }

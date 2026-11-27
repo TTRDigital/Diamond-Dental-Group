@@ -4,8 +4,7 @@ import { getContact, getHome, getPatientCare, getSiteSettings } from "@/lib/cont
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
-import { images } from "@/lib/data/images";
-import { INSURER_LOGOS } from "@/lib/data/stock";
+import { INSURER_LOGOS, OFFICE } from "@/lib/data/photos";
 import { HoursList, InsuranceStrip, PageHero, VisitSection } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,7 +35,7 @@ export default async function ContactPage() {
           </>
         }
         lead={c.text}
-        image={images.treatmentRoom}
+        image={OFFICE.frontDesk}
         imageClass="object-center"
         primary={{ label: s.phone, href: s.phoneHref, track: "click_to_call" }}
         secondary={{ label: s.mobileBookLabel, href: "#booking" }}

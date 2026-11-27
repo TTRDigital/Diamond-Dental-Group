@@ -792,3 +792,52 @@ export function CategoryCards({ eyebrow, heading, text, groups, exploreLabel, bo
     </section>
   );
 }
+
+/** The office in photos: one large photo with the address tag on the left, six smaller ones with captions on the right. */
+export function OfficeGallery({ heading, text, main, mainTag, photos, link }: { heading: string; text?: string; main: Img; mainTag?: { title: string; text: string }; photos: { image: Img; label: string }[]; link?: Action }) {
+  return (
+    <section className="section bg-cream" id="office">
+      <div className="container-x">
+        <SectionHead heading={heading} text={text} center />
+        <div className="mt-10 grid items-start gap-6 lg:grid-cols-12 lg:gap-8">
+          <div className="relative lg:col-span-5" data-reveal>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-sand">
+              <Image src={main.src} alt={main.alt} fill loading="lazy" sizes="(min-width: 1024px) 500px, 100vw" className="object-cover object-center" />
+            </div>
+            {mainTag ? (
+              <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-lg bg-white/95 px-4 py-3 shadow-[var(--shadow-lift)]">
+                <MapPin className="h-4 w-4 text-gold-700" aria-hidden="true" />
+                <span className="text-sm leading-tight">
+                  <span className="block font-semibold text-ink-900">{mainTag.title}</span>
+                  <span className="text-grey-600">{mainTag.text}</span>
+                </span>
+              </div>
+            ) : null}
+          </div>
+          <div className="lg:col-span-7" data-reveal>
+            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+              {photos.map((p) => (
+                <li key={p.image.src}>
+                  <figure>
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-sand">
+                      <Image src={p.image.src} alt={p.image.alt} fill loading="lazy" sizes="(min-width: 1024px) 240px, 50vw" className="object-cover transition-transform duration-700 hover:scale-[1.05]" />
+                    </div>
+                    <figcaption className="mt-2 text-sm font-medium text-ink-900">{p.label}</figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+            {link ? (
+              <p className="mt-6">
+                <ActionLink a={link} className="btn btn-primary">
+                  {link.label}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </ActionLink>
+              </p>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -16,7 +16,7 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { PageSchema } from "@/components/ui/PageSchema";
-import { images } from "@/lib/data/images";
+import { OFFICE } from "@/lib/data/photos";
 import { PhotoCta } from "@/components/sections/Blocks";
 import { BODY_LINK, H2, P } from "@/components/blog/ArticleBody";
 
@@ -193,7 +193,7 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
         </div>
       </article>
 
-      <PhotoCta heading={t.ctaHeading} image={images.storefront} button={{ label: t.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
+      <PhotoCta heading={t.ctaHeading} image={OFFICE.treatmentRooms} button={{ label: t.ctaButton, href: "/contact/", track: "book_appointment" }} phone={s.phone} phoneHref={s.phoneHref} />
     </SiteShell>
   );
 }

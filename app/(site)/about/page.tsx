@@ -6,7 +6,7 @@ import { getAbout, getHome, getServicesHub, getSiteSettings } from "@/lib/conten
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
-import { images } from "@/lib/data/images";
+import { OFFICE } from "@/lib/data/photos";
 import { CategoryCards, CtaPanel, IntroSplit, PageHero, ValuesGrid, VisitSection } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -32,14 +32,14 @@ export default async function AboutPage() {
         crumbJsonLd={!seoSchemaNodes(a.seo.schema)}
         heading={a.hero.heading}
         lead={a.hero.text}
-        image={images.treatmentRoom}
+        image={OFFICE.hallway}
         imageClass="object-center"
         primary={{ label: a.cta.button, href: "/contact/", track: "book_appointment" }}
         secondary={{ label: home.featured.button, href: "/services/" }}
       />
 
       {/* The practice, beside a framed photo of the office with its address */}
-      <IntroSplit heading={a.practice.heading} paragraphs={[a.practice.text]} image={images.storefront} tag={{ title: s.street, text: `${s.city}, ${s.region} ${s.postalCode}` }} />
+      <IntroSplit heading={a.practice.heading} paragraphs={[a.practice.text]} image={OFFICE.waitingRoom2} tag={{ title: s.street, text: `${s.city}, ${s.region} ${s.postalCode}` }} />
 
       {/* Values: the team's promises and the practice's, numbered */}
       <ValuesGrid heading={a.team.heading} text={a.team.text} items={[...a.team.items, ...a.practice.items]} />
@@ -86,7 +86,7 @@ export default async function AboutPage() {
 
       <VisitSection s={s} heading={home.cta.heading} text={home.cta.text} bookLabel={a.cta.button} />
 
-      <CtaPanel s={s} heading={a.cta.heading} button={{ label: a.cta.button, href: "/contact/", track: "book_appointment" }} image={images.storefront} />
+      <CtaPanel s={s} heading={a.cta.heading} button={{ label: a.cta.button, href: "/contact/", track: "book_appointment" }} image={OFFICE.frontDesk} />
     </>
   );
 }

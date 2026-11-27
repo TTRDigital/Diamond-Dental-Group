@@ -3,8 +3,7 @@ import { getServices, getServicesHub, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
-import { images } from "@/lib/data/images";
-import { serviceHero } from "@/lib/data/stock";
+import { OFFICE, serviceHero } from "@/lib/data/photos";
 import { CtaPanel, PageHero, PhotoCards } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,7 +34,7 @@ export default async function ServicesPage() {
         crumbJsonLd={!seoSchemaNodes(hub.seo.schema)}
         heading={hub.heading}
         lead={hub.text}
-        image={images.treatmentRoom}
+        image={OFFICE.hallway2}
         imageClass="object-center"
         primary={{ label: hub.template.primaryButton, href: "/contact/", track: "book_appointment" }}
         secondary={{ label: s.phone, href: s.phoneHref, track: "click_to_call" }}
@@ -60,7 +59,7 @@ export default async function ServicesPage() {
           ))}
         </div>
       </section>
-      <CtaPanel s={s} heading={hub.template.ctaHeading} button={{ label: hub.template.ctaButton, href: "/contact/", track: "book_appointment" }} image={images.storefront} />
+      <CtaPanel s={s} heading={hub.template.ctaHeading} button={{ label: hub.template.ctaButton, href: "/contact/", track: "book_appointment" }} image={OFFICE.treatmentRoomWindow} />
     </>
   );
 }

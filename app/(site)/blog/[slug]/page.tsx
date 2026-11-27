@@ -8,7 +8,7 @@ import { postAuthor } from "@/lib/author";
 import { pageMetadata } from "@/lib/seo";
 import { articleSchema, faqPageSchema, seoSchemaNodes } from "@/lib/schema";
 import { slugLabel, stripMarks } from "@/lib/text";
-import { serviceHero } from "@/lib/data/stock";
+import { serviceHero } from "@/lib/data/photos";
 import { articleModel, ctaBand, linkedServices, morePosts, photoFrame } from "@/lib/post-design";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/ui/JsonLd";

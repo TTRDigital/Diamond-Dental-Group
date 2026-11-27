@@ -6,10 +6,9 @@ import { getAbout, getHome, getSiteSettings, getTestimonials } from "@/lib/conte
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { isPlaceholder } from "@/lib/placeholders";
-import { images } from "@/lib/data/images";
-import { STOCK, photoForHref } from "@/lib/data/stock";
-import { Stars } from "@/components/ui/Icon";
-import { CardRail, DoctorSplit, PageHero, PhotoBanner, PhotoSteps, PhotoTrio, ShowcaseGrid, TechCards, VisitSection } from "@/components/sections/Blocks";
+import { OFFICE } from "@/lib/data/photos";
+import { Icon, Stars } from "@/components/ui/Icon";
+import { CardRail, DoctorSplit, OfficeGallery, PageHero, PhotoBanner, PhotoSteps, PhotoTrio, SectionHead, TechCards, VisitSection } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
   const h = await getHome();
@@ -27,9 +26,10 @@ export default async function HomePage() {
   // Items still marked [PLACEHOLDER] (e.g. an unconfirmed review count) are not shown.
   const trust = h.trust.filter((t) => !isPlaceholder(t.text));
   const rating = isPlaceholder(h.reviews.rating) ? "" : h.reviews.rating;
-  const trioPhotos = [{ image: images.drNikpour, imageClass: "object-[50%_18%]" }, { image: STOCK.panoramicXrayDetail }, { image: STOCK.relaxedWomanChair }];
-  const techPhotos = [STOCK.panoramicXrayOnScreen, STOCK.calmPatientChair, STOCK.shadeGuideHands];
-  const stepPhotos = [STOCK.smilingWomanChair, images.drNikpour, images.treatmentRoom, STOCK.happyPatientMirror];
+  // All photos are the practice's own (lib/data/photos.ts).
+  const trioPhotos = [{ image: OFFICE.drScanning }, { image: OFFICE.treatmentRooms }, { image: OFFICE.operatory2, imageClass: "object-[50%_35%]" }];
+  const techPhotos = [OFFICE.panoramicXray, OFFICE.treatmentRoomWindow, OFFICE.treatmentChair];
+  const stepPhotos = [OFFICE.frontDeskFlowers, OFFICE.scanReview, OFFICE.treatmentRoom2, OFFICE.waitingRoom2];
 
   const offerCards = h.offers.others.map((o) => (
     <Fragment key={o.title}>
@@ -89,8 +89,8 @@ export default async function HomePage() {
         pill={h.hero.note}
         heading={h.hero.heading}
         lead={h.hero.text}
-        image={h.hero.image}
-        imageClass="object-[50%_20%] lg:object-top"
+        image={OFFICE.waitingRoom}
+        imageClass="object-center"
         primary={{ label: h.hero.button, href: "/contact/", track: "book_appointment" }}
         secondary={{ label: s.phone, href: s.phoneHref, track: "click_to_call" }}
       />
@@ -99,7 +99,7 @@ export default async function HomePage() {
       <PhotoTrio heading={h.why.heading} text={trust.map((t) => t.text).join(" · ") || h.hero.text} items={h.why.items.map((it, i) => ({ title: it.title, text: it.text, ...trioPhotos[i % trioPhotos.length] }))} />
 
       {/* 3. Full-width photo banner: the new patient special. */}
-      <PhotoBanner eyebrow={h.offers.badge} heading={h.offers.main.title} text={h.offers.main.text} image={images.treatmentRoom} link={{ label: h.offers.main.button, href: "/contact/", track: "book_appointment" }}>
+      <PhotoBanner eyebrow={h.offers.badge} heading={h.offers.main.title} text={h.offers.main.text} image={OFFICE.treatmentRoom4} link={{ label: h.offers.main.button, href: "/contact/", track: "book_appointment" }}>
         <ul className="mt-5 grid gap-2 text-white/90 sm:grid-cols-2">
           {h.offers.main.items.map((it) => (
             <li key={it} className="flex items-start gap-2">
@@ -118,13 +118,53 @@ export default async function HomePage() {
         link={{ label: h.featured.button, href: h.featured.buttonHref }}
       />
 
-      {/* 5. Showcase: one large photo, the other treatments as a photo grid. */}
-      <ShowcaseGrid
-        heading={h.featured.heading}
-        items={h.featured.items.map((it) => ({ title: it.title, text: it.text, href: it.href, image: photoForHref(it.href) ?? images.treatmentRoom }))}
-        moreLabel=""
-        allLink={{ label: h.featured.button, href: h.featured.buttonHref }}
+      {/* 5. The office in photos (where Valencia shows its before/after cases), then the treatments. */}
+      <OfficeGallery
+        heading={s.name}
+        text={s.tagline}
+        main={OFFICE.entrance}
+        mainTag={{ title: s.street, text: `${s.city}, ${s.region} ${s.postalCode}` }}
+        photos={[
+          { image: OFFICE.frontDesk, label: "Front desk" },
+          { image: OFFICE.waitingChairs, label: "Waiting room" },
+          { image: OFFICE.hallway2, label: "Treatment rooms" },
+          { image: OFFICE.treatmentRoom3, label: "Treatment room" },
+          { image: OFFICE.panoramicXray2, label: "Digital X-ray" },
+          { image: OFFICE.scanPlanning, label: "Digital scanning" },
+        ]}
+        link={{ label: h.hero.button, href: "/contact/", track: "book_appointment" }}
       />
+
+      <section className="section border-t border-ink-900/10 bg-cream" id="services">
+        <div className="container-x">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHead heading={h.featured.heading} />
+            <Link href={h.featured.buttonHref} className="link-arrow shrink-0">
+              {h.featured.button}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+            {h.featured.items.map((it) => (
+              <li key={it.href} data-reveal>
+                <Link href={it.href} className="group flex h-full flex-col rounded-lg bg-ivory p-6 ring-1 ring-ink-900/5 transition-shadow hover:shadow-[var(--shadow-lift)] sm:p-7">
+                  <Icon name={it.icon} className="h-10 w-10 stroke-[1.2] text-gold-700" />
+                  <span className="mt-5 flex flex-1 items-start justify-between gap-3">
+                    <span>
+                      <span className="block text-[1.125rem] font-semibold text-ink-900">{it.title}</span>
+                      <span className="mt-1 block text-grey-700">{it.text}</span>
+                    </span>
+                    <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-night-900 text-white transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      <span className="sr-only">Learn More</span>
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* 6. Meet your dentist: words left, the photo filling the right half. */}
       <DoctorSplit

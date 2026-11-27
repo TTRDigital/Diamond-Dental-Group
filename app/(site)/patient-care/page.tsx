@@ -6,8 +6,7 @@ import { getPatientCare, getSiteSettings } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 import { PageSchema } from "@/components/ui/PageSchema";
 import { seoSchemaNodes } from "@/lib/schema";
-import { images } from "@/lib/data/images";
-import { INSURER_LOGOS, STOCK, isDefaultRoomPhoto } from "@/lib/data/stock";
+import { INSURER_LOGOS, OFFICE, isDefaultRoomPhoto } from "@/lib/data/photos";
 import { CtaPanel, InsuranceStrip, PageHero, SectionHead } from "@/components/sections/Blocks";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,7 +27,7 @@ export default async function PatientCarePage() {
         crumbJsonLd={!seoSchemaNodes(p.seo.schema)}
         heading={p.hero.heading}
         lead={p.hero.text}
-        image={images.treatmentRoom}
+        image={OFFICE.treatmentRoom4}
       />
 
       {/* $49 new patient special */}
@@ -70,7 +69,7 @@ export default async function PatientCarePage() {
               <div key={o.title} className="flex flex-col overflow-hidden rounded-lg bg-ivory ring-1 ring-ink-900/5" data-reveal>
                 {(() => {
                   // The offer's own photo when one was chosen in /cms, otherwise its treatment's photo.
-                  const ph = o.image && !isDefaultRoomPhoto(o.image) ? o.image : [STOCK.whiteningLight, STOCK.clearAlignerSmile, STOCK.implantModel][i % 3];
+                  const ph = o.image && !isDefaultRoomPhoto(o.image) ? o.image : [OFFICE.treatmentRoomWindow, OFFICE.intraoralScanner, OFFICE.scanPlanning][i % 3];
                   return (
                     <div className="relative aspect-[16/10] bg-line">
                       <Image src={ph.src} alt={ph.alt} fill sizes="(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw" className="object-cover" />
@@ -150,7 +149,7 @@ export default async function PatientCarePage() {
         </div>
       </section>
 
-      <CtaPanel s={s} heading={p.cta.heading} button={{ label: p.cta.button, href: "/contact/", track: "book_appointment" }} image={images.storefront} />
+      <CtaPanel s={s} heading={p.cta.heading} button={{ label: p.cta.button, href: "/contact/", track: "book_appointment" }} image={OFFICE.waitingRoom} />
     </>
   );
 }
